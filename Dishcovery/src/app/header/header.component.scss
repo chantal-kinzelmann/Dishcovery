@@ -1,7 +1,17 @@
+head {
+    width: 100%;
+}
+
 nav {
-    height: 100%;
-    padding: 0;
+    width: 100%; // Makes sure the nav takes the full width
     display: flex;
-    gap: 1rem;
+    justify-content: space-between; // Distributes items across the width
     align-items: center;
+    gap: 1rem;
+}
+
+.Logo{
+    color: #6b805f;
+    font-size: 14px;
+    font-weight: bold;
 }
