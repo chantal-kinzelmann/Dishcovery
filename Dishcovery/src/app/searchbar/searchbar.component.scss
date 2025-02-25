@@ -1,0 +1,27 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 60%; // Adjust width as needed
+    background-color: #e0e0e0; // Light gray background like in the mockup
+    padding: 8px 16px;
+    border-radius: 15px; // Slightly rounded corners
+    transition: background-color 0.3s ease;
+  
+    input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333; // Darker text for contrast
+  
+      &::placeholder {
+        color: #888; // Light gray placeholder text
+      }
+    }
+  
+    &:focus-within {
+      background-color: #d6d6d6; // Slightly darker on focus
+    }
+  }
+  
