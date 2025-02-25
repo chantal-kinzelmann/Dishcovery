@@ -1,3 +1,3 @@
 Dishcovery - Rezeptblog
 
-von Chanti, Tim, Julian, Nils 
+von Chanti, Tim, Julian, Niels 
