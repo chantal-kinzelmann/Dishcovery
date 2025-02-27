@@ -1,0 +1,19 @@
+.content {
+  flex: 1; 
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+app-profile, app-footer {
+  display: block;
+}
+
+app-footer {
+  margin-top: auto;
+  background-color: #ccc;
+  padding: 1rem;
+  text-align: center;
+}

@@ -1,0 +1,40 @@
+.profile-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #7d9b76;
+    padding: 0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .profile-nav button {
+    flex: 1;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+  }
+  
+  .profile-nav button:hover {
+    background: rgba(255, 255, 255, 0.2); 
+  .profile-nav button.active {
+    background: white;
+    color: #795548;
+  }
+  
+ 
+  .profile-nav button:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}

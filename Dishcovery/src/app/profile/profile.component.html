@@ -1,0 +1,42 @@
+<div class="profile-header">
+    <div class="profile-pic">Bild hochladen</div>
+    <div class="profile-info">
+      <h2>Max Mustermann</h2>
+      <p>Rezeptliebhaber & Hobbykoch</p>
+      <button class="edit-profile">Profil bearbeiten</button>
+    </div>
+  </div>
+  
+  <!-- Einbinden der Navigations-Komponente -->
+  <app-profile-navigation (selectedCategory)="changeCategory($event)"></app-profile-navigation>
+  
+  <!-- Dynamischer Bereich für Inhalte -->
+  <div class="content">
+    <div *ngIf="activeCategory === 'rezepte'">
+      <h3>Meine Rezepte</h3>
+      <div class="recipe-list">
+        <div class="recipe-card">Spaghetti Carbonara</div>
+        <div class="recipe-card">Tomatensuppe</div>
+        <div class="recipe-card">Vegane Bowl</div>
+      </div>
+    </div>
+  
+    <div *ngIf="activeCategory === 'favoriten'">
+      <h3>Meine Favoriten</h3>
+      <div class="recipe-list">
+        <div class="recipe-card">Lasagne</div>
+        <div class="recipe-card">Pfannkuchen</div>
+        <div class="recipe-card">Burger</div>
+      </div>
+    </div>
+  
+    <div *ngIf="activeCategory === 'merkliste'">
+      <h3>Merkliste</h3>
+      <div class="recipe-list">
+        <div class="recipe-card">Pizza Margherita</div>
+        <div class="recipe-card">Falafel Wrap</div>
+        <div class="recipe-card">Erdbeer-Smoothie</div>
+      </div>
+    </div>
+  </div>
+  
