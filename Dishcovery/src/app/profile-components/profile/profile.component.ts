@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { MyFavoritesComponent } from "../my-favorites/my-favorites.component";
 import { MyRecipesComponent } from "../my-recipes/my-recipes.component";
 import {MyWatchListComponent } from '../my-watch-list/my-watch-list.component';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ProfileNavigationComponent, CommonModule, MyFavoritesComponent, MyRecipesComponent, MyWatchListComponent],
+  imports: [ProfileNavigationComponent, CommonModule, MyFavoritesComponent, MyRecipesComponent, MyWatchListComponent,RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

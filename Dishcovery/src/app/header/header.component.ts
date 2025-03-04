@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LoginButtonComponent } from '../login-button/login-button.component';
-import { SearchbarComponent } from '../searchbar/searchbar.component';
+import { LoginButtonComponent } from '../homepage/login-button/login-button.component';
+import { SearchbarComponent } from '../homepage/searchbar/searchbar.component';
 
 @Component({
   selector: 'app-header',
