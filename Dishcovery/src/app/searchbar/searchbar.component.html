@@ -1,3 +1,12 @@
 <div class="search-bar">
-    <input type="text" placeholder="" />
-  </div>
+  <form class="header-search-bar">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Search for a recipe" matInput />
+      <!-- <mat-autocomplete #auto="matAutocomplete">
+        @for (recipe of recipes$ | async; track recipe) {
+        <mat-option [value]="recipe.title">{{ recipe.title }}</mat-option>
+        }
+      </mat-autocomplete> -->
+    </mat-form-field>
+  </form>
+</div>
