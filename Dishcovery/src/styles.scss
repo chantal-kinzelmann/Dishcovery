@@ -1,8 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%; /* or min-height: 100vh on the body */
+  height: 100%; 
+}
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fdfdf9;
+  color: #272727;
+  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+}
+
+button {
+  background-color: #cd6301;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }

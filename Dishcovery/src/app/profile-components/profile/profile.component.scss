@@ -1,0 +1,37 @@
+.profile-header {
+    display: flex;
+    background-color: #44803fc6;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    font-size: 14px;
+    color: #666;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-left: 10px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap; /* Falls der Platz nicht reicht, Karten umbrechen */
+    gap: 16px; /* Abstand zwischen Karten */
+    justify-content: flex-start; /* Karten nach links ausrichten */
+    align-items: flex-start;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  
+
+  
