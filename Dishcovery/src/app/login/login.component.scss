@@ -43,8 +43,11 @@ input {
 }
 
 .register-link {
+    font-weight: bold;
     color: #272727;
-    text-decoration: none;
+    text-decoration:bold;
+    font-size: 13px;
+    cursor: pointer;
     &:hover {
         text-decoration: underline;
     }

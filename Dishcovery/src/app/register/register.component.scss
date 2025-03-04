@@ -1,13 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #cbddd1;
-    text-align: center;
-    color: #272727;
-}
-
-.container {
+.container-register {
     width: 500px;
     background-color: #7d9b76;
     padding: 20px;
@@ -34,9 +26,10 @@ body {
     text-align: left;
 }
 
-h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: #272727;
+button {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 input {
@@ -46,39 +39,23 @@ input {
     border: none;
     border-radius: 5px;
     background-color: #f9f7dc;
-    font-family: 'Montserrat', sans-serif;
     color: #272727;
+    font-size: 16px;
 
     &:focus {
         outline: 2px solid #ff7b00;
     }
 }
 
-button {
-    width: 50%;
-    padding: 10px;
-    background-color: #ff7b00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #cd6301;
-    }
-}
-
-.login-link {
-    color: #272727;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
+.login-link { 
+        font-weight: bold;
+        color: #272727;
+        text-decoration:bold;
+        font-size: 13px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }    
 }
 
 .kleingeschriebenes {
