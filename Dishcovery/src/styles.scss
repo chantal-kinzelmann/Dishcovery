@@ -16,10 +16,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  background-color: #cd6301;
+  background-color: #ff7b00;
   color: white;
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #cd6301;
+}
 }
