@@ -7,10 +7,11 @@ import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 
 import { HomepageNavBarComponent } from "./homepage-nav-bar/homepage-nav-bar.component";
+import { SmallRecipeCardComponent } from "./small-recipe-card/small-recipe-card.component";
 
 @Component({
   selector: 'app-root',
-  imports: [FooterComponent, ProfileComponent, HomepageComponent, HomepageNavBarComponent,RouterOutlet,HeaderComponent],
+  imports: [FooterComponent, ProfileComponent, HomepageComponent, HomepageNavBarComponent, RouterOutlet, HeaderComponent, SmallRecipeCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
