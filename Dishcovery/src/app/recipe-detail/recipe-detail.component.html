@@ -1,0 +1,28 @@
+<div class="recipe-card">
+    <!-- Linke Seite: Bild-Upload oder Anzeige -->
+    <div class="recipe-image">
+      <label *ngIf="editable" class="upload-label">
+       
+        <span>Bild anfügen</span>
+      </label>
+      <img  alt="Rezeptbild" />
+    </div>
+  
+    <!-- Rechte Seite: Rezept-Details -->
+    <div class="recipe-details">
+      <div class="recipe-info">
+        <button class="info-button">Gesamtzeit:</button>
+        <button class="info-button">Niveau:</button>
+      </div>
+  
+      <div class="rating">
+        ★★★★★
+        <span>Rezept von <strong>Ihnen</strong></span>
+      </div>
+  
+      <label class="description-label">Geben Sie hier eine kleine Beschreibung ein:</label>
+      <textarea ></textarea>
+    
+    </div>
+  </div>
+  
