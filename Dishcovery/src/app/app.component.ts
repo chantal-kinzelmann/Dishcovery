@@ -11,7 +11,6 @@ import { HomepageNavBarComponent } from "./homepage-nav-bar/homepage-nav-bar.com
 @Component({
   selector: 'app-root',
   imports: [FooterComponent, ProfileComponent, HomepageComponent, HomepageNavBarComponent,RouterOutlet,HeaderComponent],
-
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
