@@ -1,27 +1,29 @@
 .navbar {
     display: flex;
-    justify-content: center; /* Zentriert die gesamte Navbar */
+    justify-content: center; 
     align-items: center;
     background-color: #44803fc6;
     padding: 10px 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%; /* Macht die Navbar kleiner */
-    margin: 0 auto; /* Zentriert die Navbar */
+    width: 80%; 
+    margin: 0 auto; 
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
   
   .navbar-links {
     display: flex;
-    flex: 1; /* Lässt die Links den gesamten verfügbaren Platz nutzen */
-    justify-content: space-between; /* Verteilt die Punkte gleichmäßig */
+    flex: 1; 
+    justify-content: space-between; 
     list-style: none;
     margin: 0;
     padding: 0;
   }
   
   .navbar-links li {
-    flex: 1; /* Jeder Punkt bekommt gleich viel Platz */
-    text-align: center; /* Zentriert den Text in jedem Link */
+    flex: 1; 
+    text-align: center;
   }
   
   .navbar-links a {
@@ -30,8 +32,7 @@
     font-size: 16px;
     padding: 8px 12px;
     border-radius: 5px;
-
-    display: block; /* Macht die gesamte Fläche klickbar */
+    display: block;
   }
   
   .navbar-links a:hover {
