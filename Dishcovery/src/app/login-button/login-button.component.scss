@@ -1,0 +1,15 @@
+.login-button {
+    background-color: #6b805f; // Adjust color based on the mockup
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #5a6d52; // Darker shade for hover effect
+    }
+  }
