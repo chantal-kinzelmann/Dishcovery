@@ -1,0 +1,31 @@
+<div class="profile-header">
+  <div class="profile-pic">Bild hochladen</div>
+  <div class="profile-info">
+    <h2>Max Mustermann</h2>
+    <p>Rezeptliebhaber & Hobbykoch</p>
+    <button>Profil bearbeiten</button>
+  </div>
+</div>
+
+<!-- Einbinden der Navigations-Komponente -->
+<app-profile-navigation (selectedCategory)="changeCategory($event)"></app-profile-navigation>
+
+<!-- Dynamischer Bereich für Inhalte -->
+<div *ngIf="activeCategory === 'rezepte'">
+  <h3>Meine Rezepte</h3>
+    <app-my-recipes></app-my-recipes> 
+</div>
+
+<div *ngIf="activeCategory === 'favoriten'">
+  <h3>Meine Favoriten</h3>
+  <div class="card-container">
+    <app-my-favorites></app-my-favorites>
+  </div>
+</div>
+
+<div *ngIf="activeCategory === 'merkliste'">
+  <h3>Merkliste</h3>
+  <div class="card-container">
+    <app-my-watch-list></app-my-watch-list>
+  </div>
+</div>

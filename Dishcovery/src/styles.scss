@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+<<<<<<< HEAD
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+=======
+html,
+body {
+  height: 100%; 
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fdfdf9;
+  color: #272727;
+  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+}
+
+button {
+  background-color: #cd6301;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+>>>>>>> main

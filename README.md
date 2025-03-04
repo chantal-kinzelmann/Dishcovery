@@ -21,6 +21,14 @@ Wie schaue ich meine Komponente an, ohne das ich die Komponente in app.component
     bootstrapApplication(deineKomponete, appConfig)
     .catch((err) => console.error(err));
 
-3. Falls du manchmal AppComponent und manchmal deineKomponente testen willst, kannst du einfach in main.ts zwischen diesen Zeilen wechseln:
+3. deineKomponete.ts anpassen
+     selector: 'deinSelector', //Das ist das was später in den Tags steht <hier>
+     standalone: true,  // Wichtig für Standalone-Komponenten, müsste schon drin stehen aber just in case nochmal prüfen ;)
+     templateUrl: './rezeptkarte.component.html', //hier muss der Pfad von dem Html Element von der Komponente sein
+
+4. index.html anpassen
+    hier musst die jetzt die  <app-root></app-root> tags zu deinen Tags ändern. also das was du im selector deiner Komponente in schritt 3. angegeben hast.   
+
+5. Falls du manchmal AppComponent und manchmal deineKomponente testen willst, kannst du einfach in main.ts zwischen diesen Zeilen wechseln:
     bootstrapApplication(AppComponent, appConfig); // Startet die App-Component
     bootstrapApplication(deineKomponete, appConfig); // Startet deine Komponente
