@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-small-recipe-card',
@@ -10,12 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   templateUrl: './small-recipe-card.component.html',
   styleUrl: './small-recipe-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmallRecipeCardComponent {
-  rating: number = 4;
+  currentRating = 4;
 }

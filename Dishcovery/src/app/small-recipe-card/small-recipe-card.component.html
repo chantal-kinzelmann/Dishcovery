@@ -8,6 +8,17 @@
     <mat-card-title>Recipe Name</mat-card-title>
     <mat-card-subtitle>Subtitle</mat-card-subtitle>
   </mat-card-header>
+
+  <div class="rating-container">
+    <i
+      class="material-icons"
+      style="color: #ff7b00"
+      *ngFor="let star of [1, 2, 3, 4, 5]"
+    >
+      {{ star <= currentRating ? "star" : "star_border" }}
+    </i>
+  </div>
+
   <mat-card-content>
     <p>
       This is the short description of the recipe. It should be short and
