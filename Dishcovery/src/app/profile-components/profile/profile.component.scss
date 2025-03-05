@@ -1,10 +1,11 @@
 .profile-header {
     display: flex;
-    background-color: #44803fc6;
+    background-color: #7d9b76;
     padding: 20px;
     border-radius: 10px;
     color: white;
     margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .profile-pic {
@@ -21,6 +22,20 @@
     margin-left: 20px;
     padding-left: 10px;
   }
+  .new-recipe i {
+    margin-right: 5px; 
+  }
+  .profile-actions {
+    display: flex;
+    gap: 10px; /* Abstand zwischen Buttons */
+  }
+  
+  .edit-profile,
+  .new-recipe {
+    display: flex;
+    align-items: center;
+  }
+  
   
  
   

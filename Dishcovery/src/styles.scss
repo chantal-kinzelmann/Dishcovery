@@ -8,7 +8,8 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: #fdfdf9;
   color: #272727;
-  
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -16,10 +17,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  background-color: #cd6301;
+  background-color: #ff7b00;
   color: white;
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+
+  &:hover {
+    background-color: #cd6301;
+}
+
 }
