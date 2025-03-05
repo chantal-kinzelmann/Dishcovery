@@ -8,10 +8,19 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.thumbnail {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 0px;
+}
+
 .example-card-footer {
     padding: 16px;
 }
 
 .rating-container {
-    margin: 1rem;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0rem;
 }
