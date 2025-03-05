@@ -9,9 +9,10 @@ import { RegisterComponent } from './register/register.component';
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
   { path: 'profile', component: ProfileComponent }, //Profil
-  {path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
-  {path: 'login', component: LoginComponent}, //Login
-  {path: 'register', component: RegisterComponent} //Registrieren
+  { path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
+  { path: 'login', component: LoginComponent}, //Login
+  { path: 'register', component: RegisterComponent}, //Registrieren
+  { path: 'home', component: HomepageComponent }, // Startseite
 
 ];
 
