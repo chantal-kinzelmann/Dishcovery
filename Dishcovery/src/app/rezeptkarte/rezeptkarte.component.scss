@@ -18,7 +18,7 @@
 
 .card-content {
     padding: 16px;
-    background-color: #44803fc6;
+    background-color: #7d9b76;
     height: 200px;
     position: relative; 
 }
@@ -39,14 +39,11 @@
 
 }
 
-.button {
+.rezept-button {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #c65306;
-    color: white;
     border: none;
     padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 5px;    
 }
