@@ -5,13 +5,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
   { path: 'profile', component: ProfileComponent }, //Profil
-  {path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
-  {path: 'login', component: LoginComponent}, //Login
-  {path: 'register', component: RegisterComponent} //Registrieren
+  { path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
+  { path: 'login', component: LoginComponent}, //Login
+  { path: 'view-recipe', component: ViewRecipeComponent}, 
+  { path: 'register', component: RegisterComponent} //Registrieren
 
 ];
 
