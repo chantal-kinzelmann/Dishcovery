@@ -1,1 +1,23 @@
-Hallo hier ist die Homepage 
+<div class="homepage">
+    <header class="homepage-header">
+      <h1>Willkommen bei Dishcovery</h1>
+      <p>Finde Rezepte für jede Gelegenheit</p>
+    </header>
+  
+    <section class="categories">
+      <div *ngFor="let category of categories" class="category">
+        <div class="category-header">
+          <h2>{{ category.name }}</h2>
+          <button >Alle ansehen</button>
+        </div>
+  
+        <div class="recipe-list">
+          <app-small-recipe-card 
+            *ngFor="let recipe of category.recipes.slice(0, 4)" 
+            >
+          </app-small-recipe-card >
+        </div>
+      </div>
+    </section>
+  </div>
+  
