@@ -1,9 +1,20 @@
 <header class="header">
   <nav>
     <a routerLink="home">
-      <p class="Logo">Dishcovery</p>
+      <p class="logo">Dishcovery</p>
     </a>
-    <app-searchbar></app-searchbar>
-    <app-login-button routerLink="/login"></app-login-button>
+
+    <div class="search-container">
+      <app-searchbar></app-searchbar>
+    </div>
+
+    <div class="header-actions">
+      <label class="toggle-switch">
+        <input type="checkbox" (change)="toggleDarkMode()" [checked]="isDarkMode">
+        <span class="slider"></span>
+      </label>
+
+      <app-login-button routerLink="/login"></app-login-button>
+    </div>
   </nav>
 </header>
