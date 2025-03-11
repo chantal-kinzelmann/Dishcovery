@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RezeptkarteComponent } from '../../rezeptkarte/rezeptkarte.component';
+
+import { SmallRecipeCardComponent } from '../../small-recipe-card/small-recipe-card.component';
 
 @Component({
   selector: 'app-my-recipes',
-  imports: [RezeptkarteComponent],
+  imports: [SmallRecipeCardComponent],
   templateUrl: './my-recipes.component.html',
   styleUrl: './my-recipes.component.scss'
 })
