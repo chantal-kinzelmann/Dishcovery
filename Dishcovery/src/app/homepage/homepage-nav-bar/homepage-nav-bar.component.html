@@ -1,9 +1,19 @@
 <nav class="navbar">
-    <ul class="navbar-links">
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-      <li><a routerLink="/rezepte" routerLinkActive="active">Rezepte</a></li>
-      <li><a routerLink="/favoriten" routerLinkActive="active">Was koche ich Heute</a></li>
-      <li><a routerLink="/profile" routerLinkActive="active">Profil</a></li>
-    </ul>
-  </nav>
-  
+  <ul class="navbar-links">
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+    </li>
+    <li><a routerLink="/recipes-page" routerLinkActive="active">Rezepte</a></li>
+    <li>
+      <a routerLink="/favoriten" routerLinkActive="active"
+        >Was koche ich Heute</a
+      >
+    </li>
+    <li><a routerLink="/profile" routerLinkActive="active">Profil</a></li>
+  </ul>
+</nav>
