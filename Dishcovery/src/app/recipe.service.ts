@@ -29,7 +29,35 @@ export class RecipeService {
     return this.http.get(`${this.apiUrl}/recipe`);
   }
 
+
+  // GET: Alle Rezepte abrufen
+  getAllRecipes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/recipe`);
+  }
+
+  // GET: Einzelnes Rezept abrufen
+  getRecipeById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/recipe/${id}`);
+  }
+
+  // POST: Neues Rezept erstellen
+  createRecipe(recipe: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/recipe`, recipe);
+  }
+
+  // PUT: Rezept aktualisieren
+  updateRecipe(id: number, recipe: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/recipe/${id}`, recipe);
+  }
+
+  // DELETE: Rezept löschen
+  deleteRecipe(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/recipe/${id}`);
+  }
 }
+
+
+
 
 
 
