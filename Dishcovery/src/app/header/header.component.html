@@ -1,6 +1,10 @@
 <header class="header">
   <nav>
-    <a routerLink="home">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <p class="Logo">Dishcovery</p>
     </a>
     <app-searchbar></app-searchbar>
