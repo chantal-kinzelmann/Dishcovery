@@ -31,8 +31,13 @@ nav {
     background-color: #e0e0e0;
     padding: 8px 16px;
     border-radius: 15px;
-
   }
+
+app-searchbar {
+    flex: 1; /* Lässt es die gesamte Breite ausfüllen */
+    width: 150%;
+    display: flex;
+}
 
 /* Darkmode-Schieberegler */
 .toggle-switch {
