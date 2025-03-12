@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { WasKocheIchHeuteComponent } from './was-koche-ich-heute/was-koche-ich-heute.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent}, //Registrieren
   { path: 'home', component: HomepageComponent }, // Startseite
   { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
+  { path: 'was-koche-ich-heute', component: WasKocheIchHeuteComponent }, // Was koche ich Heute?
 ];
 
 @NgModule({
@@ -22,3 +24,4 @@ export const routes: Routes = [
     exports: [RouterModule]
    })
    export class AppRoutingModule { }
+

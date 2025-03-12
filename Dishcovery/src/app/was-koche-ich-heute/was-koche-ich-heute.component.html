@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="grid-container">
+      <div *ngFor="let color of colors" class="grid-item">
+        <app-small-recipe-card></app-small-recipe-card> <!-- Die kleine Rezeptkarte hier -->
+      </div>
+    </div>
+    <button class="rotate-button" (click)="shuffleColors()">Drehen</button>
+  </div>
