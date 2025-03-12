@@ -1,26 +1,32 @@
-    <div class="container-register">
-        
-        <h2>Registrieren</h2>
-        <form>
-            <input type="username" placeholder="Benutername" required>
-            <input type="email" placeholder="Mail" required>
-            <input type="password" placeholder="Passwort" required>
-            <input type="password" placeholder="Passwort wiederholen" required>
-            
-        </form>
-        <div class="bottom">
-            <div class="left">
-                
-                <p class="login-link"routerLink="/login">Bereits ein Konto? <br>Hier Anmenden!</p>
-            </div>
-            <div class="right">
-                <button type="submit">Jetzt registrieren</button>
-            </div>
+<div class="container-register">
+    <h2>Registrieren</h2>
+
+    <form #registerForm="ngForm">
+        <div class="input-container">
+            <input [(ngModel)]="username" name="username" type="text" placeholder="Benutzername" required #usernameRef="ngModel">
+            <p class="error" *ngIf="usernameRef.invalid && usernameRef.touched">Benutzername ist erforderlich.</p>
+
+            <input [(ngModel)]="email" name="email" type="email" placeholder="Mail" required #emailRef="ngModel">
+            <p class="error" *ngIf="emailRef.invalid && emailRef.touched">Bitte eine gültige E-Mail eingeben.</p>
+
+            <input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required minlength="6" #passwordRef="ngModel">
+            <p class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+                Passwort muss mindestens 6 Zeichen lang sein.
+            </p>
+
+            <input [(ngModel)]="passwordRepeat" name="passwordRepeat" type="password" placeholder="Passwort wiederholen" required #passwordRepeatRef="ngModel">
+            <p class="error" *ngIf="passwordRepeatRef.invalid && passwordRepeatRef.touched">
+                Bitte Passwort bestätigen.
+            </p>
         </div>
-        
-        <div class="kleingeschriebenes">
-            <p>*Hier steht kleingeschriebenes! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT! ganz Viel TEXT!</p>
+
+        <div class="button-container">
+            <button (click)="register()" [disabled]="registerForm.invalid">Jetzt registrieren</button>
+            <p class="login-link" routerLink="/login">Bereits ein Konto?<br> Hier anmelden!</p>
         </div>
-        
-        
+    </form>
+
+    <div class="kleingeschriebenes">
+        <p>*Hier steht kleingeschriebenes! ganz Viel TEXT! ...</p>
     </div>
+</div>
