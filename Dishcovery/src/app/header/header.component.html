@@ -1,7 +1,11 @@
 <header class="header">
   <nav>
-    <a routerLink="home">
-      <p class="logo">Dishcovery</p>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <p class="Logo">Dishcovery</p>
     </a>
 
     <div class="search-container">
@@ -10,7 +14,11 @@
 
     <div class="header-actions">
       <label class="toggle-switch">
-        <input type="checkbox" (change)="toggleDarkMode()" [checked]="isDarkMode">
+        <input
+          type="checkbox"
+          (change)="toggleDarkMode()"
+          [checked]="isDarkMode"
+        />
         <span class="slider"></span>
       </label>
 
