@@ -1,1 +1,10 @@
 <p>recipes-page works!</p>
+
+{{ this.recipes$ | async | json }}
+<!-- <div class="recipe-container">
+  <ng-container
+    *ngFor="let recipe of recipes$ | async; trackBy: trackByRecipeId"
+  >
+    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+  </ng-container>
+</div> -->

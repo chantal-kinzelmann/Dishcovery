@@ -11,11 +11,11 @@ import { environment } from '../../app.config';
 })
 export class RecipeService {
   constructor(private readonly http:HttpClient) { }
-  private apiUrl = environment.apiUrl;
+  private apiUrl = "http://localhost:3000";
 
   recieveProducts() {
     const result$ = this.http.get<{ recipes: Recipe[] }>(
-      "http://dummylink.com/recipes"
+      "http://localhost:3000/recipe"
     );
     return result$.pipe(
       map( (body: {recipes: Recipe[]}) => {   // typisiert den product: Product[] und macht ihn sozusagen "verarbeitbar" und nur das Array wird zurückgegeben 
@@ -28,7 +28,6 @@ export class RecipeService {
   getRecipes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/recipe`);
   }
-
 
   // GET: Alle Rezepte abrufen
   getAllRecipes(): Observable<any[]> {
