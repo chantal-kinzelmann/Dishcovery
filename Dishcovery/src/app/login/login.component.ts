@@ -24,13 +24,23 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         console.log('Login erfolgreich!', response);
-        this.snackBar.open('Login erfolgreich!', 'OK', { panelClass: ['success-snackbar'], duration: 3000 });
+        localStorage.setItem('user', JSON.stringify(response)); // Speichere Benutzer
         this.router.navigate(['/profile']); // Weiterleitung nach dem Login
       },
       error: (err) => {
         console.error('Login fehlgeschlagen:', err);
-        this.snackBar.open('Login fehlgeschlagen: Falsche Anmeldedaten!', 'OK', { panelClass: ['error-snackbar'], duration: 3000 });
+        this.showError('Login fehlgeschlagen: Falsche Anmeldedaten!');
       }
     });
   }
+
+  showError(message: string) {
+    this.snackBar.open(message, 'OK', {
+      duration: 5000,
+      panelClass: ['error-snackbar'],
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+  }
+    
 }
