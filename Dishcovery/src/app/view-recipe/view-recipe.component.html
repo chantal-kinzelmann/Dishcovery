@@ -32,10 +32,10 @@
         </div>
 
 
-        <a href="/view-recipe#Comment">Stars</a>
+        <a href="/view-recipe#yourComment">Stars</a>
 
 
-        <div id="creator">
+        <div class="creator">
             <div class="profile-pic">Bild</div>
             <div class="profile-info">Rezept von Name</div>
         </div>
@@ -57,8 +57,22 @@
 
     <section>
         <h2>Zutaten</h2>
+
+        <div id="portion-interface">
+            <button (click)="decrement()">-</button>
+            {{portions}} Portionen
+            <button (click)="increment()">+</button>
+        </div>
+
         <hr>
+        <table>
+            <tr>
+                <td>es</td>
+                <td>2g</td>
+            </tr>
+        </table>
         <hr>
+
     </section>
 
     <section>
@@ -86,4 +100,26 @@
 </main>
 
 
-<div id="Comment"></div>
+<div id="comments">
+
+    <h2>Kommentare</h2>
+
+    <form name="yourComment" id="yourComment" ng-submit="addNewComment()" novalidate>
+        <label for="commentText">Dein Kommentar:</label><br>
+        <textarea placeholder="Comment" ng-model="newComment.content" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+
+
+    <div class="comment">
+        <div class="creator">
+            <div class="profile-pic">Bild</div>
+            <div class="profile-info">Rezept von Name</div>
+        </div>
+
+        <p>
+            Kommentar: Für saftige Schokoladen-Brownies heize zuerst den Backofen auf 180 °C (Ober-/Unterhitze) vor und lege eine quadratische Backform (ca. 20x20 cm) mit Backpapier aus oder fette sie ein. Schmelze dann 200 g Zartbitterschokolade zusammen mit 150 g Butter über einem Wasserbad oder in der Mikrowelle und rühre die Masse glatt. Lass sie kurz abkühlen. Währenddessen schlägst du 3 Eier mit 150 g Zucker schaumig, bis die Mischung hell und cremig ist. Rühre die geschmolzene Schokoladen-Butter- Mischung unter. In einer separaten Schüssel vermischst d
+        </p>
+    </div>
+    <br>
+</div>
