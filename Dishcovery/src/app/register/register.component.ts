@@ -19,18 +19,29 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   register() {
+    console.log('Registrierung gestartet...');
+  
     if (this.password !== this.passwordRepeat) {
       this.errorMessage = 'Passwörter stimmen nicht überein!';
       return;
     }
-
+  
     this.authService.register({
       username: this.username,
       email: this.email,
       password: this.password,
     }).subscribe({
-      next: () => alert('Registrierung erfolgreich!'),
-      error: (err) => this.errorMessage = err.error.message
+      next: (response) => {
+        console.log('Registrierung erfolgreich!', response);
+        alert('Registrierung erfolgreich!');
+      },
+      error: (err) => {
+        console.error('Registrierung fehlgeschlagen:', err);
+        alert(err.error?.message || 'Ein unbekannter Fehler ist aufgetreten!');
+        // Fehler aus Backend anzeigen
+        this.errorMessage = err.error?.message || 'Ein unbekannter Fehler ist aufgetreten!';
+      }
     });
   }
+  
 }
