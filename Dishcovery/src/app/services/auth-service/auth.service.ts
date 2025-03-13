@@ -15,4 +15,9 @@ export class AuthService {
     console.log('Sende Registrierung an Backend:', userData);
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
+  login(identifier: string, password: string): Observable<any> {
+    console.log('Request wird gesendet...');
+    return this.http.post(`${this.apiUrl}/login`, { identifier, password });
+  }
+
 }

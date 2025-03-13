@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth-service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule,NgIf } from '@angular/common';
-import {MatSnackBarModule, MatSnackBar,MatSnackBarConfig} from '@angular/material/snack-bar';
+import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',

@@ -1,20 +1,22 @@
+<div class="login-container">     
+    <h2>Anmelden</h2>
+    <form #loginForm="ngForm">
+        <input class="input-anmeldung-regestrierung" type="text" placeholder="Benutzername oder Mail" required [(ngModel)]="username" name="username" #identifierRef="ngModel">
+        <p class="error" *ngIf="identifierRef.invalid && identifierRef.touched">E-Mail oder Benutzername erforderlich.</p>
 
-    <div class="login-container">     
-        <h2>Anmelden</h2>
-        <form>
-            <input class="input-anmeldung-regestrierung" type="email" placeholder="Mail" required>
-            <input class="input-anmeldung-regestrierung" type="password" placeholder="Passwort" required>
-            
-        </form>
-        <div class="bottom">
-            <div class="left">
-                <p routerLink="/register" class="register-link">Noch kein Konto?<br>Jetzt registrieren!</p>
-            </div>
-            <div class="middle">
-                <button type="submit">Anmelden</button>
-            </div>
-            <div class="right">
-                <p routerLink="/password-reset" class="register-link">Passwort vergessen?</p>
-            </div>
+        <input class="input-anmeldung-regestrierung" type="password" placeholder="Passwort" required [(ngModel)]="password" name="password" #passwordRef="ngModel">
+        <p class="error" *ngIf="passwordRef.invalid && passwordRef.touched">Passwort erforderlich.</p>
+    </form>
+
+    <div class="bottom">
+        <div class="left">
+            <p routerLink="/register" class="register-link">Noch kein Konto?<br>Jetzt registrieren!</p>
+        </div>
+        <div class="middle">
+            <button (click)="login()" [disabled]="loginForm.invalid">Anmelden</button>
+        </div>
+        <div class="right">
+            <p routerLink="/password-reset" class="register-link">Passwort vergessen?</p>
         </div>
     </div>
+</div>
