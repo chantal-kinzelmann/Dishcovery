@@ -1,7 +1,28 @@
 <header class="header">
-<nav>
-<p class="Logo">Kochflow</p>
-<app-searchbar></app-searchbar>
-<app-login-button routerLink="/login"></app-login-button>
-</nav>
+  <nav>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <p class="logo">Dishcovery</p>
+    </a>
+
+    <div class="search-container">
+      <app-searchbar></app-searchbar>
+    </div>
+
+    <div class="header-actions">
+      <label class="toggle-switch">
+        <input
+          type="checkbox"
+          (change)="toggleDarkMode()"
+          [checked]="isDarkMode"
+        />
+        <span class="slider"></span>
+      </label>
+
+      <app-login-button routerLink="/login"></app-login-button>
+    </div>
+  </nav>
 </header>

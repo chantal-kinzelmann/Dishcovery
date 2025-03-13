@@ -1,17 +1,17 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-profile-navigation',
-  imports: [],
   templateUrl: './profile-navigation.component.html',
-  styleUrl: './profile-navigation.component.scss'
+  styleUrls: ['./profile-navigation.component.scss']
 })
 export class ProfileNavigationComponent {
+  activeCategory = 'rezepte'; // Standardwert
+
   @Output() selectedCategory = new EventEmitter<string>();
-  activeTab = 'rezepte';
 
   setCategory(category: string) {
-    this.activeTab = category;
+    this.activeCategory = category;
     this.selectedCategory.emit(category);
   }
 }

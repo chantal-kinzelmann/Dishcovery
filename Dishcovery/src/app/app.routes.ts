@@ -6,6 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
@@ -13,8 +15,10 @@ export const routes: Routes = [
   { path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
   { path: 'login', component: LoginComponent}, //Login
   { path: 'view-recipe', component: ViewRecipeComponent}, 
-  { path: 'register', component: RegisterComponent} //Registrieren
-
+  { path: 'register', component: RegisterComponent}, //Registrieren
+  { path: 'home', component: HomepageComponent }, // Startseite
+  { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
+  { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page 
 ];
 
 @NgModule({

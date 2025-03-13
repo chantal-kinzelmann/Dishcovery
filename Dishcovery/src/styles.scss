@@ -31,3 +31,24 @@ button {
 }
 
 }
+
+/* Darkmode-Styles */
+.dark-mode {
+  background-color: #222;
+  color: white;
+}
+
+.dark-mode .profile-nav {
+  background-color: #444;
+}
+
+.dark-mode .profile-nav button {
+  color: white;
+}
+
+.dark-mode .profile-nav button.active {
+  background: #795548;
+  color: white;
+}
+
+

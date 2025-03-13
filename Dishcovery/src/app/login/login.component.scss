@@ -1,4 +1,6 @@
-
+h2 {
+    margin-left: 10px;
+}
 
 .login-container {
     width: 500px;
@@ -17,19 +19,31 @@
 }
 
 .left {
-    width: 45%;
+    width: 55%;
     margin-left: 10px;
 }
 
-.right {
-    margin-left: 50px;
+.middle {
+    margin-left: 7px;
+    margin-right: 1px;
     width: 100%;
-    text-align: left;
+    text-align: center;
 }
 
+.right {
+    margin-right: 12px;
+    width: 55%;
+    text-align: right;
+}
+
+button {
+    width: 50%;
+    padding: 8px;
+    border-radius: 5px;
+}
 
 input {
-    width: 90%;
+    width: 96%;
     padding: 10px;
     margin: 10px 0;
     border: none;
@@ -46,7 +60,7 @@ input {
     font-weight: bold;
     color: #272727;
     text-decoration:bold;
-    font-size: 13px;
+    font-size: 11px;
     cursor: pointer;
     &:hover {
         text-decoration: underline;

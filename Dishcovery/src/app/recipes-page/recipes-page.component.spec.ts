@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RezeptkarteComponent } from './rezeptkarte.component';
+import { RecipesPageComponent } from './recipes-page.component';
 
-describe('RezeptkarteComponent', () => {
-  let component: RezeptkarteComponent;
-  let fixture: ComponentFixture<RezeptkarteComponent>;
+describe('RecipesPageComponent', () => {
+  let component: RecipesPageComponent;
+  let fixture: ComponentFixture<RecipesPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RezeptkarteComponent]
+      imports: [RecipesPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RezeptkarteComponent);
+    fixture = TestBed.createComponent(RecipesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
