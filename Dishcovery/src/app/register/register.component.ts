@@ -1,12 +1,47 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth-service/auth.service';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
+import { CommonModule,NgIf } from '@angular/common';
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss'],
+  imports: [FormsModule, RouterLink, CommonModule, NgIf]
 })
 export class RegisterComponent {
+  username = '';
+  email = '';
+  password = '';
+  passwordRepeat = '';
+  errorMessage = '';
 
+  constructor(private authService: AuthService) {}
+
+  register() {
+    console.log('Registrierung gestartet...');
+  
+    if (this.password !== this.passwordRepeat) {
+      this.errorMessage = 'Passwörter stimmen nicht überein!';
+      return;
+    }
+  
+    this.authService.register({
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    }).subscribe({
+      next: (response) => {
+        console.log('Registrierung erfolgreich!', response);
+        alert('Registrierung erfolgreich!');
+      },
+      error: (err) => {
+        console.error('Registrierung fehlgeschlagen:', err);
+        alert(err.error?.message || 'Ein unbekannter Fehler ist aufgetreten!');
+        // Fehler aus Backend anzeigen
+        this.errorMessage = err.error?.message || 'Ein unbekannter Fehler ist aufgetreten!';
+      }
+    });
+  }
+  
 }
