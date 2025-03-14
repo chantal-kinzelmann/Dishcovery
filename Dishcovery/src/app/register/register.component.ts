@@ -4,14 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule,NgIf } from '@angular/common';
 import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
+import { NgForm } from '@angular/forms';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
+  templateUrl: './register.component.html', 
   styleUrls: ['./register.component.scss'],
   imports: [FormsModule, RouterLink, CommonModule, NgIf, MatSnackBarModule]
 })
 export class RegisterComponent {
+  @ViewChild('registerForm') registerForm!: NgForm; 
   username = '';
   email = '';
   password = '';
@@ -36,6 +39,14 @@ export class RegisterComponent {
       next: (response) => {
         console.log('Registrierung erfolgreich!', response);
         this.showSuccsess('Registrierung erfolgreich!');
+        
+        setTimeout(() => {
+          this.username = '';
+          this.email = '';
+          this.password = '';
+          this.passwordRepeat = '';
+        }, 1); 
+        this.registerForm.reset();
       },
       error: (err) => {
         console.error('Registrierung fehlgeschlagen:', err);
@@ -57,7 +68,7 @@ export class RegisterComponent {
    
   showSuccsess(message: string) {
     this.snackBar.open(message, 'OK', {
-     
+      duration: 5000,
       panelClass: ['success-snackbar'],
       horizontalPosition: 'center',
       verticalPosition: 'bottom'

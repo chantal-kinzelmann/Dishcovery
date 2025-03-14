@@ -55,6 +55,10 @@ input {
         outline: 2px solid #ff7b00;
     }
 }
+.empty-field {
+    background-color: #f9f7dc !important; // Originalfarbe beibehalten
+  }
+  
 
 .register-link {
     font-weight: bold;
