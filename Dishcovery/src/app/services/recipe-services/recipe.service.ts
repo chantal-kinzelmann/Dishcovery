@@ -11,18 +11,18 @@ import { environment } from '../../app.config';
 })
 export class RecipeService {
   constructor(private readonly http:HttpClient) { }
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = environment.apiUrl;
 
-  recieveProducts() {
-    const result$ = this.http.get<{ recipes: Recipe[] }>(
-      "http://localhost:3000/recipe"
-    );
-    return result$.pipe(
-      map( (body: {recipes: Recipe[]}) => {   // typisiert den product: Product[] und macht ihn sozusagen "verarbeitbar" und nur das Array wird zurückgegeben 
-        return body.recipes;
-      })
-    );
-  }
+  // recieveProducts() {
+  //   const result$ = this.http.get<{ recipes: Recipe[] }>(
+  //     "http://localhost:5000/recipe"
+  //   );
+  //   return result$.pipe(
+  //     map( (body: {recipes: Recipe[]}) => {   // typisiert den product: Product[] und macht ihn sozusagen "verarbeitbar" und nur das Array wird zurückgegeben 
+  //       return body.recipes;
+  //     })
+  //   );
+  // }
 
   // API-Anfrage: Alle Rezepte abrufen
   getRecipes(): Observable<any> {

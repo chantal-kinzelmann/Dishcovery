@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000', // Hier Backend-URL setzen
+  apiUrl: 'http://localhost:3001', // Hier Backend-URL setzen
 };
 
 export const appConfig: ApplicationConfig = {

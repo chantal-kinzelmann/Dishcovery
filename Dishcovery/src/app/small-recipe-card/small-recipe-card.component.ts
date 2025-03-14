@@ -20,6 +20,7 @@ import { Recipe } from '../services/recipe-services/recipe.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmallRecipeCardComponent {
-  @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
+  // @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
+  @Input() recipe!: Recipe;
   currentRating = 4;
 }
