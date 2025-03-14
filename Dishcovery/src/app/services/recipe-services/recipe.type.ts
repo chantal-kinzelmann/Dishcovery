@@ -17,6 +17,7 @@ export type Recipe = {
   ingredients: Ingredient[];
   userId: string; // Referenz auf die user.id des Erstellers
   updatedAt: Date;
+  tags: Tag[];
   };
 
   // Zutaten mit Menge und Einheit
@@ -35,4 +36,9 @@ export type Rating = {
   rating: 1 | 2 | 3 | 4 | 5;
   comment?: string;
   updatedAt: Date;
+}
+
+export type Tag = {
+  id: number;
+  name: string;
 }

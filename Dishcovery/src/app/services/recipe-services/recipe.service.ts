@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Recipe } from './recipe.type';
 import { Observable } from 'rxjs';
 import { environment } from '../../app.config';
@@ -31,7 +31,9 @@ export class RecipeService {
 
   // GET: Alle Rezepte abrufen
   getAllRecipes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/recipe`);
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe`).pipe(
+      tap(data => console.log('API Response:', data)) // Add this line
+    );
   }
 
   // GET: Einzelnes Rezept abrufen
