@@ -23,8 +23,8 @@ export class LoginComponent {
 
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
-        console.log('Login erfolgreich!', response);
-        localStorage.setItem('user', JSON.stringify(response)); // Speichere Benutzer
+        console.log( response);
+        localStorage.setItem('user', JSON.stringify(response.user)); // Speichere Benutzer
         this.router.navigate(['/profile']); // Weiterleitung nach dem Login
       },
       error: (err) => {
