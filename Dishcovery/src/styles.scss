@@ -9,8 +9,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: #fdfdf9;
   color: #272727;
-  margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -81,13 +79,14 @@ button {
 
 html, body {
   height: 100%;
-  margin: 0;
   display: flex;
   flex-direction: column;
+  margin: 0;
 }
 
 .app-container {
   flex: 1;
   display: flex;
   flex-direction: column;
+  
 }
