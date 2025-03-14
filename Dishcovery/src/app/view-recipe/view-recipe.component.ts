@@ -1,14 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-view-recipe',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.scss'
 })
 export class ViewRecipeComponent {
   public portions: number = 1;
-
+  public currentRating: number = 2;
   constructor() { }
 
   updateIngredients():void{

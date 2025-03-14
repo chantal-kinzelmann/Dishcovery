@@ -12,6 +12,13 @@ main, #recipe-overview, #comments{
   width: 55rem;
 }
 
+a{
+  text-decoration: none;
+  i{
+    font-size: 2rem;
+  }
+
+}
 
 #recipe-overview{
   box-sizing: content-box;
@@ -93,10 +100,24 @@ img{
 }
 
 
+#portion-interface{
+  display: flex;
+  align-items: center;
+  p{
+    padding: 0 .5rem 0 .5rem;
+    width:7rem;
+    text-align: center;
+  }
 
-
-
-
+  button{
+    font-weight: bold;
+    padding: 0;
+    height: 2.25rem;
+    width: 2.25rem;
+    align-items: center;
+  }
+  
+}
 
 
 
@@ -168,6 +189,12 @@ textarea{
 
 
 @media (max-width: 800px) {
+  #portion-interface{
+    p{
+      padding: 0 ;
+      width:6rem;
+    }
+  }
   #recipe-overview,main{
     font-size: .8rem;
     width: 100%;
@@ -192,4 +219,8 @@ textarea{
         margin-bottom: 0;
     }
 
+    a>i{
+      font-size: 1.7rem;
+    }
+    
 }

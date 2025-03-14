@@ -32,7 +32,17 @@
         </div>
 
 
-        <a href="/view-recipe#yourComment">Stars</a>
+        <a href="/view-recipe#yourComment">
+            <div class="rating-container">
+                <i
+                  class="material-icons"
+                  style="color: #ff7b00"
+                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                >
+                  {{ star <= currentRating ? "star" : "star_border" }}
+                </i>
+              </div>
+        </a>
 
 
         <div class="creator">
@@ -60,7 +70,7 @@
 
         <div id="portion-interface">
             <button (click)="decrement()">-</button>
-            {{portions}} Portionen
+            <p>{{portions}} Portionen</p>
             <button (click)="increment()">+</button>
         </div>
 
