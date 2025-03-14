@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'home', component: HomepageComponent }, // Startseite
   { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
   { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page 
+  { path: 'edit-profile', component: EditProfileComponent }, // Profil bearbeiten
 ];
 
 @NgModule({
