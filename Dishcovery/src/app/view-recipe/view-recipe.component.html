@@ -44,9 +44,12 @@
               </div>
         </a>
 
-
         <div class="creator">
-            <div class="profile-pic">Bild</div>
+            <div class="profilePic-container">
+                <img src="https://imgs.search.brave.com/QbD5S2t95bXa74vbbjwUVTHowS5wspXqSTX2bS-eo14/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2RiLzA4/LzBmL2RiMDgwZmNl/YjlmYTYxNjMxNWJk/NmY5YzNiOGE5NjMy/LmpwZw"
+                 alt="Profilbild" class="profilbild">
+            </div>
+
             <div class="profile-info">Rezept von Name</div>
         </div>
 
@@ -114,16 +117,41 @@
 
     <h2>Kommentare</h2>
 
-    <form name="yourComment" id="yourComment" ng-submit="addNewComment()" novalidate>
+    <form id="yourComment" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
         <label for="commentText">Dein Kommentar:</label><br>
-        <textarea placeholder="Comment" ng-model="newComment.content" required></textarea>
-        <button type="submit">Absenden</button>
+        <textarea placeholder="Comment" name="commentText" id="commentText" required minlength="5" ngModel #commentTest="ngModel"></textarea>
+
+        <!--5 Star Rating-->
+        <div class="rating">
+                <input id="rating1" type="radio" class="starRadio" name="rating" value=1 (change)="setRating(1)" required ngModel #rating="ngModel"/>
+                <label for="rating1" class="material-icons" style="color: #ff7b00">{{ 1 <= userRating ? "star" : "star_border" }}</label>
+                <input id="rating2" type="radio" class="starRadio" name="rating" value=2 (change)="setRating(2)" required ngModel #rating="ngModel"/>
+                <label for="rating2" class="material-icons" style="color: #ff7b00">{{ 2 <= userRating ? "star" : "star_border" }}</label>
+                <input id="rating3" type="radio" class="starRadio" name="rating" value=3 (change)="setRating(3)" required ngModel #rating="ngModel"/>
+                <label for="rating3" class="material-icons" style="color: #ff7b00">{{ 3 <= userRating ? "star" : "star_border" }}</label>
+                <input id="rating4" type="radio" class="starRadio" name="rating" value=4 (change)="setRating(4)" required ngModel #rating="ngModel"/>
+                <label for="rating4" class="material-icons" style="color: #ff7b00">{{ 4 <= userRating ? "star" : "star_border" }}</label>
+                <input id="rating5" type="radio" class="starRadio" name="rating" value=5 (change)="setRating(5)" required ngModel #rating="ngModel"/>
+                <label for="rating5" class="material-icons" style="color: #ff7b00">{{ 5 <= userRating ? "star" : "star_border" }}</label>
+        </div>
+
+        <!--Fehler Meldung-->
+        <div *ngIf="commentTest.touched && !commentTest.valid">
+            - Kommentar muss mindestens 5 Zeichen lang sein
+        </div>
+        <div *ngIf="commentTest.touched && !rating.valid">- Bitte geben sie ihre Bewertung an</div>
+
+        <button type="submit" [disabled]="!form.valid">Absenden</button>
       </form>
 
 
     <div class="comment">
         <div class="creator">
-            <div class="profile-pic">Bild</div>
+            <div class="profilePic-container">
+                <img src=""
+                 alt="P" class="profilbild">
+            </div>
             <div class="profile-info">Rezept von Name</div>
         </div>
 
@@ -133,3 +161,6 @@
     </div>
     <br>
 </div>
+
+
+
