@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Recipe } from './recipe.type';
 import { Observable } from 'rxjs';
-import { environment } from '../../app.config'; // Falls du `environment` in `app.config.ts` hast
+import { environment } from '../../app.config';
 
 
 @Injectable({

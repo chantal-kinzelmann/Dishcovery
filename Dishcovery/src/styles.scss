@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 html,
 body {
   height: 100%; 
@@ -43,12 +44,37 @@ button {
 }
 
 .dark-mode .profile-nav button {
-  color: white;
+  color: #ffffff;
 }
 
 .dark-mode .profile-nav button.active {
   background: #795548;
   color: white;
 }
+
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #d32f2f !important; // Rotes Hintergrund für Fehler
+  --mat-sys-inverse-on-surface:#ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #388e3c !important; // Grünes Hintergrund für Erfolg
+  --mat-mdc-snack-bar-button-label: #ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Stil für den Button innerhalb der Snackbar */
+.success-snackbar .mdc-button__label {
+  color: white !important; // Button-Text auf Weiß setzen
+}
+
+.error-snackbar .mdc-button__label {
+  color: white !important;
+}
+
 
 

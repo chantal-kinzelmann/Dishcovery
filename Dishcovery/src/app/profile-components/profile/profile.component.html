@@ -2,10 +2,10 @@
 <div class="profile-header">
   <div class="profile-pic">Bild hochladen</div>
   <div class="profile-info">
-    <h2>Max Mustermann</h2>
-    <p>Rezeptliebhaber & Hobbykoch</p>
+    <h2>Willkommen, {{ user?.username }}!</h2>
+    <p>{{ user?.profileText}}</p>
     <div class="profile-actions">
-      <button class="edit-profile">Profil bearbeiten</button>
+      <button class="edit-profile" routerLink="/edit-profile">Profil bearbeiten</button>
       <button class="new-recipe" routerLink="/new-recipe">
         <i class="fa-solid fa-plus"></i> Neues Rezept    
       </button>
