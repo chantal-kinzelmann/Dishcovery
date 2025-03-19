@@ -78,6 +78,18 @@
   flex: 1;
 }
 
+.logo{
+  color: #6b805f;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 10%;
+}
+
+a {
+  text-decoration: none; /* Stellt sicher, dass alle Links keine Unterstreichung haben */
+}
+
 /* ✅ Abstand zur Suchleiste hinzugefügt */
 .search-darkmode-wrapper {
   display: flex;
@@ -97,8 +109,8 @@
   padding: 8px 16px;
   border-radius: 15px;
   min-width: 150px;
-  max-width: 100%;
-  margin-right: 10px; /* Abstand nach rechts */
+  max-width: 1000px;
+  margin-left: 10px; /* Abstand nach rechts */
 }
 
 /* ✅ Abstand zwischen Buttons */
