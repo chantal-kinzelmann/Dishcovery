@@ -1,9 +1,10 @@
 
 <div class="profile-header">
-  <div class="profile-pic">Bild hochladen</div>
+  <img class="profile-pic" *ngIf="user?.userImgUrl" [src]="user.userImgUrl" alt="Profilbild">
+  <img class="profile-pic" *ngIf="!user?.userImgUrl" src="assets/img/standard.png" alt="Standard Profilbild">
   <div class="profile-info">
-    <h2>Willkommen, {{ user?.username }}!</h2>
-    <p>{{ user?.profileText}}</p>
+    <h2>Willkommen, {{ user.username }}!</h2>
+    <p>{{ user.profileText}}</p>
     <div class="profile-actions">
       <button class="edit-profile" routerLink="/edit-profile">Profil bearbeiten</button>
       <button class="new-recipe" routerLink="/new-recipe">
