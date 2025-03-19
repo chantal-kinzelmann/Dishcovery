@@ -7,12 +7,13 @@ a {
 }
 
 nav {
-    width: 100%; // Makes sure the nav takes the full width
-    display: flex;
-    justify-content: space-between; // Distributes items across the width
-    align-items: center;
-    gap: 1rem;
-    margin: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem; // Statt margin: 1%;
+  box-sizing: border-box; // Stellt sicher, dass padding die Breite nicht überschreitet
 }
 
 
