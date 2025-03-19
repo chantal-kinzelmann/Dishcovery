@@ -37,6 +37,11 @@ button {
   color: white;
 }
 
+.dark-mode .example-card {
+  border-color: #cd6301;
+  background-color: #222;
+}
+
 .dark-mode .profile-nav {
   background-color: #444;
 }
@@ -46,7 +51,7 @@ button {
 }
 
 .dark-mode .profile-nav button.active {
-  background: #795548;
+  background: #cd6301;
   color: white;
 }
 
