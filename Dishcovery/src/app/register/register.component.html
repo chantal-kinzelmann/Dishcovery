@@ -6,10 +6,13 @@
             <input [(ngModel)]="username" name="username" type="text" placeholder="Benutzername" required #usernameRef="ngModel">
             <p class="error" *ngIf="usernameRef.invalid && usernameRef.touched">Benutzername ist erforderlich.</p>
 
-            <input [(ngModel)]="email" name="email" type="email" placeholder="Mail" required #emailRef="ngModel">
-            <p class="error" *ngIf="emailRef.invalid && emailRef.touched">Bitte eine gültige E-Mail eingeben.</p>
+            <input [(ngModel)]="email" name="email" type="email" placeholder="Mail" required email #emailRef="ngModel">
+            <p class="error" *ngIf="emailRef.invalid && emailRef.touched">
+                Bitte eine gültige E-Mail eingeben.
+            </p>
+            
 
-            <input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required minlength="6" #passwordRef="ngModel">
+            <input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required minlength="6" #passwordRef="ngModel" autocomplete="off" [ngClass]="{'empty-field': !password}">
             <p class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
                 Passwort muss mindestens 6 Zeichen lang sein.
             </p>

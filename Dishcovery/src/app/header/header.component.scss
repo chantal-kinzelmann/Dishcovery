@@ -81,6 +81,15 @@ nav {
     transform: translateX(20px);
   }
 
+  .profile-button{
+    margin-right: 1rem;
+    .fa-solid {
+      margin-right: 0.5rem;
+    }
+
+  }
+  
+
   /* ✅ Responsives Design für kleinere Bildschirme */
 @media (max-width: 768px) {
     nav {

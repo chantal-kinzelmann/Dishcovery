@@ -2,7 +2,12 @@ h2 {
     margin-left: 10px;
 }
 
-.login-container {
+p {
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+
+.container-register {
     width: 500px;
     background-color: #7d9b76;
     padding: 20px;
@@ -19,27 +24,34 @@ h2 {
 }
 
 .left {
-    width: 55%;
+    width: 40%;
     margin-left: 10px;
 }
 
-.middle {
-    margin-left: 7px;
-    margin-right: 1px;
-    width: 100%;
+.center {
+    margin-top: 9px;
+    margin-left: 10%;
+    width: 80%;
     text-align: center;
 }
 
 .right {
-    margin-right: 12px;
-    width: 55%;
-    text-align: right;
+    margin-left: 20px;
+    width: 100%;
+    text-align: left;
 }
 
 button {
     width: 50%;
     padding: 8px;
     border-radius: 5px;
+    background-color: #ff7b00;
+    color: white;
+    border: none;
+
+    &:hover {
+        background-color: #e67e00;
+    }
 }
 
 input {
@@ -55,18 +67,21 @@ input {
         outline: 2px solid #ff7b00;
     }
 }
-.empty-field {
-    background-color: #f9f7dc !important; // Originalfarbe beibehalten
-  }
-  
 
-.register-link {
-    font-weight: bold;
+textarea {
+    min-width: 96%;
+    max-width: 96%;
+    min-height: 20%;
+    max-height: 40%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #f9f7dc;
     color: #272727;
-    text-decoration:bold;
-    font-size: 11px;
-    cursor: pointer;
-    &:hover {
-        text-decoration: underline;
+
+    &:focus {
+        outline: 2px solid #ff7b00;
     }
 }
+

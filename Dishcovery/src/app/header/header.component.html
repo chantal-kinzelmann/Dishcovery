@@ -22,7 +22,11 @@
         <span class="slider"></span>
       </label>
 
-      <app-login-button routerLink="/login"></app-login-button>
+
+    <button class="profile-button" *ngIf="isLoggedIn()" routerLink="/profile"><i class="fa-solid fa-user"></i>Profil</button>
+    <button *ngIf="!isLoggedIn()" routerLink="/login">Login</button>
+    <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+
     </div>
   </nav>
 </header>
