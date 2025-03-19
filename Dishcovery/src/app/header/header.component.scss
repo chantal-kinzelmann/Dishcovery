@@ -1,116 +1,160 @@
-head {
-    width: 100%;
-}
-
-a { 
-    text-decoration: none;
-}
-
-nav {
+/* ✅ Desktop-Layout */
+.desktop-layout {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 0 1rem; // Statt margin: 1%;
-  box-sizing: border-box; // Stellt sicher, dass padding die Breite nicht überschreitet
+  padding: 0 1rem;
+  box-sizing: border-box;
+  gap: 20px; /* Abstand zwischen Logo und Suchleiste */
 }
 
-
-.logo{
-    color: #6b805f;
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
+/* ✅ Mobiles Layout */
+.mobile-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  gap: 10px;
 }
 
-.search-container {
-    flex: 1; /* Macht die Suchleiste flexibel */
+/* ✅ Standard-Anzeige für große Bildschirme */
+.desktop-layout {
+  display: flex;
+}
+.mobile-layout {
+  display: none;
+}
+
+/* ✅ Mobile-Version nur auf kleinen Bildschirmen sichtbar */
+@media (max-width: 768px) {
+  .desktop-layout {
+    display: none;
+  }
+  .mobile-layout {
+    display: flex;
+  }
+
+  /* ✅ Abstand für Logo an den Rand (gleich wie bei der Suchleiste) */
+  .logo-search-wrapper {
+    margin-left: 10px; /* Der gleiche Abstand wie die Suchleiste */
+  }
+
+  /* ✅ Abstand für Darkmode-Toggle gleich wie zwischen Profil und Logout */
+  .search-darkmode-wrapper {
     display: flex;
     align-items: center;
-    max-width: 80%; /* Maximalbreite */
-    min-width: 20%; /* Verhindert zu kleine Darstellung */
-    background-color: #e0e0e0;
-    padding: 8px 16px;
-    border-radius: 15px;
-
+    gap: 15px; /* Abstand zwischen Suchleiste und Darkmode-Toggle */
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 5px; /* Fügt extra Platz nach oben hinzu */
   }
 
-/* Darkmode-Schieberegler */
+  /* ✅ Darkmode-Toggle erhält Abstand zum Rand */
+  .toggle-switch {
+    margin: 0 10px; /* Fügt Abstand links und rechts hinzu */
+  }
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.bottom-row {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ✅ Abstand zwischen Logo & Suchleiste */
+.logo-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Abstand zwischen Logo und Suchleiste */
+  flex: 1;
+}
+
+/* ✅ Abstand zur Suchleiste hinzugefügt */
+.search-darkmode-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Erhöht den Abstand zwischen den Komponenten */
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 5px; /* Fügt extra Platz nach oben hinzu */
+}
+
+/* ✅ Suchleiste passt sich flexibel an und hat nun Abstand */
+.search-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 15px;
+  min-width: 150px;
+  max-width: 100%;
+  margin-right: 10px; /* Abstand nach rechts */
+}
+
+/* ✅ Abstand zwischen Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ✅ Abstand für Login- & Logout-Buttons */
+.header-actions button {
+  margin-left: 5px;
+}
+
+/* ✅ Darkmode-Toggle behält ursprüngliches Design */
 .toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    margin-right: 2rem;
-  }
-  
-  .toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    border-radius: 20px;
-    transition: 0.4s;
-  }
-  
-  .slider:before {
-    content: "";
-    position: absolute;
-    height: 14px;
-    width: 14px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #ff7b00;
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(20px);
-  }
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
 
-  .profile-button{
-    margin-right: 1rem;
-    .fa-solid {
-      margin-right: 0.5rem;
-    }
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  }
-  
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: 0.4s;
+}
 
-  /* ✅ Responsives Design für kleinere Bildschirme */
-@media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .search-container {
-      width: 100%;
-      margin-top: 10px;
-      padding: 0;
-    }
-  
-    .search-bar {
-      width: 90%;
-    }
-  
-    .header-actions {
-      margin-top: 10px;
-    }
-  }
-  
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #ff7b00;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
