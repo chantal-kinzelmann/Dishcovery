@@ -5,7 +5,10 @@ import { MyFavoritesComponent } from "../my-favorites/my-favorites.component";
 import { MyRecipesComponent } from "../my-recipes/my-recipes.component";
 import {MyWatchListComponent } from '../my-watch-list/my-watch-list.component';
 import { RouterModule } from '@angular/router';
-import { NonNullableFormBuilder } from '@angular/forms';
+
+import { AuthService } from '../../services/auth-service/auth.service';
+
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -14,14 +17,16 @@ import { NonNullableFormBuilder } from '@angular/forms';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit{
-user: any = null;
+  
+  user: any = null;
+ 
+   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
+    ngOnInit() {
+      const userString = localStorage.getItem('user');
+      this.user = userString ? JSON.parse(userString) : null;
     }
-  }
+    
   activeCategory = 'rezepte';
 
 changeCategory(category: string) {
