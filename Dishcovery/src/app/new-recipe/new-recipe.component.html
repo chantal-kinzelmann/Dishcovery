@@ -1,1 +1,71 @@
-<p>new-recipe works!</p>
+<form #recipeForm="ngForm" (ngSubmit)="createRecipe(recipeForm)" enctype="multipart/form-data">
+
+    <!-- Rezeptname -->
+    <label for="title">Rezeptname</label>
+    <input type="text" id="title" name="title" required [(ngModel)]="recipe.title">
+  
+    <!-- Beschreibung -->
+    <label for="description">Kurzbeschreibung</label>
+    <textarea id="description" name="description" required [(ngModel)]="recipe.description"></textarea>
+  
+    <!-- Bild Upload -->
+    <label>Rezeptbild hochladen:</label>
+    <input type="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg" name="recipeImage">
+  
+    <!-- Schwierigkeit -->
+    <label>Schwierigkeitsgrad</label>
+    <select name="difficulty" required [(ngModel)]="recipe.difficulty">
+      <option value="easy">Einfach</option>
+      <option value="medium">Mittel</option>
+      <option value="hard">Schwer</option>
+    </select>
+  
+    <!-- Koch- & Vorbereitungszeit -->
+    <div class="cook-container">
+      <div>
+        <label>Vorbereitungszeit (Minuten)</label>
+        <input type="number" name="prepTime" required [(ngModel)]="recipe.prepTime">
+      </div>
+      <div>
+        <label>Kochzeit (Minuten)</label>
+        <input type="number" name="cookTime" required [(ngModel)]="recipe.cookTime">
+      </div>
+    </div>
+  
+    <!-- Zutaten -->
+<h3>Zutaten</h3>
+<div  *ngFor="let ingredient of recipe.ingredients; let i = index" class="ingredient-container">
+  <input type="text" placeholder="Zutat" name="ingredient{{i}}" [(ngModel)]="ingredient.name" required>
+  <input type="number" placeholder="Menge" name="amount{{i}}" [(ngModel)]="ingredient.amount" required>
+  <select name="unit{{i}}" [(ngModel)]="ingredient.unit">
+    <option value="g">g</option>
+    <option value="kg">kg</option>
+    <option value="ml">ml</option>
+    <option value="l">l</option>
+    <option value="tbsp">EL</option>
+    <option value="tsp">TL</option>
+    <option value="cup">Tasse</option>
+    <option value="piece">Stück</option>
+  </select>
+  <button type="button" (click)="removeIngredient(i)"><i class="fa-solid fa-trash"></i></button>
+</div>
+<button type="button" class="add-btn" (click)="addIngredient()">Weitere Zutat hinzufügen</button>
+
+    <!-- Tags -->
+    <h3>Tags</h3>
+    <div class="tag-container">
+      <input type="text" name="newTag" [(ngModel)]="newTag" placeholder="Tag hinzufügen">
+      <button type="button" class="add-btn" (click)="addTag()">Hinzufügen</button>
+    </div>
+    <div class="tag-container">
+      <span *ngFor="let tag of recipe.tags" class="tag">{{ tag }}</span>
+    </div>
+  
+    <!-- Rezeptanleitung -->
+    <h3>Zubereitung</h3>
+    <textarea name="text" required [(ngModel)]="recipe.text"></textarea>
+  
+    <!-- Absenden -->
+    <button type="submit" [disabled]="recipeForm.invalid">Rezept erstellen</button>
+  </form>
+  
