@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
-import { Recipe } from './recipe.type';
+import { Recipe, Tag } from './recipe.type';
 import { Observable } from 'rxjs';
 import { environment } from '../../app.config';
 
@@ -54,6 +54,14 @@ export class RecipeService {
   // DELETE: Rezept löschen
   deleteRecipe(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/recipe/${id}`);
+  }
+
+  getRecipesByTag(tagName: string): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/tag/${tagName}`).pipe(tap(recipes => console.log('Received recipes with tag ${tagName}:', recipes)));
+  }
+
+  getAllTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${this.apiUrl}/tags`).pipe(tap(tags => console.log('Received tags:', tags)));
   }
 }
 

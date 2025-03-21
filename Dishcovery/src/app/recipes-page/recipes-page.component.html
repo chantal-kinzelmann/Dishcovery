@@ -1,4 +1,22 @@
-<p>recipes-page works!</p>
+<div class="tags-container">
+  <h2>Filter by tags</h2>
+  <mat-chip-listbox>
+    <mat-chip-option
+      *ngFor="let tag of allTags"
+      [selected]="selectedTag === tag.name"
+      (click)="filterByTag(tag.name)"
+    >
+      {{ tag.name }}
+    </mat-chip-option>
+    <mat-chip-option *ngIf="selectedTag" (click)="clearFilter()"
+      >Clear filter</mat-chip-option
+    >
+  </mat-chip-listbox>
+</div>
+
+<h2 *ngIf="selectedTag">Recipes tagged with "{{ selectedTag }}"</h2>
+<h2 *ngIf="!selectedTag">All Recipes</h2>
+
 <div class="recipe-container">
   <ng-container *ngFor="let recipe of recipes$ | async">
     <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
