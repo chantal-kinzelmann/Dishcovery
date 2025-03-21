@@ -13,6 +13,9 @@ export class AuthService {
 
   isLoggedIn$ = this.loggedIn.asObservable(); // Observable für den Login-Status
 
+  private userSubject = new BehaviorSubject<any>(null);
+  user$ = this.userSubject.asObservable(); // User-Observable für andere Komponenten
+  
   constructor(private http: HttpClient) {}
 
   register(userData: { username: string; email: string; password: string }): Observable<any> {
@@ -29,6 +32,7 @@ export class AuthService {
         if (response && response.token) { // Nur wenn ein Token zurückkommt
           localStorage.setItem('token', response.token);
           this.loggedIn.next(true);
+          console.log(localStorage.getItem('token'));
         }
       })
     );
@@ -40,6 +44,19 @@ export class AuthService {
     localStorage.removeItem('user'); // User löschen
     this.loggedIn.next(false); // Status auf "ausgeloggt" setzen
   }
+
+
+  loadUser(userId: string) {  
+    if (userId) {
+      this.http.get(`${environment.apiUrl}/user/${userId}`).subscribe(user => {
+        this.userSubject.next(user); // Benutzer-Observable mit neuen Daten updaten
+        console.log('📥 Neue Daten:', user);
+        localStorage.setItem('user', JSON.stringify(user)); // Optional: User-Daten im LocalStorage spe
+      });
+    }
+  }
+  
+ 
 
 
 

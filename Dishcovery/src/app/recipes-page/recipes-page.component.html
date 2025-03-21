@@ -1,1 +1,6 @@
 <p>recipes-page works!</p>
+<div class="recipe-container">
+  <ng-container *ngFor="let recipe of recipes$ | async">
+    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+  </ng-container>
+</div>

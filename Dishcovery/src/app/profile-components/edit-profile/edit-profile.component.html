@@ -1,0 +1,17 @@
+<form class="container-register" #profileForm="ngForm">
+    <p>Lade hier dein Profilbild hoch:</p>
+    <input type="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg" name="profilePic">
+
+    <input type="text" placeholder="Benutzername" required [(ngModel)]="username" name="username">
+    <textarea placeholder="Profilbeschreibung" rows="4" cols="50" style="resize: none;" [(ngModel)]="profileText" name="profileText"></textarea>
+    <input type="email" placeholder="Mail" required [(ngModel)]="email" name="email">
+    <input type="password" placeholder="Altes Passwort" required [(ngModel)]="oldPassword" name="oldPassword">
+    <input type="password" placeholder="Neues Passwort" [(ngModel)]="newPassword" name="newPassword">
+    <input type="password" placeholder="Neues Passwort wiederholen" [(ngModel)]="repeatPassword" name="repeatPassword">
+
+    <div class="bottom">
+        <div class="center">
+            <button (click)="updateProfile()" >Änderungen speichern</button>
+        </div>
+    </div>
+</form>
