@@ -15,7 +15,6 @@ export class RecipesPageComponent {
   recipes$: Observable<Recipe[]>;
 
   constructor(private readonly recipeService: RecipeService) {
-    // this.recipes$ = this.recipeService.getRecipes();
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       tap(recipes => console.log('Received recipes:', recipes))
     );
