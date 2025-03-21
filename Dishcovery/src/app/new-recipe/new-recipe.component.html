@@ -1,11 +1,11 @@
 <form #recipeForm="ngForm" (ngSubmit)="createRecipe(recipeForm)" enctype="multipart/form-data">
 
     <!-- Rezeptname -->
-    <label for="title">Rezeptname</label>
+    <h3>Rezeptname</h3>
     <input type="text" id="title" name="title" required [(ngModel)]="recipe.title">
   
     <!-- Beschreibung -->
-    <label for="description">Kurzbeschreibung</label>
+    <h3>Kurzbeschreibung</h3>
     <textarea id="description" name="description" required [(ngModel)]="recipe.description"></textarea>
   
     <!-- Bild Upload -->
@@ -13,7 +13,7 @@
     <input type="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg" name="recipeImage">
   
     <!-- Schwierigkeit -->
-    <label>Schwierigkeitsgrad</label>
+    <h3>Schwierigkeitsgrad</h3>
     <select name="difficulty" required [(ngModel)]="recipe.difficulty">
       <option value="easy">Einfach</option>
       <option value="medium">Mittel</option>
@@ -22,21 +22,24 @@
   
     <!-- Koch- & Vorbereitungszeit -->
     <div class="cook-container">
-      <div>
-        <label>Vorbereitungszeit (Minuten)</label>
-        <input type="number" name="prepTime" required [(ngModel)]="recipe.prepTime">
+        <div>
+          <h3>Vorbereitungszeit (Minuten)</h3>
+          <input type="number" name="prepTime" required [(ngModel)]="recipe.prepTime"
+                 min="0" step="1" pattern="\d*" (keypress)="validateNumberInput($event)">
+        </div>
+        <div>
+          <h3>Kochzeit (Minuten)</h3>
+          <input type="number" name="cookTime" required [(ngModel)]="recipe.cookTime"
+                 min="0" step="1" pattern="\d*" (keypress)="validateNumberInput($event)">
+        </div>
       </div>
-      <div>
-        <label>Kochzeit (Minuten)</label>
-        <input type="number" name="cookTime" required [(ngModel)]="recipe.cookTime">
-      </div>
-    </div>
+      
   
     <!-- Zutaten -->
 <h3>Zutaten</h3>
 <div  *ngFor="let ingredient of recipe.ingredients; let i = index" class="ingredient-container">
   <input type="text" placeholder="Zutat" name="ingredient{{i}}" [(ngModel)]="ingredient.name" required>
-  <input type="number" placeholder="Menge" name="amount{{i}}" [(ngModel)]="ingredient.amount" required>
+  <input type="number" placeholder="Menge" name="amount{{i}}" [(ngModel)]="ingredient.amount" (keypress)="validateNumberInput($event)" required>
   <select name="unit{{i}}" [(ngModel)]="ingredient.unit">
     <option value="g">g</option>
     <option value="kg">kg</option>
@@ -58,7 +61,7 @@
       <button type="button" class="add-btn" (click)="addTag()">Hinzufügen</button>
     </div>
     <div class="tag-container">
-      <span *ngFor="let tag of recipe.tags" class="tag">{{ tag }}</span>
+        <mat-chip class="tags"*ngFor="let tag of recipe.tags" class="tag">{{ tag }}</mat-chip>
     </div>
   
     <!-- Rezeptanleitung -->

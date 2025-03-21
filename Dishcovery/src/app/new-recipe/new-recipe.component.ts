@@ -5,10 +5,11 @@ import { environment } from '../app.config';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatChip, MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-new-recipe',
-  imports: [RecipeDetailComponent,FormsModule,CommonModule],
+  imports: [RecipeDetailComponent,FormsModule,CommonModule,MatChipsModule],
   templateUrl: './new-recipe.component.html',
   styleUrl: './new-recipe.component.scss'
 })
@@ -75,18 +76,25 @@ export class NewRecipeComponent {
     }
   }
 
-  // Rezept speichern
-  createRecipe(form: any) {
-    if (form.valid) {
-      this.recipe.userId = this.getUserId(); // Nutzer-ID aus LocalStorage holen
-      console.log("📤 Sende Rezept:", this.recipe);
-
-      this.http.post(this.apiUrl, this.recipe).subscribe(
-        response => console.log("✅ Rezept gespeichert!", response),
-        error => console.error("⚠ Fehler beim Speichern:", error)
-      );
+  validateNumberInput(event: KeyboardEvent) {
+    const charCode = event.key.charCodeAt(0);
+    if (charCode < 48 || charCode > 57) { // 48–57 sind '0' bis '9'
+      event.preventDefault();
     }
   }
+
+  createRecipe(form: any) {
+    if (form.valid) {
+      this.recipe.userId = this.getUserId(); // Nutzer-ID holen
+      console.log("📤 Sende Rezept:", this.recipe);
+  
+      this.http.post(this.apiUrl, this.recipe).subscribe({
+        next: (response) => console.log("✅ Rezept gespeichert!", response),
+        error: (error) => console.error("⚠ Fehler beim Speichern:", error),
+      });
+    }
+  }
+  
 
   // Nutzer-ID aus LocalStorage holen
   getUserId() {
