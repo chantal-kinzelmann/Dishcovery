@@ -1,10 +1,8 @@
 <header class="header">
-  <nav>
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
+
+  <!-- ✅ Desktop-Layout (Standard für große Bildschirme) -->
+  <nav class="desktop-layout">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <p class="logo">Dishcovery</p>
     </a>
 
@@ -14,19 +12,46 @@
 
     <div class="header-actions">
       <label class="toggle-switch">
-        <input
-          type="checkbox"
-          (change)="toggleDarkMode()"
-          [checked]="isDarkMode"
-        />
+        <input type="checkbox" (change)="toggleDarkMode()" [checked]="isDarkMode" />
         <span class="slider"></span>
       </label>
 
-
-    <button class="profile-button" *ngIf="isLoggedIn()" routerLink="/profile"><i class="fa-solid fa-user"></i>Profil</button>
-    <button *ngIf="!isLoggedIn()" routerLink="/login">Login</button>
-    <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
-
+      <button class="profile-button" *ngIf="isLoggedIn()" routerLink="/profile">
+        <i class="fa-solid fa-user"></i> Profil
+      </button>
+      <button *ngIf="!isLoggedIn()" routerLink="/login">Login</button>
+      <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
     </div>
   </nav>
+
+  <!-- ✅ Mobiles Layout (nur für kleine Bildschirme) -->
+  <nav class="mobile-layout">
+    <div class="top-row">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <p class="logo">Dishcovery</p>
+      </a>
+
+      <div class="header-actions">
+        <button class="profile-button" *ngIf="isLoggedIn()" routerLink="/profile">
+          <i class="fa-solid fa-user"></i> Profil
+        </button>
+        <button *ngIf="!isLoggedIn()" routerLink="/login">Login</button>
+        <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="search-darkmode-wrapper">
+        <div class="search-container">
+          <app-searchbar></app-searchbar>
+        </div>
+
+        <label class="toggle-switch">
+          <input type="checkbox" (change)="toggleDarkMode()" [checked]="isDarkMode" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </nav>
+
 </header>
