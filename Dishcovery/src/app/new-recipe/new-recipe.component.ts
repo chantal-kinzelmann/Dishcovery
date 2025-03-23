@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
-import { RecipeDetailComponent } from '../recipe-detail/recipe-detail.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../app.config';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatChip, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-recipe',
-  imports: [RecipeDetailComponent,FormsModule,CommonModule,MatChipsModule],
+  imports: [FormsModule,CommonModule,MatChipsModule],
   templateUrl: './new-recipe.component.html',
   styleUrl: './new-recipe.component.scss'
 })
+
 export class NewRecipeComponent {
-  
+ 
+
   recipe: {
     userId: string | null;
     title: string;
@@ -22,10 +23,10 @@ export class NewRecipeComponent {
     difficulty: string;
     prepTime: number;
     cookTime: number;
-    ingredients: { name: string; amount: number; unit: string }[]; // 🟢 Array von Zutaten
-    tags: string[]; // 🟢 Array von Tags
+    ingredients: { name: string; amount: number; unit: string }[]; 
+    tags: string[]; 
     text: string;
-    imgUrl?: string; // 🟢 Bild-URL
+    imgUrl?: string; 
   } = {
     userId: null,
     title: '',
@@ -34,7 +35,7 @@ export class NewRecipeComponent {
     prepTime: 0,
     cookTime: 0,
     ingredients: [
-      { name: '', amount: 0, unit: 'g' } // 🔥 Startet mit einer Zutat
+      { name: '', amount: 0, unit: 'g' } 
     ],
     tags: [],
     text: '',
@@ -43,8 +44,10 @@ export class NewRecipeComponent {
 
   newTag = '';
   private apiUrl = `${environment.apiUrl}/recipe`;
+  showSuccessModal = false;
+  recipeIdNav: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Bild hochladen
   onFileSelected(event: Event) {
@@ -86,14 +89,33 @@ export class NewRecipeComponent {
   createRecipe(form: any) {
     if (form.valid) {
       this.recipe.userId = this.getUserId(); // Nutzer-ID holen
+      
       console.log("📤 Sende Rezept:", this.recipe);
   
-      this.http.post(this.apiUrl, this.recipe).subscribe({
-        next: (response) => console.log("✅ Rezept gespeichert!", response),
-        error: (error) => console.error("⚠ Fehler beim Speichern:", error),
+      this.http.post<{ id: number }>(this.apiUrl, this.recipe).subscribe({
+        next: (response) => {
+          console.log("✅ Rezept gespeichert!", response);
+          this.recipeIdNav = response.id;
+          this.showSuccessModal = true; // 👉 Modal anzeigen
+        },
+        error: (error) => {
+          console.error("⚠ Fehler beim Speichern:", error);
+        },
       });
     }
   }
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
+    this.showSuccessModal =false;
+  }
+
+  goToRecipe(){
+     //TODO, recipeId ist unter recipeIdNav
+     this.router.navigate(['/recipe-page']);
+    this.showSuccessModal =false;
+  }
+  
   
 
   // Nutzer-ID aus LocalStorage holen

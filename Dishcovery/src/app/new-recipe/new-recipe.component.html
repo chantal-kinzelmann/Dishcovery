@@ -1,5 +1,15 @@
 <form #recipeForm="ngForm" (ngSubmit)="createRecipe(recipeForm)" enctype="multipart/form-data">
 
+    <!-- ✅ Erfolgs-Modal -->
+<div class="modal" *ngIf="showSuccessModal">
+    <div class="modal-content">
+      <h2>Rezept erfolgreich erstellt! 🎉</h2>
+      <p>Dein Rezept wurde gespeichert und ist jetzt sichtbar.</p>
+      <button (click)="goToRecipe()">Zum Rezept</button>
+      <button (click)="goToProfile()">Zum Profil</button>
+    </div>
+  </div>
+  
     <!-- Rezeptname -->
     <h3>Rezeptname</h3>
     <input type="text" id="title" name="title" required [(ngModel)]="recipe.title">
