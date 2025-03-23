@@ -36,6 +36,13 @@ export class RecipeService {
     );
   }
 
+  //GET: Rezepte von User abrufen
+  getRecipesByUser(userId: number): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/by-user/${userId}`);
+  }
+  
+  
+
   // GET: Einzelnes Rezept abrufen
   getRecipeById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/recipe/${id}`);
