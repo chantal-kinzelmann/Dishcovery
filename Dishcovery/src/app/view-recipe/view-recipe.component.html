@@ -5,10 +5,11 @@
     <div id="recipe-overview">
 
         <div id="ImgAndTags">
-            <img src={{recipe.imgUrl}}>
+            <img class="profile-pic" *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" alt="Kein Rezept Bild gefunden">
+            <img class="profile-pic" *ngIf="recipe && !recipe.imgUrl" src="https://static.vecteezy.com/system/resources/previews/047/411/214/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg" alt="Kein Rezept Bild gefunden">            
             <div id="tags">
                 @for (tag of recipe.tags; track tag.id) {
-                    <p class="tag">{{tag.name}}</p>
+                    <mat-chip class="tag">{{tag.name}}</mat-chip>
                 }
             </div>
         </div>
@@ -18,7 +19,7 @@
             
             <hr>
     
-            <div>
+            <div id="timeAndNiveau_Container">
                 <p>Gesamtzeit: {{(recipe.prepTime + recipe.cookTime)}} min</p>
                 <p>Niveau: {{recipe.difficulty}}</p>
                 <p>Vorbereitung: {{recipe.prepTime}} min</p>
@@ -38,8 +39,8 @@
     
             <div class="profil">
                 <div class="profilePic-container">
-                    <img src={{recipe.user.username}}
-                     alt="Profilbild" class="profilbild">
+                    <img class="profile-pic" *ngIf="recipe.user?.userImgUrl" [src]="recipe.user.userImgUrl" alt="Profilbild">
+                    <img class="profile-pic" *ngIf="recipe.user && !recipe.user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" alt="Standard Profilbild">
                 </div>
     
                 <div class="profile-info">Rezept von {{recipe.user.username}}</div>
@@ -128,7 +129,8 @@
             <div class="comment">
                 <div class="profil">
                     <div class="profilePic-container">
-                        <img src={{rating.user}} class="profilbild">
+                        <img class="profile-pic" *ngIf="rating.user?.userImgUrl" [src]="rating.user.userImgUrl" alt="Profilbild">
+                        <img class="profile-pic" *ngIf="rating.user && !rating.user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" alt="Standard Profilbild">
                     </div>
                     <div class="profile-info">{{rating.user.username}}</div>
                 </div>

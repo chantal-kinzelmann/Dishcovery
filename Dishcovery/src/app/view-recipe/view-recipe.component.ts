@@ -5,10 +5,12 @@ import { Recipe } from '../services/recipe-services/recipe.type';
 import { Subscription } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @Component({
   selector: 'app-view-recipe',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, MatChipsModule],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.scss'
 })
