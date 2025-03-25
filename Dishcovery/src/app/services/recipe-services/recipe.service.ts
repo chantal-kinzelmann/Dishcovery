@@ -45,7 +45,7 @@ export class RecipeService {
 
   // GET: Einzelnes Rezept abrufen
   getRecipeById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/recipe/${id}`);
+    return this.http.get<Recipe>(`${this.apiUrl}/recipe/${id}`);
   }
 
   // POST: Neues Rezept erstellen

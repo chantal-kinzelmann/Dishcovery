@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent }, //Profil
   { path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
   { path: 'login', component: LoginComponent}, //Login
-  { path: 'view-recipe', component: ViewRecipeComponent}, 
+  { path: 'view-recipe/:id', component: ViewRecipeComponent}, 
   { path: 'register', component: RegisterComponent}, //Registrieren
   { path: 'home', component: HomepageComponent }, // Startseite
   { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
@@ -24,7 +24,12 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      anchorScrolling: 'enabled', // Aktiviert das Scrollen zu Fragmenten
+      scrollPositionRestoration: 'enabled' // Stellt die Scroll-Position nach dem Navigieren wieder her
+    })
+  ],
     exports: [RouterModule]
    })
    export class AppRoutingModule { }

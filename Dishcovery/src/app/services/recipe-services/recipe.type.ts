@@ -1,3 +1,5 @@
+import { User } from "../user-services/user.type";
+
 export type BaseEntity = {
   id: string;
   createdAt: Date;
@@ -13,16 +15,16 @@ export type Recipe = {
   difficulty: 'easy' | 'medium' | 'hard';
   prepTime: number;
   cookTime: number;
+  servings: number; //Menge der Portionen, für welche das Rezept gedacht ist
   ratings: Rating[];
   ingredients: Ingredient[];
-  userId: string; // Referenz auf die user.id des Erstellers
+  user: User; // Referenz auf den Ersteller
   updatedAt: Date;
   tags: Tag[];
   };
 
   // Zutaten mit Menge und Einheit
 export type Ingredient = {
-  servings: string; // Für wie viel Portionen die Werte sind
   name: string;
   amount: number;
   unit: 'g' | 'kg' | 'ml' | 'l' | 'tbsp' | 'tsp' | 'cup' | 'piece';
@@ -32,7 +34,7 @@ export type Ingredient = {
 export type Rating = {
   id: string;
   createdAt: Date;
-  userId: string;
+  user: User; // Referenz auf den Ersteller
   rating: 1 | 2 | 3 | 4 | 5;
   comment?: string;
   updatedAt: Date;

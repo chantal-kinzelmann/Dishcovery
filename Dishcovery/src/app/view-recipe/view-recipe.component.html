@@ -1,166 +1,152 @@
-<h1>Das Rezept</h1>
+<div *ngIf="recipe; ">
 
-<div id="recipe-overview">
+    <h1>{{recipe.title}}</h1>
 
-    <div id="ImgAndTags">
-        <img src="https://sayingimages.com/wp-content/uploads/Installing-window-updates-Skeleton-Memes.jpg.webp">
-        <div>
-            <p class="tag">tag1</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag1</p>
-            <p class="tag">tag1</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
-            <p class="tag">tag2</p>
+    <div id="recipe-overview">
+
+        <div id="ImgAndTags">
+            <img src={{recipe.imgUrl}}>
+            <div id="tags">
+                @for (tag of recipe.tags; track tag.id) {
+                    <p class="tag">{{tag.name}}</p>
+                }
+            </div>
         </div>
-    </div>
-
-
-    <div id="overviewContainer">
-        
-        <hr>
-
-        <div>
-            <p>Gesamtzeit: </p>
-            <p>Niveau: </p>
-        </div>
-
-
-        <a href="/view-recipe#yourComment">
-            <div class="rating-container">
+    
+    
+        <div id="overviewContainer">
+            
+            <hr>
+    
+            <div>
+                <p>Gesamtzeit: {{(recipe.prepTime + recipe.cookTime)}} min</p>
+                <p>Niveau: {{recipe.difficulty}}</p>
+                <p>Vorbereitung: {{recipe.prepTime}} min</p>
+                <p>Kochzeit: {{recipe.cookTime}} min</p>
+            </div>
+    
+    
+            <a (click)="navigateToComments()">
                 <i
-                  class="material-icons"
-                  style="color: #ff7b00"
-                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                    class="material-icons"
+                    style="color: #ff7b00"
+                    *ngFor="let star of [1, 2, 3, 4, 5]"
                 >
-                  {{ star <= currentRating ? "star" : "star_border" }}
+                    {{ star <= 0 ? "star" : "star_border" }}
                 </i>
-              </div>
-        </a>
+            </a>
+    
+            <div class="profil">
+                <div class="profilePic-container">
+                    <img src={{recipe.user.username}}
+                     alt="Profilbild" class="profilbild">
+                </div>
+    
+                <div class="profile-info">Rezept von {{recipe.user.username}}</div>
+            </div>
+    
+            <p>{{recipe.description}}</p>
+            
+            <button class="remember_btn">Merken</button>
+            <button class="toFavorite_btn">Favoritisieren</button>
+        </div>
+    
+    </div>
 
-        <div class="creator">
-            <div class="profilePic-container">
-                <img src="https://imgs.search.brave.com/QbD5S2t95bXa74vbbjwUVTHowS5wspXqSTX2bS-eo14/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2RiLzA4/LzBmL2RiMDgwZmNl/YjlmYTYxNjMxNWJk/NmY5YzNiOGE5NjMy/LmpwZw"
-                 alt="Profilbild" class="profilbild">
+    <!--Zutaten und Zubereitung-->
+    <main>
+    
+        <section>
+            <h2>Zutaten</h2>
+
+            <div id="portion-interface">
+                <button (click)="decrement()">–</button>
+                <p>{{servings}} Portionen</p>
+                <button (click)="increment()">+</button>
             </div>
 
-            <div class="profile-info">Rezept von Name</div>
-        </div>
+            <hr>
+            <table>
+                
+                    @for (ingredient of recipe.ingredients; track ingredient) {
+                    <tr>
+                        <td>{{ingredient.name}}</td>
+                        <td>{{ingredient.amount * ingredientMuliplier | number:'1.0-2' }} {{ingredient.unit}}</td>
+                    </tr>
+                    }
+                
+            </table>
+            <hr>
 
-        <p>Kleine einfache Beschreibung. Einfach superlecker dieser saftige Schokoladenkuchen vom
-            Blech. Der Schoko-traum wird mit einer feinen Schokoglasur
-            überzogen und schön dekoriert serviert. Wer kann da schon
-            widerstehen?!
-        </p>
+        </section>
+
+        <section>
+            <h2>Zubereitung</h2>
+            <p>
+                {{recipe.text}}
+            </p>
+        </section>
+        <hr>
+
+    </main>
+
+
+    <div id="comments">
+
+        <h2>Kommentare</h2>
+
+        <form id="yourComment" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+            <label for="commentText">Dein Kommentar:</label><br>
+            <textarea placeholder="Comment" name="commentText" id="commentText" required minlength="5" ngModel #commentTest="ngModel"></textarea>
+
+            <!--5 Star Rating-->
+            <div class="rating">
+                    <input id="rating1" type="radio" class="starRadio" name="rating" value=1 (change)="setRating(1)" required ngModel #rating="ngModel"/>
+                    <label for="rating1" class="material-icons" style="color: #ff7b00">{{ 1 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating2" type="radio" class="starRadio" name="rating" value=2 (change)="setRating(2)" required ngModel #rating="ngModel"/>
+                    <label for="rating2" class="material-icons" style="color: #ff7b00">{{ 2 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating3" type="radio" class="starRadio" name="rating" value=3 (change)="setRating(3)" required ngModel #rating="ngModel"/>
+                    <label for="rating3" class="material-icons" style="color: #ff7b00">{{ 3 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating4" type="radio" class="starRadio" name="rating" value=4 (change)="setRating(4)" required ngModel #rating="ngModel"/>
+                    <label for="rating4" class="material-icons" style="color: #ff7b00">{{ 4 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating5" type="radio" class="starRadio" name="rating" value=5 (change)="setRating(5)" required ngModel #rating="ngModel"/>
+                    <label for="rating5" class="material-icons" style="color: #ff7b00">{{ 5 <= userRating ? "star" : "star_border" }}</label>
+            </div>
+
+            <!--Fehler Meldung-->
+            <div *ngIf="commentTest.touched && !commentTest.valid">
+                - Kommentar muss mindestens 5 Zeichen lang sein
+            </div>
+            <div *ngIf="commentTest.touched && !rating.valid">- Bitte geben sie ihre Bewertung an</div>
+
+            <button type="submit" [disabled]="!form.valid">Absenden</button>
+        </form>
+
+
+        @for (rating of recipe.ratings; track rating) {
+            <div class="comment">
+                <div class="profil">
+                    <div class="profilePic-container">
+                        <img src={{rating.user}} class="profilbild">
+                    </div>
+                    <div class="profile-info">{{rating.user.username}}</div>
+                </div>
         
-        <button class="remember_btn">Merken</button>
-        <button class="toFavorite_btn">Favoritisieren</button>
+                <i
+                class="material-icons"
+                style="color: #ff7b00"
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                >
+                {{ star <= rating.rating ? "star" : "star_border" }}
+                </i>
+        
+                <p>{{rating.comment}}</p>
+        
+        
+            </div>}
+        <br>
     </div>
-
 </div>
-
-<!--Zutaten und Zubereitung-->
-<main>
-
-    <section>
-        <h2>Zutaten</h2>
-
-        <div id="portion-interface">
-            <button (click)="decrement()">-</button>
-            <p>{{portions}} Portionen</p>
-            <button (click)="increment()">+</button>
-        </div>
-
-        <hr>
-        <table>
-            <tr>
-                <td>es</td>
-                <td>2g</td>
-            </tr>
-        </table>
-        <hr>
-
-    </section>
-
-    <section>
-        <h2>Zubereitung</h2>
-        <p>
-            Für saftige Schokoladen-Brownies heize zuerst den Backofen auf 180 °C
-            (Ober-/Unterhitze) vor und lege eine quadratische Backform (ca. 20x20 cm)
-            mit Backpapier aus oder fette sie ein. Schmelze dann 200 g
-            Zartbitterschokolade zusammen mit 150 g Butter über einem Wasserbad
-            oder in der Mikrowelle und rühre die Masse glatt. Lass sie kurz abkühlen.
-            Währenddessen schlägst du 3 Eier mit 150 g Zucker schaumig, bis die
-            Mischung hell und cremig ist. Rühre die geschmolzene Schokoladen-Butter-
-            Mischung unter. In einer separaten Schüssel vermischst du 100 g Mehl, 30 g
-            Kakaopulver, 1 TL Backpulver und eine Prise Salz. Hebe die trockenen Zutaten
-            vorsichtig unter die Schokoladenmasse. Falls gewünscht, kannst du noch 50
-            g gehackte Walnüsse oder Schokoladenstückchen hinzufügen. Fülle den Teig
-            in die vorbereitete Backform und streiche ihn glatt. Backe die Brownies für
-            etwa 20–25 Minuten, bis sie außen fest, aber innen noch leicht feucht sind.
-            Lass sie vollständig abkühlen, bevor du sie in Stücke schneidest und genießt.
-            Guten Appetit!
-        </p>
-    </section>
-    <hr>
-
-</main>
-
-
-<div id="comments">
-
-    <h2>Kommentare</h2>
-
-    <form id="yourComment" #form="ngForm" (ngSubmit)="onSubmit(form)">
-
-        <label for="commentText">Dein Kommentar:</label><br>
-        <textarea placeholder="Comment" name="commentText" id="commentText" required minlength="5" ngModel #commentTest="ngModel"></textarea>
-
-        <!--5 Star Rating-->
-        <div class="rating">
-                <input id="rating1" type="radio" class="starRadio" name="rating" value=1 (change)="setRating(1)" required ngModel #rating="ngModel"/>
-                <label for="rating1" class="material-icons" style="color: #ff7b00">{{ 1 <= userRating ? "star" : "star_border" }}</label>
-                <input id="rating2" type="radio" class="starRadio" name="rating" value=2 (change)="setRating(2)" required ngModel #rating="ngModel"/>
-                <label for="rating2" class="material-icons" style="color: #ff7b00">{{ 2 <= userRating ? "star" : "star_border" }}</label>
-                <input id="rating3" type="radio" class="starRadio" name="rating" value=3 (change)="setRating(3)" required ngModel #rating="ngModel"/>
-                <label for="rating3" class="material-icons" style="color: #ff7b00">{{ 3 <= userRating ? "star" : "star_border" }}</label>
-                <input id="rating4" type="radio" class="starRadio" name="rating" value=4 (change)="setRating(4)" required ngModel #rating="ngModel"/>
-                <label for="rating4" class="material-icons" style="color: #ff7b00">{{ 4 <= userRating ? "star" : "star_border" }}</label>
-                <input id="rating5" type="radio" class="starRadio" name="rating" value=5 (change)="setRating(5)" required ngModel #rating="ngModel"/>
-                <label for="rating5" class="material-icons" style="color: #ff7b00">{{ 5 <= userRating ? "star" : "star_border" }}</label>
-        </div>
-
-        <!--Fehler Meldung-->
-        <div *ngIf="commentTest.touched && !commentTest.valid">
-            - Kommentar muss mindestens 5 Zeichen lang sein
-        </div>
-        <div *ngIf="commentTest.touched && !rating.valid">- Bitte geben sie ihre Bewertung an</div>
-
-        <button type="submit" [disabled]="!form.valid">Absenden</button>
-      </form>
-
-
-    <div class="comment">
-        <div class="creator">
-            <div class="profilePic-container">
-                <img src=""
-                 alt="P" class="profilbild">
-            </div>
-            <div class="profile-info">Rezept von Name</div>
-        </div>
-
-        <p>
-            Kommentar: Für saftige Schokoladen-Brownies heize zuerst den Backofen auf 180 °C (Ober-/Unterhitze) vor und lege eine quadratische Backform (ca. 20x20 cm) mit Backpapier aus oder fette sie ein. Schmelze dann 200 g Zartbitterschokolade zusammen mit 150 g Butter über einem Wasserbad oder in der Mikrowelle und rühre die Masse glatt. Lass sie kurz abkühlen. Währenddessen schlägst du 3 Eier mit 150 g Zucker schaumig, bis die Mischung hell und cremig ist. Rühre die geschmolzene Schokoladen-Butter- Mischung unter. In einer separaten Schüssel vermischst d
-        </p>
-    </div>
-    <br>
-</div>
-
 
 
