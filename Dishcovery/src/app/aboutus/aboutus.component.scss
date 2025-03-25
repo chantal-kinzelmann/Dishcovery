@@ -8,17 +8,22 @@
       margin-bottom: 1rem;
     }
   
-    .intro, .mission, .tech {
+    .intro,
+    .mission,
+    .tech {
       margin-bottom: 2rem;
       text-align: center;
     }
   
     .team-section {
+      text-align: center;
+  
       .team-members {
         display: flex;
         justify-content: center;
         gap: 2rem;
         flex-wrap: wrap;
+        margin-bottom: 1.5rem;
   
         .member {
           text-align: center;
@@ -42,9 +47,17 @@
           }
         }
       }
+  
+      .groupPic {
+        display: block;
+        margin: 2rem auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
     }
   
-    ul {
+    .tech ul {
       list-style: none;
       padding: 0;
   
