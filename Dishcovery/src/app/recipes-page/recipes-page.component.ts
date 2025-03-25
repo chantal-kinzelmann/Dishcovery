@@ -161,4 +161,8 @@ export class RecipesPageComponent implements OnInit {
       ingredients: []
     });
   }
+
+  clearTags() {
+    this.selectedTagsSubject.next([]);
+  }
 }
