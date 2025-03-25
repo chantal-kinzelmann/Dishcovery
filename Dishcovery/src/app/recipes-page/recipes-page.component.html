@@ -1,22 +1,26 @@
 <div class="tags-container">
   <h2>Filter by tags</h2>
-  <mat-chip-listbox>
+  <mat-chip-listbox selectable multiple>
     @for (tag of (allTags$ | async); track tag) {
-    <mat-chip-option [value]="tag">{{ tag }}</mat-chip-option>
+    <mat-chip-option
+      [selected]="(selectedTags$ | async)?.includes(tag)"
+      (click)="toggleTag(tag)"
+    >
+      {{ tag }}
+    </mat-chip-option>
     }
+    <mat-chip (click)="clearTags()">Clear All</mat-chip>
   </mat-chip-listbox>
 </div>
 
-@if (recipesByTag$ | async; as recipesByTag) { @for (tag of (allTags$ | async);
-track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
-<section class="tag-section">
-  <h2>{{ tag }} Recipes</h2>
-  <div class="recipe-container">
-    @for (recipe of recipesByTag[tag]; track recipe.id) {
-    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
-    }
-  </div>
-</section>
-} } } @else {
-<p>No recipes found.</p>
+<!-- Display filtered recipes -->
+<div class="recipe-container">
+  @for (recipe of (filteredRecipes$ | async); track recipe.id) {
+  <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+  }
+</div>
+
+<!-- Show message if no recipes match -->
+@if (!(filteredRecipes$ | async)?.length) {
+<p>No recipes match the selected tags.</p>
 }
