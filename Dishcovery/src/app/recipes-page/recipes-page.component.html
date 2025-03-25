@@ -1,16 +1,10 @@
 <div class="tags-container">
   <h2>Filter by tags</h2>
   <mat-chip-listbox>
-    <mat-chip-option
-      *ngFor="let tag of allTags"
-      [selected]="selectedTag === tag.name"
-      (click)="filterByTag(tag.name)"
-    >
-      {{ tag.name }}
-    </mat-chip-option>
-    <mat-chip-option *ngIf="selectedTag" (click)="clearFilter()"
-      >Clear filter</mat-chip-option
-    >
+    @for (tag of allTags$ | async; track tag) {
+    <mat-chip-option [value]="tag" {{ tag }}> </mat-chip-option>
+    }
+    <mat-chip-option>Clear filter</mat-chip-option>
   </mat-chip-listbox>
 </div>
 

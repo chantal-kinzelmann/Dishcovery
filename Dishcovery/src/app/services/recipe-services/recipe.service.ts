@@ -13,17 +13,6 @@ export class RecipeService {
   constructor(private readonly http:HttpClient) { }
   private apiUrl = environment.apiUrl;
 
-  // recieveProducts() {
-  //   const result$ = this.http.get<{ recipes: Recipe[] }>(
-  //     "http://localhost:5000/recipe"
-  //   );
-  //   return result$.pipe(
-  //     map( (body: {recipes: Recipe[]}) => {   // typisiert den product: Product[] und macht ihn sozusagen "verarbeitbar" und nur das Array wird zurückgegeben 
-  //       return body.recipes;
-  //     })
-  //   );
-  // }
-
   // API-Anfrage: Alle Rezepte abrufen
   getRecipes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/recipe`);
@@ -59,13 +48,7 @@ export class RecipeService {
   getRecipesByTag(tagName: string): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/tag/${tagName}`).pipe(tap(recipes => console.log('Received recipes with tag ${tagName}:', recipes)));
   }
-
-  getAllTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${this.apiUrl}/tags`).pipe(tap(tags => console.log('Received tags:', tags)));
-  }
 }
-
-
 
 
 
