@@ -51,6 +51,7 @@
     <div>
       <h3>Vorbereitungszeit (Minuten)</h3>
       <input
+      class="prepTime"
         type="number"
         name="prepTime"
         required
@@ -65,6 +66,7 @@
     <div>
       <h3>Kochzeit (Minuten)</h3>
       <input
+      class="cookTime"
         type="number"
         name="cookTime"
         required
@@ -78,8 +80,27 @@
     </div>
   </div>
 
+
+    <!-- Portionen -->
+  <div>
+    <h3>Portionen</h3>
+    <input
+    class="servings"
+      type="number"
+      name="servings"
+      required
+      [(ngModel)]="recipe.servings"
+      min="1"
+      step="1"
+      #servingsRef="ngModel"
+      (keypress)="validateNumberInput($event)"
+    />
+    <p class="error" *ngIf="servingsRef.invalid && recipeForm.submitted">Bitte Anzahl der Portionen angeben!</p>
+  </div>
+  
+
   <!-- Zutaten -->
-  <h3>Zutaten</h3>
+  <h3>Zutaten</h3>  
   <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="ingredient-container">
     <div>
       <input
@@ -123,8 +144,12 @@
   
     <button type="button" (click)="removeIngredient(i)">
       <i class="fa-solid fa-trash"></i>
-    </button>
+    </button>  
   </div>
+    
+   <button type="button" class="add-btn-ingredient" (click)="addIngredient()">
+    <i class="fa-solid fa-plus"></i>
+  </button>
   
 
   <!-- Tags -->

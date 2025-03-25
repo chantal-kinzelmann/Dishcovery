@@ -27,6 +27,7 @@ export class NewRecipeComponent {
     tags: string[]; 
     text: string;
     imgUrl?: string; 
+    servings: number;
   } = {
     userId: null,
     title: '',
@@ -39,7 +40,8 @@ export class NewRecipeComponent {
     ],
     tags: [],
     text: '',
-    imgUrl: ''
+    imgUrl: '',
+    servings: 1
   };
 
   newTag = '';
