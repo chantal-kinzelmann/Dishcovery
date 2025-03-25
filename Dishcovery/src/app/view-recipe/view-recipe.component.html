@@ -1,4 +1,12 @@
-<div *ngIf="recipe; ">
+<!-- Keine Rezept gefunden -->
+<div class="no-recipes" *ngIf="!recipe && !loading">
+ <p>Das gesuchte Rezepte konnte nicht gefunden werden</p>
+ <p>Vielleicht findest du hier etwas...</p>
+ <button [routerLink]="['/recipe-page']">zu den Rezepten</button>
+</div>
+
+<!-- Rezept gefunden -->
+<div *ngIf="recipe && !loading">
 
     <h1>{{recipe.title}}</h1>
 

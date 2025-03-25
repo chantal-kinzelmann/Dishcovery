@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Recipe } from '../services/recipe-services/recipe.type';
 
 @Component({
@@ -13,7 +14,8 @@ import { Recipe } from '../services/recipe-services/recipe.type';
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './small-recipe-card.component.html',
   styleUrl: './small-recipe-card.component.scss',

@@ -24,16 +24,22 @@ export class ViewRecipeComponent {
   private recipeSubscription!: Subscription;
   private fragmentSubscription!: Subscription;
 
+  public loading: boolean = true;
+
   constructor(private readonly recipeService: RecipeService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(){
     const recipeID = Number(this.route.snapshot.params['id']); //Bekommen der Rezept ID aus den Params der URL
     this.recipeSubscription = this.recipeService.getRecipeById(recipeID) 
-      .subscribe((recipe: Recipe) => {
-        this.recipe = recipe;
-        this.servings = recipe.servings;
-      });
+      .subscribe((recipe: Recipe | null) => {
 
+        if (recipe){
+          this.recipe = recipe;
+          this.servings = recipe.servings;
+          this.updateIngredients();
+        }
+        this.loading = false;
+      });
 
       this.scrollToFragment();
     }
