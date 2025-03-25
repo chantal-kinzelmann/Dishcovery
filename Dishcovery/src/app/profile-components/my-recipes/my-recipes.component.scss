@@ -1,4 +1,45 @@
-.card-container {
-    display: flex; 
-    flex-wrap: wrap;
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.skeleton-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 3rem;
+
+}
+
+
+.skeleton-card {
+  flex:1;
+  display: flex;
+  width: 300px;
+  height: 490px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: pulse 1.5s infinite;
+  margin: 1rem;
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 200% 0;
   }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.no-recipes {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: 2rem;
+}

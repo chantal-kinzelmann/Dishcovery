@@ -8,7 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { EditProfileComponent } from './profile-components/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite

@@ -1,9 +1,10 @@
 
 <div class="profile-header">
-  <div class="profile-pic">Bild hochladen</div>
+  <img class="profile-pic" *ngIf="user?.userImgUrl" [src]="user.userImgUrl" alt="Profilbild">
+  <img class="profile-pic" *ngIf="user && !user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" alt="Standard Profilbild">
   <div class="profile-info">
-    <h2>Willkommen, {{ user?.username }}!</h2>
-    <p>{{ user?.profileText}}</p>
+    <h2>Willkommen, {{ user.username }}!</h2>
+    <p>{{ user.profileText}}</p>
     <div class="profile-actions">
       <button class="edit-profile" routerLink="/edit-profile">Profil bearbeiten</button>
       <button class="new-recipe" routerLink="/new-recipe">

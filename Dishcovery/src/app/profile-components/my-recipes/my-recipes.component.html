@@ -1,6 +1,21 @@
 <div class="card-container">
-  <app-small-recipe-card></app-small-recipe-card>
-  <app-small-recipe-card></app-small-recipe-card>
-  <app-small-recipe-card></app-small-recipe-card>
-  <app-small-recipe-card></app-small-recipe-card>
+
+  <!-- Skeleton Loading -->
+<div class="skeleton-container" *ngIf="loading">
+  <div class="skeleton-card" *ngFor="let n of [1,2,3,4]"></div>
+</div>
+
+
+  <!-- Keine Rezepte -->
+  <div class="no-recipes" *ngIf="!loading && (recipes | async)?.length === 0">
+    <p>Du hast noch keine Rezepte erstellt 🥲</p>
   </div>
+
+  <!-- Gefundene Rezepte -->
+  <div class="recipe-container" *ngIf="!loading && ((recipes | async)?.length ?? 0) > 0">
+    <ng-container *ngFor="let recipe of recipes | async">
+      <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+    </ng-container>
+  </div>
+
+</div>
