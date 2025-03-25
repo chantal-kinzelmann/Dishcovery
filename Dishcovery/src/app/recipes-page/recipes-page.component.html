@@ -3,13 +3,14 @@
   <mat-chip-listbox selectable multiple>
     @for (tag of (allTags$ | async); track tag) {
     <mat-chip-option
+      class="tag-chip"
       [selected]="(selectedTags$ | async)?.includes(tag)"
       (click)="toggleTag(tag)"
     >
       {{ tag }}
     </mat-chip-option>
     }
-    <mat-chip (click)="clearTags()">Clear All</mat-chip>
+    <mat-chip class="clear-tags-chip" (click)="clearTags()">Clear All</mat-chip>
   </mat-chip-listbox>
 </div>
 
