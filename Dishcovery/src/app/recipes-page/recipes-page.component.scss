@@ -5,3 +5,9 @@
     margin-top: 2rem;
     gap: 1rem;
 }
+
+.clear-tags-chip {
+    &:hover {
+      background-color: #ff7b00;
+    }
+}

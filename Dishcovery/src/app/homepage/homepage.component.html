@@ -3,20 +3,18 @@
     <h1>Willkommen bei Dishcovery</h1>
     <p>Finde Rezepte für jede Gelegenheit</p>
   </header>
-
-  <section class="categories">
-    <div *ngFor="let category of categories" class="category">
-      <div class="category-header">
-        <h2>{{ category.name }}</h2>
-        <button>Alle ansehen</button>
-      </div>
-
-      <!-- <div class="recipe-list">
-          <app-small-recipe-card 
-            *ngFor="let recipe of category.recipes.slice(0, 4)" 
-            >
-          </app-small-recipe-card >
-        </div> -->
-    </div>
-  </section>
 </div>
+
+@if (recipesByTag$ | async; as recipesByTag) { @for (tag of (allTags$ | async);
+track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
+<section class="tag-section">
+  <h2>{{ tag }} Recipes</h2>
+  <div class="recipe-container">
+    @for (recipe of recipesByTag[tag]; track recipe.id) {
+    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+    }
+  </div>
+</section>
+} } } @else {
+<p>No recipes found.</p>
+}

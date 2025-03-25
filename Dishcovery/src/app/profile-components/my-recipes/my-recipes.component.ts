@@ -27,6 +27,7 @@ export class MyRecipesComponent {
 
       this.recipeService.getRecipesByUser(userId).subscribe(recipes => {
           //Simuliere 2 Sekunden Ladezeit 
+          console.log(recipes)
       setTimeout(() => {
         this.recipes = of(recipes); 
         this.loading = false;
