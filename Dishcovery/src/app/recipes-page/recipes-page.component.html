@@ -1,17 +1,67 @@
-<div class="tags-container">
-  <h2>Filter by tags</h2>
-  <mat-chip-listbox selectable multiple>
-    @for (tag of (allTags$ | async); track tag) {
-    <mat-chip-option
-      class="tag-chip"
-      [selected]="(selectedTags$ | async)?.includes(tag)"
-      (click)="toggleTag(tag)"
-    >
-      {{ tag }}
-    </mat-chip-option>
-    }
-    <mat-chip class="clear-tags-chip" (click)="clearTags()">Clear All</mat-chip>
-  </mat-chip-listbox>
+<div class="filters-container">
+  <h2>Filter Recipes</h2>
+
+  <form [formGroup]="filterForm">
+    <!-- Tags Filter -->
+    <div class="tags-filter">
+      <h3>Tags</h3>
+      <mat-chip-listbox selectable multiple>
+        @for (tag of (allTags$ | async); track tag) {
+        <mat-chip-option
+          class="tag-chip"
+          [selected]="(selectedTags$ | async)?.includes(tag)"
+          (click)="toggleTag(tag)"
+        >
+          {{ tag }}
+        </mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </div>
+
+    <!-- Difficulty Filter -->
+    <div class="difficulty-filter">
+      <h3>Difficulty</h3>
+      <mat-form-field>
+        <mat-label>Select Difficulty</mat-label>
+        <mat-select formControlName="difficulties" multiple>
+          @for (difficulty of difficultyOptions; track difficulty) {
+          <mat-option [value]="difficulty">{{ difficulty }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Minimum Rating Filter -->
+    <div class="rating-filter">
+      <h3>Minimum Rating</h3>
+      <mat-form-field>
+        <mat-label>Minimum Rating</mat-label>
+        <mat-select formControlName="minRating">
+          @for (rating of ratingOptions; track rating) {
+          <mat-option [value]="rating">{{ rating }} Stars</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Ingredients Filter -->
+    <div class="ingredients-filter">
+      <h3>Ingredients</h3>
+      <mat-form-field>
+        <mat-label>Select Ingredients</mat-label>
+        <mat-select formControlName="ingredients" multiple>
+          @for (ingredient of (allIngredients$ | async); track ingredient) {
+          <mat-option [value]="ingredient">{{ ingredient }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Clear All Filters Button -->
+    <button mat-raised-button color="primary" (click)="clearAllFilters()">
+      Clear All Filters
+    </button>
+  </form>
 </div>
 
 <!-- Display filtered recipes -->
@@ -23,5 +73,5 @@
 
 <!-- Show message if no recipes match -->
 @if (!(filteredRecipes$ | async)?.length) {
-<p>No recipes match the selected tags.</p>
+<p>No recipes match the selected filters.</p>
 }
