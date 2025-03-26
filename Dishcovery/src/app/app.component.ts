@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 
 import { HomepageComponent } from './homepage/homepage.component';
 import { FooterComponent } from "./footer/footer.component";
@@ -16,4 +16,5 @@ import { HomepageNavBarComponent } from "./homepage/homepage-nav-bar/homepage-na
 })
 export class AppComponent {
   title = 'Dishcovery';
+
 }

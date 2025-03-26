@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 html,
 body {
   height: 100%; 
@@ -8,13 +9,14 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: #fdfdf9;
   color: #272727;
-  margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', serif;
 }
+ input, textarea{
+    font-family: 'Montserrat', sans-serif;
+ }
 
 button {
   background-color: #ff7b00;
@@ -30,4 +32,71 @@ button {
     background-color: #cd6301;
 }
 
+}
+
+/* Darkmode-Styles */
+.dark-mode {
+  background-color: #222;
+  color: white;
+}
+
+.dark-mode .example-card {
+  border-color: #cd6301;
+  background-color: #222;
+}
+
+.dark-mode .profile-nav {
+  background-color: #444;
+}
+
+.dark-mode .profile-nav button {
+  color: #ffffff;
+}
+
+.dark-mode .profile-nav button.active {
+  background: #cd6301;
+  color: white;
+}
+
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #d32f2f !important; // Rotes Hintergrund für Fehler
+  --mat-sys-inverse-on-surface:#ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #388e3c !important; // Grünes Hintergrund für Erfolg
+  --mat-mdc-snack-bar-button-label: #ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Stil für den Button innerhalb der Snackbar */
+.success-snackbar .mdc-button__label {
+  color: white !important; // Button-Text auf Weiß setzen
+}
+
+.error-snackbar .mdc-button__label {
+  color: white !important;
+}
+
+
+
+
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow-x: hidden;  // <- Das verhindert das horizontale Scrollen
+}
+
+.app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
 }

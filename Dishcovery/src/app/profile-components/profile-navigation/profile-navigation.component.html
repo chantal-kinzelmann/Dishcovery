@@ -1,5 +1,17 @@
 <nav class="profile-nav">
-    <button (click)="setCategory('rezepte')">Meine Rezepte</button>
-    <button (click)="setCategory('favoriten')">Meine Favoriten</button>
-    <button (click)="setCategory('merkliste')">Merkliste</button>
-  </nav>
+  <button 
+    (click)="setCategory('rezepte')" 
+    [class.active]="activeCategory === 'rezepte'">
+    Meine Rezepte
+  </button>
+  <button 
+    (click)="setCategory('favoriten')" 
+    [class.active]="activeCategory === 'favoriten'">
+    Meine Favoriten
+  </button>
+  <button 
+    (click)="setCategory('merkliste')" 
+    [class.active]="activeCategory === 'merkliste'">
+    Merkliste
+  </button>
+</nav>

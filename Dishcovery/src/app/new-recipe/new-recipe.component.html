@@ -1,1 +1,178 @@
-<p>new-recipe works!</p>
+<form #recipeForm="ngForm" (ngSubmit)="createRecipe(recipeForm)" enctype="multipart/form-data">
+
+  <!-- ✅ Erfolgs-Modal -->
+  <div class="modal" *ngIf="showSuccessModal">
+    <div class="modal-content">
+      <h2>Rezept erfolgreich erstellt! 🎉</h2>
+      <p>Dein Rezept wurde gespeichert und ist jetzt sichtbar.</p>
+      <button (click)="goToRecipe()">Zum Rezept</button>
+      <button (click)="goToProfile()">Zum Profil</button>
+    </div>
+  </div>
+
+  <!-- Rezeptname -->
+  <h3>Rezeptname</h3>
+  <input
+    type="text"
+    name="title"
+    required
+    [(ngModel)]="recipe.title"
+    #titleRef="ngModel"
+    placeholder="z.B. Schoko-Kuchen"
+  />
+  <p class="error" *ngIf="titleRef.invalid && recipeForm.submitted">Titel ist erforderlich.</p>
+
+  <!-- Beschreibung -->
+  <h3>Kurzbeschreibung</h3>
+  <textarea
+    name="description"
+    required
+    [(ngModel)]="recipe.description"
+    #descRef="ngModel"
+    placeholder="Kurze Einführung zum Rezept"
+  ></textarea>
+  <p class="error" *ngIf="descRef.invalid && recipeForm.submitted">Beschreibung ist erforderlich.</p>
+
+  <!-- Bild Upload -->
+  <label>Rezeptbild hochladen:</label>
+  <input type="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg" name="recipeImage" />
+
+  <!-- Schwierigkeit -->
+  <h3>Schwierigkeitsgrad</h3>
+  <select name="difficulty" required [(ngModel)]="recipe.difficulty" #diffRef="ngModel">
+    <option value="easy">Einfach</option>
+    <option value="medium">Mittel</option>
+    <option value="hard">Schwer</option>
+  </select>
+  <p class="error" *ngIf="diffRef.invalid && recipeForm.submitted">Bitte Schwierigkeit wählen.</p>
+
+  <!-- Koch- & Vorbereitungszeit -->
+  <div class="cook-container">
+    <div>
+      <h3>Vorbereitungszeit (Minuten)</h3>
+      <input
+      class="prepTime"
+        type="number"
+        name="prepTime"
+        required
+        [(ngModel)]="recipe.prepTime"
+        min="0"
+        step="1"
+        #prepRef="ngModel"
+        (keypress)="validateNumberInput($event)"
+      />
+      <p class="error" *ngIf="prepRef.invalid && recipeForm.submitted">Bitte angeben!</p>
+    </div>
+    <div>
+      <h3>Kochzeit (Minuten)</h3>
+      <input
+      class="cookTime"
+        type="number"
+        name="cookTime"
+        required
+        [(ngModel)]="recipe.cookTime"
+        min="0"
+        step="1"
+        #cookRef="ngModel"
+        (keypress)="validateNumberInput($event)"
+      />
+      <p class="error" *ngIf="cookRef.invalid && recipeForm.submitted">Bitte angeben!</p>
+    </div>
+  </div>
+
+
+    <!-- Portionen -->
+  <div>
+    <h3>Portionen</h3>
+    <input
+    class="servings"
+      type="number"
+      name="servings"
+      required
+      [(ngModel)]="recipe.servings"
+      min="1"
+      step="1"
+      #servingsRef="ngModel"
+      (keypress)="validateNumberInput($event)"
+    />
+    <p class="error" *ngIf="servingsRef.invalid && recipeForm.submitted">Bitte Anzahl der Portionen angeben!</p>
+  </div>
+  
+
+  <!-- Zutaten -->
+  <h3>Zutaten</h3>  
+  <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="ingredient-container">
+    <div>
+      <input
+        type="text"
+        placeholder="Zutat"
+        [name]="'ingredient' + i"
+        [(ngModel)]="ingredient.name"
+        required
+        #nameRef="ngModel"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <p class="error" *ngIf="nameRef.invalid && (nameRef.touched || recipeForm.submitted)">Zutat fehlt!</p>
+    </div>
+  
+    <div>
+      <input
+        type="number"
+        placeholder="Menge"
+        [name]="'amount' + i"
+        [(ngModel)]="ingredient.amount"
+        required
+        #amountRef="ngModel"
+        [ngModelOptions]="{ standalone: true }"
+        (keypress)="validateNumberInput($event)"
+      />
+      <p class="error" *ngIf="amountRef.invalid && (amountRef.touched || recipeForm.submitted)">Menge erforderlich!</p>
+    </div>
+  
+    <div>
+      <select [name]="'unit' + i" [(ngModel)]="ingredient.unit">
+        <option value="g">g</option>
+        <option value="kg">kg</option>
+        <option value="ml">ml</option>
+        <option value="l">l</option>
+        <option value="tbsp">EL</option>
+        <option value="tsp">TL</option>
+        <option value="cup">Tasse</option>
+        <option value="piece">Stück</option>
+      </select>
+    </div>
+  
+    <button type="button" (click)="removeIngredient(i)">
+      <i class="fa-solid fa-trash"></i>
+    </button>  
+  </div>
+    
+   <button type="button" class="add-btn-ingredient" (click)="addIngredient()">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+  
+
+  <!-- Tags -->
+  <h3>Tags</h3>
+  <div class="tag-container">
+    <input type="text" name="newTag" [(ngModel)]="newTag" placeholder="Tag hinzufügen" />
+    <button type="button" class="add-btn" (click)="addTag()">Hinzufügen</button>
+  </div>
+  <div class="tag-container">
+    <mat-chip class="tags" *ngFor="let tag of recipe.tags" class="tag">{{ tag }}</mat-chip>
+  </div>
+
+  <!-- Zubereitung -->
+  <h3>Zubereitung</h3>
+  <textarea
+    name="text"
+    required
+    [(ngModel)]="recipe.text"
+    #textRef="ngModel"
+    placeholder="Anleitung Schritt für Schritt"
+  ></textarea>
+  <p class="error" *ngIf="textRef.invalid && recipeForm.submitted">Zubereitung fehlt!</p>
+
+  <!-- Absenden -->
+  <button type="submit" >Rezept erstellen</button>
+</form>
