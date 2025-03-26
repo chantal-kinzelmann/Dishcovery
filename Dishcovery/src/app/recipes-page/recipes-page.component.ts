@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../services/recipe-services/recipe.type';
-import { Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, map, startWith, finalize, delay } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { SmallRecipeCardComponent } from '../small-recipe-card/small-recipe-card.component';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class RecipesPageComponent implements OnInit {
   // Original recipes observable
   private recipes$: Observable<Recipe[]>;
+
+  loading = true;
   
   // Subjects for different filter types
   private selectedTagsSubject = new BehaviorSubject<string[]>([]);
@@ -52,10 +54,17 @@ export class RecipesPageComponent implements OnInit {
   constructor(
     private readonly recipeService: RecipeService
   ) {
-    this.recipes$ = this.recipeService.getAllRecipes();
+    this.recipes$ = this.recipeService.getAllRecipes().pipe(
+      delay(500),
+      startWith([]),
+      finalize(() => {
+        this.loading = false;
+      })
+    );
   }
 
   ngOnInit() {
+    
     // Extract unique tag names
     this.allTags$ = this.recipes$.pipe(
       map(recipes => {

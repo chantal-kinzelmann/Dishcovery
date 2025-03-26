@@ -5,6 +5,15 @@
   </header>
 </div>
 
+<!-- Skeleton Loading -->
+<div class="skeleton-container" *ngIf="loading">
+  <h2>Loading tagged Recipes...</h2>
+  <hr />
+  <div class="skeleton-card-container" *ngIf="loading">
+    <div class="skeleton-card" *ngFor="let n of [1, 2, 3, 4]"></div>
+  </div>
+</div>
+
 @if (recipesByTag$ | async; as recipesByTag) { @for (tag of (allTags$ | async);
 track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
 <section class="tag-section">

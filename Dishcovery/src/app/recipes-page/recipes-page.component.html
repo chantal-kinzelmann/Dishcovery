@@ -93,6 +93,11 @@
   <!-- Clear All Filters Button -->
   <button (click)="clearAllFilters()">Clear All Filters</button>
 
+  <!-- Skeleton Loading -->
+  <div class="skeleton-container" *ngIf="loading">
+    <div class="skeleton-card" *ngFor="let n of [1, 2, 3, 4]"></div>
+  </div>
+
   <!-- Display filtered recipes -->
   <div class="recipe-container">
     @for (recipe of (filteredRecipes$ | async); track recipe.id) {
