@@ -91,14 +91,22 @@ export class NewRecipeComponent {
   createRecipe(form: any) {
     if (form.valid) {
       this.recipe.userId = this.getUserId(); // Nutzer-ID holen
-      
+  
+      //  Leere Zutaten rausfiltern
+      this.recipe.ingredients = this.recipe.ingredients.filter(
+        (ingredient) =>
+          ingredient.name.trim() !== '' &&
+          ingredient.amount > 0 &&
+          ingredient.unit.trim() !== ''
+      );
+  
       console.log("📤 Sende Rezept:", this.recipe);
   
       this.http.post<{ id: number }>(this.apiUrl, this.recipe).subscribe({
         next: (response) => {
           console.log("✅ Rezept gespeichert!", response);
           this.recipeIdNav = response.id;
-          this.showSuccessModal = true; // 👉 Modal anzeigen
+          this.showSuccessModal = true;
         },
         error: (error) => {
           console.error("⚠ Fehler beim Speichern:", error);
@@ -106,6 +114,7 @@ export class NewRecipeComponent {
       });
     }
   }
+  
 
   goToProfile() {
     this.router.navigate(['/profile']);
