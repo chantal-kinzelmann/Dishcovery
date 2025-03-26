@@ -5,6 +5,17 @@
  <button [routerLink]="['/recipe-page']">zu den Rezepten</button>
 </div>
 
+<!-- 🗑️ Delete-Bestätigungs-Modal -->
+<div class="modal" *ngIf="showDeleteConfirmModal">
+    <div class="modal-content">
+      <h2>Rezept löschen?</h2>
+      <p>Möchtest du dieses Rezept wirklich löschen? Das kann nicht rückgängig gemacht werden.</p>
+      <button class="confirm"(click)="confirmDelete()">Ja, löschen</button>
+      <button class="cancel"(click)="cancelDelete()">Abbrechen</button>
+    </div>
+  </div>
+  
+
 <button class="delete_btn" *ngIf="recipe?.user?.id === userId" (click)="deleteRecipe()">
     Rezept löschen
   </button>
