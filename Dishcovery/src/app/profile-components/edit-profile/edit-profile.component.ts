@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../app.config';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [RouterLink, ReactiveFormsModule, FormsModule, MatSnackBarModule],
+  imports: [ ReactiveFormsModule, FormsModule, MatSnackBarModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
