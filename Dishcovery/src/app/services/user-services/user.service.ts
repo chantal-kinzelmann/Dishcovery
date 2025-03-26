@@ -20,7 +20,7 @@ export interface WatchEntry {
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = environment.apiUrl; // 💡 Stelle sicher, dass die API-URL korrekt ist
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -63,7 +63,6 @@ export class UserService {
     );
   }
 
-  
   getWatchlist(userId: number): Observable<WatchEntry[]> {
     return this.http.get<WatchEntry[]>(`${this.apiUrl}/user/${userId}/watchlist`);
   }
@@ -71,9 +70,4 @@ export class UserService {
   getFavorites(userId: number): Observable<FavoriteEntry[]> {
     return this.http.get<FavoriteEntry[]>(`${this.apiUrl}/user/${userId}/favlist`);
   }
-  
-  
-  
-  
-
 }
