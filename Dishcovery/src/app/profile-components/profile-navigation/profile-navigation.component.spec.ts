@@ -8,9 +8,8 @@ describe('ProfileNavigationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileNavigationComponent]
-    })
-    .compileComponents();
+      imports: [ProfileNavigationComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileNavigationComponent);
     component = fixture.componentInstance;

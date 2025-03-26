@@ -3,14 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../../services/recipe-services/recipe.service';
 import { Recipe } from '../../services/recipe-services/recipe.type';
 import { SmallRecipeCardComponent } from '../../small-recipe-card/small-recipe-card.component';
-import { NgFor} from '@angular/common';
+import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
-  imports: [SmallRecipeCardComponent, NgFor, NgIf]
+  imports: [SmallRecipeCardComponent, NgFor, NgIf],
 })
 export class SearchResultsComponent implements OnInit {
   query: string = '';
@@ -18,14 +18,14 @@ export class SearchResultsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.query = params['q'] || '';
       if (this.query) {
-        this.recipeService.searchRecipes(this.query).subscribe(recipes => {
+        this.recipeService.searchRecipes(this.query).subscribe((recipes) => {
           this.results = recipes;
         });
       }

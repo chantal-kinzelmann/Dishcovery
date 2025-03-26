@@ -10,17 +10,17 @@ import { UserService } from '../../services/user-services/user.service';
 
 @Component({
   selector: 'app-my-watch-list',
-  imports: [SmallRecipeCardComponent,CommonModule],
+  imports: [SmallRecipeCardComponent, CommonModule],
   templateUrl: './my-watch-list.component.html',
-  styleUrl: './my-watch-list.component.scss'
+  styleUrl: './my-watch-list.component.scss',
 })
 export class MyWatchListComponent {
- recipes!: Observable<Recipe[]>;
+  recipes!: Observable<Recipe[]>;
   loading = true;
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {}
 
   goToRecipe() {
@@ -33,16 +33,15 @@ export class MyWatchListComponent {
       const user = JSON.parse(userString);
       const userId = user?.id;
 
-      this.userService.getWatchlist(userId).subscribe(watchEntries => {
-        const watchRecipes = watchEntries.map(entry => entry.recipe); // 💡 Rezepte extrahieren
+      this.userService.getWatchlist(userId).subscribe((watchEntries) => {
+        const watchRecipes = watchEntries.map((entry) => entry.recipe); // 💡 Rezepte extrahieren
 
-        // Simuliere 1,5 Sekunden Ladezeit
+        // Simuliere 1 Sekunden Ladezeit
         setTimeout(() => {
           this.recipes = of(watchRecipes);
           this.loading = false;
-        }, 1500);
+        }, 1000);
       });
-
     } else {
       this.recipes = of([]);
       this.loading = false;

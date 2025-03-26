@@ -4,10 +4,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   standalone: true, // Falls du Standalone verwendest
-  imports: [RouterLink, RouterLinkActive], 
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './homepage-nav-bar.component.html',
-  styleUrl: './homepage-nav-bar.component.scss'
+  styleUrl: './homepage-nav-bar.component.scss',
 })
-
 export class HomepageNavBarComponent {}
-
