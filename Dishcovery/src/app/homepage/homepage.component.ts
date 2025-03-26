@@ -18,6 +18,7 @@ export class HomepageComponent {
   loading = true;
 
   constructor(private readonly recipeService: RecipeService) {
+    // Get all recipes with delay so skeleton loader is shown
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       delay(500),
         startWith([]),
@@ -42,7 +43,7 @@ export class HomepageComponent {
           // Flatten tags and ensure unique tag names
           const recipeTags = [...new Set(recipe.tags.map(tag => tag.name))];
           
-          // For each tag, add the recipe to that tag's array
+          // For each tag, add the recipe to that tags array
           recipeTags.forEach(tagName => {
             if (!acc[tagName]) {
               acc[tagName] = [];

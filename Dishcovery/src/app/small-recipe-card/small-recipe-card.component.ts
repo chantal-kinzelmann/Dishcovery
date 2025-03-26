@@ -22,9 +22,9 @@ import { Recipe } from '../services/recipe-services/recipe.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmallRecipeCardComponent {
-  // @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
   @Input() recipe!: Recipe;
 
+  // Calculate the average rating of a recipe (maybe not the most efficient way but it works :> ) 
   getAverageRating() {
     let sumRating = 0;
     for (let i = 0; i < this.recipe.ratings.length; i++) {

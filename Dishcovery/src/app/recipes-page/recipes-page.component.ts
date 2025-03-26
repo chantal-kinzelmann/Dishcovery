@@ -26,14 +26,14 @@ export class RecipesPageComponent implements OnInit {
 
   loading = true;
   
-  // Subjects for different filter types
+  // Subjects for different filter types so that we can update them / it emits new values when the filter changes
   private selectedTagsSubject = new BehaviorSubject<string[]>([]);
   private selectedDifficultiesSubject = new BehaviorSubject<string[]>([]);
   private minRatingSubject = new BehaviorSubject<number>(0);
   private selectedIngredientsSubject = new BehaviorSubject<string[]>([]);
   private cookingTimeSubject = new BehaviorSubject<number[]>([]);
   
-  // Observables for filters
+  // Observables for filters to get data from 
   selectedTags$ = this.selectedTagsSubject.asObservable();
   selectedDifficulties$ = this.selectedDifficultiesSubject.asObservable();
   minRating$ = this.minRatingSubject.asObservable();
@@ -54,6 +54,7 @@ export class RecipesPageComponent implements OnInit {
   constructor(
     private readonly recipeService: RecipeService
   ) {
+    // Get all recipes with delay so skeleton loader is shown
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       delay(500),
       startWith([]),
@@ -64,8 +65,7 @@ export class RecipesPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    // Extract unique tag names
+    // Extract all unique tag names from recipe obersevable
     this.allTags$ = this.recipes$.pipe(
       map(recipes => {
         const allTagNames = recipes.flatMap(recipe => 
@@ -87,37 +87,37 @@ export class RecipesPageComponent implements OnInit {
 
     // Create filtered recipes observable with multiple filter conditions
     this.filteredRecipes$ = combineLatest([
-      this.recipes$, 
-      this.selectedTagsSubject,
-      this.selectedDifficultiesSubject,
-      this.minRatingSubject,
-      this.selectedIngredientsSubject,
-      this.cookingTimeSubject
+    this.recipes$, 
+    this.selectedTagsSubject,
+    this.selectedDifficultiesSubject,
+    this.minRatingSubject,
+    this.selectedIngredientsSubject,
+    this.cookingTimeSubject
     ]).pipe(
       map(([recipes, selectedTags, selectedDifficulties, minRating, selectedIngredients, cookingTimes]) => {
         return recipes.filter(recipe => {
-          // Tag filter
+          // Tag filter that checks if all selected tags are included in the recipe tags
           const tagMatch = selectedTags.length === 0 || 
             selectedTags.every(tag => 
               recipe.tags.some(recipeTag => recipeTag.name === tag)
             );
 
-          // Difficulty filter
+          // Difficulty filter that checks if the recipe difficulty is included in the selected difficulties
           const difficultyMatch = selectedDifficulties.length === 0 || 
             selectedDifficulties.includes(recipe.difficulty);
 
-          // Rating filter
+          // Rating filter that checks if the average rating is greater than the selected minimum rating
           const ratingMatch = recipe.ratings.length === 0 ? 
             true : 
             this.calculateAverageRating(recipe.ratings) >= minRating;
 
-          // Ingredient filter
+          // Ingredient filter that checks if all selected ingredients are included in the recipe ingredients
           const ingredientMatch = selectedIngredients.length === 0 || 
             selectedIngredients.every(ingredient => 
               recipe.ingredients.some(recipeIngredient => recipeIngredient.name === ingredient)
             );
 
-          // Cooking time filter
+          // Cooking time filter that checks if the total cooking time is within the selected time limits by calculating the total cook time
           const cookingTimeMatch = cookingTimes.length === 0 || 
             cookingTimes.some(timeLimit => {
               const totalCookTime = recipe.prepTime + recipe.cookTime;
@@ -129,6 +129,7 @@ export class RecipesPageComponent implements OnInit {
               }
             });
 
+          // Return true if all filters match else the recipe is filtered out
           return tagMatch && difficultyMatch && ratingMatch && ingredientMatch && cookingTimeMatch;
         });
       })
@@ -152,7 +153,7 @@ export class RecipesPageComponent implements OnInit {
     this.selectedTagsSubject.next(updatedTags);
   }
 
-  // Checkbox change handlers
+  // Checkbox change handlers so that we can update the filter values
   onDifficultyChange(event: any) {
     const currentDifficulties = this.selectedDifficultiesSubject.value;
     const difficulty = event.source.value;
@@ -197,6 +198,7 @@ export class RecipesPageComponent implements OnInit {
     this.cookingTimeSubject.next([]);
   }
 
+  // Method to clear tags sicne they are material chips
   clearTags() {
     this.selectedTagsSubject.next([]);
   }

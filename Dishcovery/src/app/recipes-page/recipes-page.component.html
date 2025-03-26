@@ -29,6 +29,7 @@
         @for (difficulty of difficultyOptions; track difficulty) {
         <mat-checkbox
           [value]="difficulty"
+          [checked]="(selectedDifficulties$ | async)?.includes(difficulty)"
           (change)="onDifficultyChange($event)"
         >
           {{ difficulty | titlecase }}
@@ -65,6 +66,7 @@
         @for (ingredient of (allIngredients$ | async); track ingredient) {
         <mat-checkbox
           [value]="ingredient"
+          [checked]="(selectedIngredients$ | async)?.includes(ingredient)"
           (change)="onIngredientChange($event)"
         >
           {{ ingredient }}

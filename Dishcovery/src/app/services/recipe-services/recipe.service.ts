@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
-import { Recipe, Tag } from './recipe.type';
+import { tap } from 'rxjs';
+import { Recipe } from './recipe.type';
 import { Observable } from 'rxjs';
 import { environment } from '../../app.config';
 
