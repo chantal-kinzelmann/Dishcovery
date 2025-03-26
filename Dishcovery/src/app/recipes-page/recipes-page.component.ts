@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe, Tag } from '../services/recipe-services/recipe.type';
+import { Recipe } from '../services/recipe-services/recipe.type';
 import { Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { SmallRecipeCardComponent } from '../small-recipe-card/small-recipe-card.component';
