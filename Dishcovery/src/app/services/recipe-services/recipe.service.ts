@@ -29,8 +29,6 @@ export class RecipeService {
   getRecipesByUser(userId: number): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/by-user/${userId}`);
   }
-  
-  
 
   // GET: Einzelnes Rezept abrufen
   getRecipeById(id: number): Observable<any> {
@@ -55,6 +53,13 @@ export class RecipeService {
   getRecipesByTag(tagName: string): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/tag/${tagName}`).pipe(tap(recipes => console.log('Received recipes with tag ${tagName}:', recipes)));
   }
+
+  // GET: Rezepte suchen
+  searchRecipes(query: string): Observable<Recipe[]> {
+    console.log(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`);
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/search?q=${encodeURIComponent(query)}`);
+  }
+  
 }
 
 
