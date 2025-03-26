@@ -1,22 +1,31 @@
 /* Suchleiste responsive */
+.search-bar-container {
+  width: 100%; /* Container soll sich auf 100% der verfügbaren Breite ausdehnen */
+  padding: 0 10px; /* Kleiner Abstand zum Rand */
+  box-sizing: border-box; /* Damit Padding und Border in der Breite berücksichtigt werden */
+}
+
 .search-bar {
+  display: flex; 
   align-items: center;
-  width: 80%;
+  width: 100%; /* Suchleiste soll die gesamte Breite des Containers einnehmen */
   background-color: #e0e0e0;
-  padding: 2px 10px;
+  padding: 5px 15px;
   border-radius: 15px;
   transition: background-color 0.3s ease;
   height: 1.52rem;
-
+  box-sizing: border-box; /* Stellt sicher, dass das Padding in der Breite berücksichtigt wird */
 }
 
 .search-bar input {
-  flex-grow: 1;
+  display: flex;
   background: transparent;
   border: none;
-  width: 600px;
+  height: 100%; /* Input-Feld nimmt die volle Breite der Suchleiste ein */
+  width: 25rem;
   outline: none;
   font-size: 16px;
+  flex:1;
 }
 
 /* ✅ Responsives Design */
@@ -24,4 +33,12 @@
   .search-bar-container {
     max-width: 100%; /* Auf Mobilgeräten mehr Platz nutzen */
     margin: 0 10px;
-  } }
+  }
+}
+
+@media (min-width: 769px) {
+  /* Stellen Sie sicher, dass das Input-Feld sich bei größeren Bildschirmen ausdehnt */
+  .search-bar {
+    width: 100%; /* Nur auf größeren Bildschirmen */
+  }
+}

@@ -1,7 +1,7 @@
 
 <div class="profile-header">
   <img class="profile-pic" *ngIf="user?.userImgUrl" [src]="user.userImgUrl" alt="Profilbild">
-  <img class="profile-pic" *ngIf="!user?.userImgUrl" src="assets/img/standard.png" alt="Standard Profilbild">
+  <img class="profile-pic" *ngIf="user && !user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" >
   <div class="profile-info">
     <h2>Willkommen, {{ user.username }}!</h2>
     <p>{{ user.profileText}}</p>

@@ -34,7 +34,6 @@ export class EditProfileComponent {
       
       reader.onload = () => {
         this.profileImageBase64 = reader.result as string; // Base64 speichern
-        console.log("Base64 Bild:", this.profileImageBase64); // Debugging
       };
 
       reader.readAsDataURL(file); // Datei als Base64 einlesen
@@ -59,6 +58,19 @@ export class EditProfileComponent {
     });
   }
   
+  // Nutzer-ID aus LocalStorage holen
+  getUserId() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user = JSON.parse(userString);
+        return user.id;
+      } catch (error) {
+        console.error("⚠ Fehler beim Parsen des Benutzers:", error);
+      }
+    }
+    return null;
+  }
 
   async updateProfile() {
     // JSON-Objekt statt FormData erstellen
@@ -72,17 +84,9 @@ export class EditProfileComponent {
         repeatPassword: this.repeatPassword
     };
 
-    const userString = localStorage.getItem('user');
-    let userId = null;
+  
+    let userId = this.getUserId()
 
-    if (userString) {
-        try {
-            const user = JSON.parse(userString);
-            userId = user?.id;
-        } catch (error) {
-            console.error("⚠ Fehler beim Parsen des Benutzers aus LocalStorage:", error);
-        }
-    }
 
     this.http.put(`${this.apiUrl}/${userId}/update-profile`, userData).subscribe(response => {
         console.log("Profil erfolgreich aktualisiert!", response);

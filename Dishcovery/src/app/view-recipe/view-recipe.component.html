@@ -1,0 +1,162 @@
+<!-- Keine Rezept gefunden -->
+<div class="no-recipes" *ngIf="!recipe && !loading">
+ <p>Das gesuchte Rezepte konnte nicht gefunden werden</p>
+ <p>Vielleicht findest du hier etwas...</p>
+ <button [routerLink]="['/recipe-page']">zu den Rezepten</button>
+</div>
+
+<!-- Rezept gefunden -->
+<div *ngIf="recipe && !loading">
+
+    <h1>{{recipe.title}}</h1>
+
+    <div id="recipe-overview">
+
+        <div id="ImgAndTags">
+            <img class="profile-pic" *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" alt="Kein Rezept Bild gefunden">
+            <img class="profile-pic" *ngIf="recipe && !recipe.imgUrl" src="https://static.vecteezy.com/system/resources/previews/047/411/214/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg" alt="Kein Rezept Bild gefunden">            
+            <div id="tags">
+                @for (tag of recipe.tags; track tag.id) {
+                    <mat-chip class="tag">{{tag.name}}</mat-chip>
+                }
+            </div>
+        </div>
+    
+    
+        <div id="overviewContainer">
+            
+            <hr>
+    
+            <div id="timeAndNiveau_Container">
+                <p>Gesamtzeit: {{(recipe.prepTime + recipe.cookTime)}} min</p>
+                <p>Niveau: {{recipe.difficulty}}</p>
+                <p>Vorbereitung: {{recipe.prepTime}} min</p>
+                <p>Kochzeit: {{recipe.cookTime}} min</p>
+            </div>
+    
+    
+            <a (click)="navigateToComments()">
+                <i
+                    class="material-icons"
+                    style="color: #ff7b00"
+                    *ngFor="let star of [1, 2, 3, 4, 5]"
+                >
+                    {{ star <= 0 ? "star" : "star_border" }}
+                </i>
+            </a>
+    
+            <div class="profil">
+                <div class="profilePic-container">
+                    <img class="profile-pic" *ngIf="recipe.user?.userImgUrl" [src]="recipe.user.userImgUrl" alt="Profilbild">
+                    <img class="profile-pic" *ngIf="recipe.user && !recipe.user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" alt="Standard Profilbild">
+                </div>
+    
+                <div class="profile-info">Rezept von {{recipe.user.username}}</div>
+            </div>
+    
+            <p>{{recipe.description}}</p>
+            
+            <button class="remember_btn">Merken</button>
+            <button class="toFavorite_btn">Favoritisieren</button>
+        </div>
+    
+    </div>
+
+    <!--Zutaten und Zubereitung-->
+    <main>
+    
+        <section>
+            <h2>Zutaten</h2>
+
+            <div id="portion-interface">
+                <button (click)="decrement()">–</button>
+                <p>{{servings}} Portionen</p>
+                <button (click)="increment()">+</button>
+            </div>
+
+            <hr>
+            <table>
+                
+                    @for (ingredient of recipe.ingredients; track ingredient) {
+                    <tr>
+                        <td>{{ingredient.name}}</td>
+                        <td>{{ingredient.amount * ingredientMuliplier | number:'1.0-2' }} {{ingredient.unit}}</td>
+                    </tr>
+                    }
+                
+            </table>
+            <hr>
+
+        </section>
+
+        <section>
+            <h2>Zubereitung</h2>
+            <p>
+                {{recipe.text}}
+            </p>
+        </section>
+        <hr>
+
+    </main>
+
+
+    <div id="comments">
+
+        <h2>Kommentare</h2>
+
+        <form id="yourComment" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+            <label for="commentText">Dein Kommentar:</label><br>
+            <textarea placeholder="Comment" name="commentText" id="commentText" required minlength="5" ngModel #commentTest="ngModel"></textarea>
+
+            <!--5 Star Rating-->
+            <div class="rating">
+                    <input id="rating1" type="radio" class="starRadio" name="rating" value=1 (change)="setRating(1)" required ngModel #rating="ngModel"/>
+                    <label for="rating1" class="material-icons" style="color: #ff7b00">{{ 1 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating2" type="radio" class="starRadio" name="rating" value=2 (change)="setRating(2)" required ngModel #rating="ngModel"/>
+                    <label for="rating2" class="material-icons" style="color: #ff7b00">{{ 2 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating3" type="radio" class="starRadio" name="rating" value=3 (change)="setRating(3)" required ngModel #rating="ngModel"/>
+                    <label for="rating3" class="material-icons" style="color: #ff7b00">{{ 3 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating4" type="radio" class="starRadio" name="rating" value=4 (change)="setRating(4)" required ngModel #rating="ngModel"/>
+                    <label for="rating4" class="material-icons" style="color: #ff7b00">{{ 4 <= userRating ? "star" : "star_border" }}</label>
+                    <input id="rating5" type="radio" class="starRadio" name="rating" value=5 (change)="setRating(5)" required ngModel #rating="ngModel"/>
+                    <label for="rating5" class="material-icons" style="color: #ff7b00">{{ 5 <= userRating ? "star" : "star_border" }}</label>
+            </div>
+
+            <!--Fehler Meldung-->
+            <div *ngIf="commentTest.touched && !commentTest.valid">
+                - Kommentar muss mindestens 5 Zeichen lang sein
+            </div>
+            <div *ngIf="commentTest.touched && !rating.valid">- Bitte geben sie ihre Bewertung an</div>
+
+            <button type="submit" [disabled]="!form.valid">Absenden</button>
+        </form>
+
+
+        @for (rating of recipe.ratings; track rating) {
+            <div class="comment">
+                <div class="profil">
+                    <div class="profilePic-container">
+                        <img class="profile-pic" *ngIf="rating.user?.userImgUrl" [src]="rating.user.userImgUrl" alt="Profilbild">
+                        <img class="profile-pic" *ngIf="rating.user && !rating.user.userImgUrl" src="https://media.istockphoto.com/id/1337144146/de/vektor/standard-avatar-profilsymbolvektor.jpg?s=612x612&w=0&k=20&c=rw3jpsQAdTti6Hh9SAGN15Ex8HYYwmHv3JFHS6KStMo=" alt="Standard Profilbild">
+                    </div>
+                    <div class="profile-info">{{rating.user.username}}</div>
+                </div>
+        
+                <i
+                class="material-icons"
+                style="color: #ff7b00"
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                >
+                {{ star <= rating.rating ? "star" : "star_border" }}
+                </i>
+        
+                <p>{{rating.comment}}</p>
+        
+        
+            </div>}
+        <br>
+    </div>
+</div>
+
+
