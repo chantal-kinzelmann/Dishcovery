@@ -17,4 +17,4 @@ import { HomepageNavBarComponent } from "./homepage/homepage-nav-bar/homepage-na
 export class AppComponent {
   title = 'Dishcovery';
 
-}
+}     

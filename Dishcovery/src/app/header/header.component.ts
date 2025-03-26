@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { LoginButtonComponent } from '../homepage/login-button/login-button.component';
+
 import { SearchBarComponent } from '../homepage/searchbar/searchbar.component';
 import { RouterLink, RouterModule, Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth.service';
@@ -8,7 +8,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  imports: [LoginButtonComponent,SearchBarComponent, RouterLink, RouterModule, NgIf, CommonModule],
+  imports: [SearchBarComponent, RouterLink, RouterModule, NgIf, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -34,6 +34,7 @@ export class HeaderComponent {
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('darkMode', this.isDarkMode ? 'enabled' : 'disabled');
+
     this.updateDarkMode();
   }
 
