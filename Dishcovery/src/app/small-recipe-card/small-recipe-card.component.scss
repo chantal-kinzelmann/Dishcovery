@@ -8,8 +8,9 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.thumbnail {
+.thumbnailUrl {
     height: 250px;
+    max-height: 250px;
 }
 
 .example-card-footer {

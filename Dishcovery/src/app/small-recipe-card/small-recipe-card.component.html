@@ -1,9 +1,16 @@
 <mat-card class="example-card" appearance="outlined">
   <img
     mat-card-image
+    *ngIf="recipe?.imgUrl"
     [src]="recipe.imgUrl"
     class="thumbnailUrl"
   />
+  <img
+  mat-card-image
+  *ngIf="recipe &&!recipe.imgUrl"
+  src="https://static.vecteezy.com/system/resources/previews/047/411/214/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg"
+  class="thumbnailUrl"
+/>
   <mat-card-header>
     <mat-card-title>{{ recipe.title }}</mat-card-title>
     <mat-card-subtitle>{{ recipe.id }}</mat-card-subtitle>
