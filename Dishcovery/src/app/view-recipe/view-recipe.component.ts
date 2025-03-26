@@ -25,7 +25,7 @@ export class ViewRecipeComponent {
   private recipeSubscription!: Subscription;
   private fragmentSubscription!: Subscription;
   public loading: boolean = true;
-  private userId: string="";
+  public userId: string="";
 
   isFavorited: boolean = false;
   isWatched: boolean = false;
@@ -152,6 +152,23 @@ export class ViewRecipeComponent {
       },
       error: (err) => console.error('Fehler beim Merken:', err)
     });
+  }
+
+
+  deleteRecipe() {
+    if (!this.recipe?.id) return;
+  
+    if (confirm('Möchtest du dieses Rezept wirklich löschen?')) {
+      this.recipeService.deleteRecipe(Number(this.recipe.id)).subscribe({
+        next: () => {
+          alert('Rezept wurde gelöscht');
+          this.router.navigate(['/recipe-page']);
+        },
+        error: (err) => {
+          console.error('Fehler beim Löschen:', err);
+        }
+      });
+    }
   }
   
 

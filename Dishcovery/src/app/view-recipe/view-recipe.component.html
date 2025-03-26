@@ -5,6 +5,10 @@
  <button [routerLink]="['/recipe-page']">zu den Rezepten</button>
 </div>
 
+<button class="delete_btn" *ngIf="recipe?.user?.id === userId" (click)="deleteRecipe()">
+    Rezept löschen
+  </button>
+
 <!-- Rezept gefunden -->
 <div *ngIf="recipe && !loading">
 
