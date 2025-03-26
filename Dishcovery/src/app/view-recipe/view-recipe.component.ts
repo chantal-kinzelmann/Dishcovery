@@ -5,7 +5,7 @@ import { Recipe } from '../services/recipe-services/recipe.type';
 import { Subscription } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @Component({
@@ -58,16 +58,6 @@ export class ViewRecipeComponent {
     this.userRating=star;
   }
 
-  onSubmit(form: NgForm){
-    const commentText = form.value.commentText;
-    const rating = form.value.rating;
-    console.log(form);
-    console.log(commentText);
-    console.log(rating);
-    form.reset();
-    this.userRating=0;
-  }
-
   updateIngredients():void{
     this.ingredientMuliplier = 1/(this.recipe!.servings/this.servings)  
   }
@@ -82,6 +72,44 @@ export class ViewRecipeComponent {
       this.servings--;
       this.updateIngredients();
     }
+  }
+
+
+  // Nutzer-ID aus LocalStorage holen
+  getUserId() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user = JSON.parse(userString);
+        return user.id;
+      } catch (error) {
+        console.error("⚠ Fehler beim Parsen des Benutzers:", error);
+      }
+    }
+    return null;
+  }
+
+
+  onSubmit(ratingForm: NgForm){
+    const userId = this.getUserId();
+    const ratingData = {
+      rating: ratingForm.value.rating,
+      comment: ratingForm.value.commentText
+    };
+
+
+    if (userId && ratingForm.valid) {
+      this.recipeService.addRating(parseInt(this.recipe!.id), parseInt(userId), ratingData).subscribe({ //Falls Zeit, ID im type.ts zu number machen und hier dann auch ändern
+        next: (response) => console.log('Rating submitted successfully', response),
+        error: (error) => console.error('Error submitting rating', error),
+      });
+    }
+    if(!userId){
+      this.router.navigate(['/login']);
+    }
+
+    this.userRating=0;
+    ratingForm.resetForm();
   }
 
 
