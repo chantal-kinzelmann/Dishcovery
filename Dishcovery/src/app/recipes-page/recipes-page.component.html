@@ -46,7 +46,13 @@
           [value]="rating.toString()"
           (change)="onRatingChange($event)"
         >
-          {{ rating }} Stars & Up
+          <i
+            class="material-icons"
+            style="color: #ff7b00"
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+          >
+            {{ star <= rating ? "star" : "star_border" }}
+          </i>
         </mat-checkbox>
         }
       </div>
