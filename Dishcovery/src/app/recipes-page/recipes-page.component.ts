@@ -11,43 +11,47 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-recipes-page',
   imports: [
-    SmallRecipeCardComponent, 
-    CommonModule, 
-    MatChipsModule, 
+    SmallRecipeCardComponent,
+    CommonModule,
+    MatChipsModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './recipes-page.component.html',
-  styleUrl: './recipes-page.component.scss'
+  styleUrl: './recipes-page.component.scss',
 })
 export class RecipesPageComponent implements OnInit {
   // Original recipes observable
   private recipes$: Observable<Recipe[]>;
 
   loading = true;
+
   
   // Subjects for different filter types so that we can update them / it emits new values when the filter changes
+
   private selectedTagsSubject = new BehaviorSubject<string[]>([]);
   private selectedDifficultiesSubject = new BehaviorSubject<string[]>([]);
   private minRatingSubject = new BehaviorSubject<number>(0);
   private selectedIngredientsSubject = new BehaviorSubject<string[]>([]);
   private cookingTimeSubject = new BehaviorSubject<number[]>([]);
+
   
   // Observables for filters to get data from 
+
   selectedTags$ = this.selectedTagsSubject.asObservable();
   selectedDifficulties$ = this.selectedDifficultiesSubject.asObservable();
   minRating$ = this.minRatingSubject.asObservable();
   selectedIngredients$ = this.selectedIngredientsSubject.asObservable();
   cookingTime$ = this.cookingTimeSubject.asObservable();
-  
+
   // Observable for all tags and ingredients
   allTags$?: Observable<string[]>;
   allIngredients$?: Observable<string[]>;
-  
+
   // Difficulty options
   difficultyOptions = ['easy', 'medium', 'hard'];
   ratingOptions = [1, 2, 3, 4, 5];
-  
+
   // Observable for filtered recipes
   filteredRecipes$?: Observable<Recipe[]>;
 
@@ -55,38 +59,40 @@ export class RecipesPageComponent implements OnInit {
     private readonly recipeService: RecipeService
   ) {
     // Get all recipes with delay so skeleton loader is shown
+
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       delay(500),
       startWith([]),
       finalize(() => {
         this.loading = false;
-      })
+      }),
     );
   }
 
   ngOnInit() {
+
     // Extract all unique tag names from recipe obersevable
+
     this.allTags$ = this.recipes$.pipe(
-      map(recipes => {
-        const allTagNames = recipes.flatMap(recipe => 
-          recipe.tags.map(tag => tag.name)
-        );
+      map((recipes) => {
+        const allTagNames = recipes.flatMap((recipe) => recipe.tags.map((tag) => tag.name));
         return [...new Set(allTagNames)];
-      })
+      }),
     );
 
     // Extract unique ingredient names
     this.allIngredients$ = this.recipes$.pipe(
-      map(recipes => {
-        const allIngredientNames = recipes.flatMap(recipe => 
-          recipe.ingredients.map(ingredient => ingredient.name)
+      map((recipes) => {
+        const allIngredientNames = recipes.flatMap((recipe) =>
+          recipe.ingredients.map((ingredient) => ingredient.name),
         );
         return [...new Set(allIngredientNames)];
-      })
+      }),
     );
 
     // Create filtered recipes observable with multiple filter conditions
     this.filteredRecipes$ = combineLatest([
+
     this.recipes$, 
     this.selectedTagsSubject,
     this.selectedDifficultiesSubject,
@@ -133,6 +139,7 @@ export class RecipesPageComponent implements OnInit {
           return tagMatch && difficultyMatch && ratingMatch && ingredientMatch && cookingTimeMatch;
         });
       })
+
     );
   }
 
@@ -147,9 +154,9 @@ export class RecipesPageComponent implements OnInit {
   toggleTag(tag: string) {
     const currentTags = this.selectedTagsSubject.value;
     const updatedTags = currentTags.includes(tag)
-      ? currentTags.filter(t => t !== tag)
+      ? currentTags.filter((t) => t !== tag)
       : [...currentTags, tag];
-    
+
     this.selectedTagsSubject.next(updatedTags);
   }
 
@@ -159,8 +166,8 @@ export class RecipesPageComponent implements OnInit {
     const difficulty = event.source.value;
     const updatedDifficulties = event.checked
       ? [...currentDifficulties, difficulty]
-      : currentDifficulties.filter(d => d !== difficulty);
-    
+      : currentDifficulties.filter((d) => d !== difficulty);
+
     this.selectedDifficultiesSubject.next(updatedDifficulties);
   }
 
@@ -174,8 +181,8 @@ export class RecipesPageComponent implements OnInit {
     const ingredient = event.source.value;
     const updatedIngredients = event.checked
       ? [...currentIngredients, ingredient]
-      : currentIngredients.filter(i => i !== ingredient);
-    
+      : currentIngredients.filter((i) => i !== ingredient);
+
     this.selectedIngredientsSubject.next(updatedIngredients);
   }
 
@@ -184,8 +191,8 @@ export class RecipesPageComponent implements OnInit {
     const cookingTime = event.source.value;
     const updatedCookingTimes = event.checked
       ? [...currentCookingTimes, cookingTime]
-      : currentCookingTimes.filter(t => t !== cookingTime);
-    
+      : currentCookingTimes.filter((t) => t !== cookingTime);
+
     this.cookingTimeSubject.next(updatedCookingTimes);
   }
 

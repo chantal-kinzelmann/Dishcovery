@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-datenschutz',
   imports: [],
   templateUrl: './datenschutz.component.html',
-  styleUrl: './datenschutz.component.scss'
+  styleUrl: './datenschutz.component.scss',
 })
-export class DatenschutzComponent {
-
-}
+export class DatenschutzComponent {}

@@ -5,12 +5,11 @@ import { Recipe } from './recipe.type';
 import { Observable } from 'rxjs';
 import { environment } from '../../app.config';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeService {
-  constructor(private readonly http:HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
   private apiUrl = environment.apiUrl;
 
   // API-Anfrage: Alle Rezepte abrufen
@@ -20,9 +19,7 @@ export class RecipeService {
 
   // GET: Alle Rezepte abrufen
   getAllRecipes(): Observable<any[]> {
-    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe`).pipe(
-      tap(data => console.log('API Response:', data)) // Add this line
-    );
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe`);
   }
 
   //GET: Rezepte von User abrufen
@@ -51,18 +48,11 @@ export class RecipeService {
   }
 
   getRecipesByTag(tagName: string): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/tag/${tagName}`).pipe(tap(recipes => console.log('Received recipes with tag ${tagName}:', recipes)));
+    return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/tag/${tagName}`);
   }
 
   // GET: Rezepte suchen
   searchRecipes(query: string): Observable<Recipe[]> {
-    console.log(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`);
     return this.http.get<Recipe[]>(`${this.apiUrl}/recipe/search?q=${encodeURIComponent(query)}`);
   }
-  
 }
-
-
-
-
-

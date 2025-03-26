@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-agb',
   imports: [],
   templateUrl: './agb.component.html',
-  styleUrl: './agb.component.scss'
+  styleUrl: './agb.component.scss',
 })
-export class AGBComponent {
-
-}
+export class AGBComponent {}

@@ -50,23 +50,23 @@ export class UserService {
   }
 
   toggleFavorite(recipeId: number, userId: number) {
-    return this.http.post<{ message: string }>(
-      `${this.apiUrl}/user/${userId}/favlist`,
-      { recipeId, userId }
-    );
+    return this.http.post<{ message: string }>(`${this.apiUrl}/user/${userId}/favlist`, {
+      recipeId,
+      userId,
+    });
   }
-  
+
   toggleWatchlist(recipeId: number, userId: number) {
-    return this.http.post<{ message: string }>(
-      `${this.apiUrl}/user/${userId}/watchlist`,
-      { recipeId, userId }
-    );
+    return this.http.post<{ message: string }>(`${this.apiUrl}/user/${userId}/watchlist`, {
+      recipeId,
+      userId,
+    });
   }
 
   getWatchlist(userId: number): Observable<WatchEntry[]> {
     return this.http.get<WatchEntry[]>(`${this.apiUrl}/user/${userId}/watchlist`);
   }
-  
+
   getFavorites(userId: number): Observable<FavoriteEntry[]> {
     return this.http.get<FavoriteEntry[]>(`${this.apiUrl}/user/${userId}/favlist`);
   }

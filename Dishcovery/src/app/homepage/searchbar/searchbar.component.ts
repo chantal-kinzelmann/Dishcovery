@@ -6,7 +6,7 @@ import { NgModel, FormsModule } from '@angular/forms';
   selector: 'app-searchbar',
   imports: [FormsModule],
   templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.scss'
+  styleUrl: './searchbar.component.scss',
 })
 export class SearchBarComponent {
   searchQuery = '';

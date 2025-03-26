@@ -10,20 +10,25 @@ import { ChangeDetectorRef } from '@angular/core';
   selector: 'app-header',
   imports: [SearchBarComponent, RouterLink, RouterModule, NgIf, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   isDarkMode = false;
   isUserLoggedIn = false; // Speichert den Login-Status
   menuOpen: boolean = false; // 🆕 Für das Burger-Menü
 
-  constructor(private renderer: Renderer2, private authService: AuthService, private router:Router, private cdRef:ChangeDetectorRef) {}
+  constructor(
+    private renderer: Renderer2,
+    private authService: AuthService,
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     // Prüfe, ob Darkmode gespeichert ist
     const darkModeSetting = localStorage.getItem('darkMode');
     this.isDarkMode = darkModeSetting === 'enabled';
-    this.authService.isLoggedIn$.subscribe(status => {
+    this.authService.isLoggedIn$.subscribe((status) => {
       console.log('Login Status geändert:', status); // Debugging
       this.isUserLoggedIn = status;
     });
@@ -52,8 +57,8 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);  // Leitet den User nach Logout um
-    this.cdRef.detectChanges();  // Erzwingt ein UI-Update
+    this.router.navigate(['/login']); // Leitet den User nach Logout um
+    this.cdRef.detectChanges(); // Erzwingt ein UI-Update
   }
 
   // 🆕 Methode für das Burger-Menü

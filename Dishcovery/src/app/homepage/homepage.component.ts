@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-homepage',
   imports: [SmallRecipeCardComponent, CommonModule],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  styleUrl: './homepage.component.scss',
 })
 export class HomepageComponent {
   recipes$: Observable<Recipe[]>;
@@ -21,22 +21,17 @@ export class HomepageComponent {
     // Get all recipes with delay so skeleton loader is shown
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       delay(500),
-        startWith([]),
-        finalize(() => {
-          this.loading = false;
-        }),
-      tap(recipes => console.log('Received recipes:', recipes))
+      startWith([]),
+      finalize(() => {
+        this.loading = false;
+      }),
     );
   }
 
   ngOnInit() {
     // Create an observable that groups recipes by their tags
     this.recipesByTag$ = this.recipes$.pipe(
-      tap(recipes => {
-        console.log('All Recipes:', recipes);
-        console.log('Number of Recipes:', recipes.length);
-      }),
-      map(recipes => {
+      map((recipes) => {
         // Reduce recipes into an object where keys are tag names and values are arrays of recipes
         const tagMap = recipes.reduce((acc, recipe) => {
           console.log('Current Recipe:', recipe);
@@ -55,22 +50,24 @@ export class HomepageComponent {
         }, {} as { [tag: string]: Recipe[] });
   
         console.log('Recipes by Tag:', tagMap);
+
         return tagMap;
-      })
+      }),
     );
-  
+
     // Extract unique tag names
     this.allTags$ = this.recipes$.pipe(
-      tap(recipes => {
-        console.log('Tags:', recipes.flatMap(recipe => recipe.tags.map(tag => tag.name)));
-      }),
-      map(recipes => {
-        // Flatten and get unique tag names
-        const allTagNames = recipes.flatMap(recipe => 
-          recipe.tags.map(tag => tag.name)
+      tap((recipes) => {
+        console.log(
+          'Tags:',
+          recipes.flatMap((recipe) => recipe.tags.map((tag) => tag.name)),
         );
+      }),
+      map((recipes) => {
+        // Flatten and get unique tag names
+        const allTagNames = recipes.flatMap((recipe) => recipe.tags.map((tag) => tag.name));
         return [...new Set(allTagNames)];
-      })
+      }),
     );
   }
 }

@@ -17,29 +17,27 @@ import { KontaktComponent } from './kontakt/kontakt.component';
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
   { path: 'profile', component: ProfileComponent }, //Profil
-  { path: 'new-recipe', component: NewRecipeComponent} ,//Neues Rezept
-  { path: 'login', component: LoginComponent}, //Login
-  { path: 'view-recipe/:id', component: ViewRecipeComponent}, 
-  { path: 'register', component: RegisterComponent}, //Registrieren
+  { path: 'new-recipe', component: NewRecipeComponent }, //Neues Rezept
+  { path: 'login', component: LoginComponent }, //Login
+  { path: 'view-recipe/:id', component: ViewRecipeComponent },
+  { path: 'register', component: RegisterComponent }, //Registrieren
   { path: 'home', component: HomepageComponent }, // Startseite
-  { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page 
+  { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page
   { path: 'edit-profile', component: EditProfileComponent }, // Profil bearbeiten
-  { path: 'aboutus', component: AboutusComponent}, //About us
+  { path: 'aboutus', component: AboutusComponent }, //About us
   { path: 'search', component: SearchResultsComponent }, //Suche
   { path: 'datenschutz', component: DatenschutzComponent }, //Datenschutz
   { path: 'agb', component: AGBComponent }, //Datenschutz
   { path: 'kontakt', component: KontaktComponent }, //Datenschutz
-  
-
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
       anchorScrolling: 'enabled', // Aktiviert das Scrollen zu Fragmenten
-      scrollPositionRestoration: 'enabled' // Stellt die Scroll-Position nach dem Navigieren wieder her
-    })
+      scrollPositionRestoration: 'enabled', // Stellt die Scroll-Position nach dem Navigieren wieder her
+    }),
   ],
-    exports: [RouterModule]
-   })
-   export class AppRoutingModule { }
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

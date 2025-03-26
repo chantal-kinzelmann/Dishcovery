@@ -6,17 +6,15 @@ import { Recipe } from '../../services/recipe-services/recipe.type';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 
-
 @Component({
   selector: 'app-my-recipes',
-  imports: [SmallRecipeCardComponent,CommonModule],
+  imports: [SmallRecipeCardComponent, CommonModule],
   templateUrl: './my-recipes.component.html',
-  styleUrl: './my-recipes.component.scss'
+  styleUrl: './my-recipes.component.scss',
 })
 export class MyRecipesComponent {
-
   recipes!: Observable<Recipe[]>;
-  loading= true;
+  loading = true;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {
@@ -25,21 +23,15 @@ export class MyRecipesComponent {
       const user = JSON.parse(userString);
       const userId = user?.id;
 
-      this.recipeService.getRecipesByUser(userId).subscribe(recipes => {
-          //Simuliere 2 Sekunden Ladezeit 
-          console.log(recipes)
-      setTimeout(() => {
-        this.recipes = of(recipes); 
-        this.loading = false;
-      }, 1500);
-       
+      this.recipeService.getRecipesByUser(userId).subscribe((recipes) => {
+        setTimeout(() => {
+          this.recipes = of(recipes);
+          this.loading = false;
+        }, 1000);
       });
-      
     } else {
       this.recipes = of([]);
       this.loading = false;
+    }
   }
-
-}}
-
-
+}

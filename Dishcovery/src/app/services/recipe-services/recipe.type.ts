@@ -1,4 +1,4 @@
-import { User } from "../user-services/user.type";
+import { User } from '../user-services/user.type';
 
 export type BaseEntity = {
   id: string;
@@ -21,14 +21,14 @@ export type Recipe = {
   user: User; // Referenz auf den Ersteller
   updatedAt: Date;
   tags: Tag[];
-  };
+};
 
-  // Zutaten mit Menge und Einheit
+// Zutaten mit Menge und Einheit
 export type Ingredient = {
   name: string;
   amount: number;
   unit: 'g' | 'kg' | 'ml' | 'l' | 'tbsp' | 'tsp' | 'cup' | 'piece';
-}
+};
 
 // Bewertungen
 export type Rating = {
@@ -38,9 +38,9 @@ export type Rating = {
   rating: 1 | 2 | 3 | 4 | 5;
   comment?: string;
   updatedAt: Date;
-}
+};
 
 export type Tag = {
   id: number;
   name: string;
-}
+};
