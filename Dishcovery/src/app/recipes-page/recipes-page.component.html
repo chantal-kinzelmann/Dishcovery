@@ -91,7 +91,9 @@
   </div>
 
   <!-- Clear All Filters Button -->
-  <button (click)="clearAllFilters()">Clear All Filters</button>
+  <div class="reset-button">
+    <button (click)="clearAllFilters()">Clear All Filters</button>
+  </div>
 
   <!-- Skeleton Loading -->
   <div class="skeleton-container" *ngIf="loading">
