@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { EditProfileComponent } from './profile-components/edit-profile/edit-profile.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
@@ -20,7 +19,6 @@ export const routes: Routes = [
   { path: 'view-recipe/:id', component: ViewRecipeComponent}, 
   { path: 'register', component: RegisterComponent}, //Registrieren
   { path: 'home', component: HomepageComponent }, // Startseite
-  { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
   { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page 
   { path: 'edit-profile', component: EditProfileComponent }, // Profil bearbeiten
   {path: 'aboutus', component: AboutusComponent}, //About us
