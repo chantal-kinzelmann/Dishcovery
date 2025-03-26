@@ -11,6 +11,9 @@ import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { EditProfileComponent } from './profile-components/edit-profile/edit-profile.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { DatenschutzComponent } from './datenschutz/datenschutz.component';
+import { AGBComponent } from './agb/agb.component';
+import { KontaktComponent } from './kontakt/kontakt.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Startseite
@@ -23,8 +26,12 @@ export const routes: Routes = [
   { path: 'password-reset', component: PasswordResetComponent }, // Passwort zurücksetzten
   { path: 'recipes-page', component: RecipesPageComponent }, // Rezepte page 
   { path: 'edit-profile', component: EditProfileComponent }, // Profil bearbeiten
-  {path: 'aboutus', component: AboutusComponent}, //About us
+  { path: 'aboutus', component: AboutusComponent}, //About us
   { path: 'search', component: SearchResultsComponent }, //Suche
+  { path: 'datenschutz', component: DatenschutzComponent }, //Datenschutz
+  { path: 'agb', component: AGBComponent }, //Datenschutz
+  { path: 'kontakt', component: KontaktComponent }, //Datenschutz
+  
 
 ];
 

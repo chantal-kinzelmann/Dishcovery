@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { RecipeService } from '../../services/recipe-services/recipe.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user-services/user.service';
 
 @Component({
   selector: 'app-my-watch-list',
@@ -15,12 +16,16 @@ import { Router } from '@angular/router';
 })
 export class MyWatchListComponent {
  recipes!: Observable<Recipe[]>;
-  loading= true;
-  constructor(private recipeService: RecipeService, private router:Router) {}
-  
-  goToRecipe(){
-    this.router.navigate(['/recipe-page']);
- }
+  loading = true;
+
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {}
+
+  goToRecipe() {
+    this.router.navigate(['/recipes-page']);
+  }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('user');
@@ -28,19 +33,19 @@ export class MyWatchListComponent {
       const user = JSON.parse(userString);
       const userId = user?.id;
 
-      this.recipeService.getRecipesByUser(userId).subscribe(recipes => {
-          //Simuliere 2 Sekunden Ladezeit 
-      setTimeout(() => {
-        this.recipes = of(recipes); 
-        this.loading = false;
-      }, 1500);
-       
+      this.userService.getWatchlist(userId).subscribe(watchEntries => {
+        const watchRecipes = watchEntries.map(entry => entry.recipe); // 💡 Rezepte extrahieren
+
+        // Simuliere 1,5 Sekunden Ladezeit
+        setTimeout(() => {
+          this.recipes = of(watchRecipes);
+          this.loading = false;
+        }, 1500);
       });
-      
+
     } else {
       this.recipes = of([]);
       this.loading = false;
+    }
   }
-
-}
 }

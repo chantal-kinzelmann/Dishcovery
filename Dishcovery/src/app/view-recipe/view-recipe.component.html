@@ -56,8 +56,16 @@
     
             <p>{{recipe.description}}</p>
             
-            <button class="remember_btn">Merken</button>
-            <button class="toFavorite_btn">Favoritisieren</button>
+           <!-- Merken -->
+                <button class="remember_btn" (click)="toggleWatchlist()">
+                    {{ isWatched ? 'Aus Merkliste entfernen' : 'Merken' }}
+                </button>
+  
+             <!-- Favoriten -->
+                <button class="toFavorite_btn" (click)="toggleFavorite()">
+                    {{ isFavorited ? 'Aus Favoriten entfernen' : 'Favorisieren' }}
+                </button>
+
         </div>
     
     </div>
