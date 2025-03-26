@@ -21,10 +21,11 @@
   display: flex;
   background: transparent;
   border: none;
-  width: 100%; /* Input-Feld nimmt die volle Breite der Suchleiste ein */
+  height: 100%; /* Input-Feld nimmt die volle Breite der Suchleiste ein */
+  width: 25rem;
   outline: none;
   font-size: 16px;
-  padding: 0; /* Kein zusätzliches Padding im Input */
+  flex:1;
 }
 
 /* ✅ Responsives Design */
