@@ -16,9 +16,7 @@
   </div>
   
 
-<button class="delete_btn" *ngIf="recipe?.user?.id === userId" (click)="deleteRecipe()">
-    Rezept löschen
-  </button>
+
 
 <!-- Rezept gefunden -->
 <div *ngIf="recipe && !loading">
@@ -79,6 +77,10 @@
              <!-- Favoriten -->
                 <button class="toFavorite_btn" (click)="toggleFavorite()">
                     {{ isFavorited ? 'Aus Favoriten entfernen' : 'Favorisieren' }}
+                </button>
+
+                <button class="delete_btn" *ngIf="recipe?.user?.id === userId" (click)="deleteRecipe()">
+                    Rezept löschen
                 </button>
 
         </div>
