@@ -38,6 +38,10 @@
 :host-context(.dark-mode) {
     .show-more-button {
         color: white;
+        &:hover {
+            color: white;
+            background-color: #ff7b00;
+        }
     }
     .example-card-header{
         ::ng-deep .mat-card-title {
