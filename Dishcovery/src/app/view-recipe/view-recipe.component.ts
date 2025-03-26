@@ -129,26 +129,35 @@ export class ViewRecipeComponent {
     }
   }
 
-  toggleWatchlist() {
-    if (!this.recipe?.id) return;
-    this.getUser();
-  
-    this.userService.toggleWatchlist(Number(this.recipe.id), Number(this.userId)).subscribe({
-      next: (res) => alert(res.message), // ✅ zeigt echte Nachricht an
-    });
-  }
-  
   toggleFavorite() {
     if (!this.recipe?.id) return;
     this.getUser();
   
     this.userService.toggleFavorite(Number(this.recipe.id), Number(this.userId)).subscribe({
-    next: (res) => alert(res.message), // ✅ zeigt echte Nachricht an
-  });
+      next: (res) => {
+       
+        this.refreshUserLists(); // 💡 Zustand aktualisieren
+      },
+      error: (err) => console.error('Fehler beim Favoritisieren:', err)
+    });
+  }
+  
+  toggleWatchlist() {
+    if (!this.recipe?.id) return;
+    this.getUser();
+  
+    this.userService.toggleWatchlist(Number(this.recipe.id), Number(this.userId)).subscribe({
+      next: (res) => {     
+        this.refreshUserLists(); // 💡 Zustand aktualisieren
+      },
+      error: (err) => console.error('Fehler beim Merken:', err)
+    });
+  }
+  
 
 
 
-}
+
 getUser() {
   const userString: string | null = localStorage.getItem('user');
     if (userString) {
@@ -156,6 +165,19 @@ getUser() {
       this.userId = user?.id;
     }
   }
+
+  refreshUserLists() {
+    if (!this.recipe) return;
+  
+    this.userService.getFavorites(Number(this.userId)).subscribe(favs => {
+      this.isFavorited = favs.some(entry => entry.recipe.id === this.recipe?.id);
+    });
+  
+    this.userService.getWatchlist(Number(this.userId)).subscribe(watchlist => {
+      this.isWatched = watchlist.some(entry => entry.recipe.id === this.recipe?.id);
+    });
+  }
+  
   
 }
   
