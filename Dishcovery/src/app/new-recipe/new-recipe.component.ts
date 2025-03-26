@@ -114,7 +114,7 @@ export class NewRecipeComponent {
 
   goToRecipe(){
      //TODO, recipeId ist unter recipeIdNav
-     this.router.navigate(['/recipe-page']);
+     this.router.navigate(['/view-recipe', this.recipeIdNav]);
     this.showSuccessModal =false;
   }
   
