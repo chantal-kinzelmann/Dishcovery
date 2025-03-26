@@ -24,7 +24,7 @@ export class MyWatchListComponent {
   ) {}
 
   goToRecipe() {
-    this.router.navigate(['/recipe-page']);
+    this.router.navigate(['/recipes-page']);
   }
 
   ngOnInit(): void {

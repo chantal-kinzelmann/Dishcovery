@@ -27,7 +27,7 @@ export class MyFavoritesComponent {
   ) {}
 
   goToRecipe() {
-    this.router.navigate(['/recipe-page']);
+    this.router.navigate(['/recipes-page']);
   }
 
   ngOnInit(): void {
@@ -50,5 +50,10 @@ export class MyFavoritesComponent {
       this.recipes = of([]);
       this.loading = false;
     }
+
+
+
   }
+
+  
 }
