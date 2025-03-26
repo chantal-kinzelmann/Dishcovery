@@ -59,16 +59,38 @@
         }
       }
     }
-  }
+}
   
-  @media (max-width: 1200px) {
+@media (max-width: 1200px) {
     .filters-grid {
       grid-template-columns: repeat(2, 1fr) !important; 
     }
-  }
+}
   
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .filters-grid {
       grid-template-columns: 1fr !important;
     }
-  }
+}
+
+.skeleton-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 3rem;
+  
+}
+  
+  
+.skeleton-card {
+    flex:1;
+    display: flex;
+    width: 300px;
+    height: 490px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: pulse 1.5s infinite;
+    margin: 1rem;
+}

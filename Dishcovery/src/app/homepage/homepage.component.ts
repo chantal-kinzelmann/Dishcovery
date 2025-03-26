@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SmallRecipeCardComponent } from '../small-recipe-card/small-recipe-card.component';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { Recipe } from '../services/recipe-services/recipe.type';
-import { map, Observable, tap } from 'rxjs';
+import { delay, finalize, map, Observable, startWith, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-homepage',
@@ -15,8 +15,15 @@ export class HomepageComponent {
   allTags$?: Observable<string[]>;
   recipesByTag$?: Observable<{ [tag: string]: Recipe[] }>;
 
+  loading = true;
+
   constructor(private readonly recipeService: RecipeService) {
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
+      delay(500),
+        startWith([]),
+        finalize(() => {
+          this.loading = false;
+        }),
       tap(recipes => console.log('Received recipes:', recipes))
     );
   }
