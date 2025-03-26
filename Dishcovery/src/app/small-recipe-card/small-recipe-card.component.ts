@@ -24,5 +24,13 @@ import { Recipe } from '../services/recipe-services/recipe.type';
 export class SmallRecipeCardComponent {
   // @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
   @Input() recipe!: Recipe;
-  currentRating = 4;
+
+  getAverageRating() {
+    let sumRating = 0;
+    for (let i = 0; i < this.recipe.ratings.length; i++) {
+      sumRating += this.recipe.ratings[i].rating;
+    }
+    sumRating = sumRating / this.recipe.ratings.length;
+    return sumRating;
+  }
 }

@@ -9,6 +9,7 @@
 track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
 <section class="tag-section">
   <h2>{{ tag }} Recipes</h2>
+  <hr />
   <div class="recipe-container">
     @for (recipe of recipesByTag[tag]; track recipe.id) {
     <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
