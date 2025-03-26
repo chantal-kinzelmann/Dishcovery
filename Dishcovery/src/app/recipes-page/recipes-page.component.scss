@@ -6,6 +6,10 @@
     gap: 1rem;
 }
 
+.tags-filter {
+    margin-bottom: 2rem;
+}
+
 .clear-tags-chip {
     &:hover {
       background-color: #ff7b00;
@@ -47,12 +51,12 @@
   // Responsive design
   @media (max-width: 1200px) {
     .filters-grid {
-      grid-template-columns: repeat(2, 1fr) !important; // 2 columns on smaller screens
+      grid-template-columns: repeat(2, 1fr) !important; 
     }
   }
   
   @media (max-width: 768px) {
     .filters-grid {
-      grid-template-columns: 1fr !important; // Single column on mobile
+      grid-template-columns: 1fr !important;
     }
   }
