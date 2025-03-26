@@ -10,13 +10,7 @@
     margin-bottom: 2rem;
 }
 
-.clear-tags-chip {
-    &:hover {
-      background-color: #ff7b00;
-    }
-}
-
-:root {
+:host {
     // Light mode variables
     --filter-bg: #f9f9f9;
     --filter-text: black;

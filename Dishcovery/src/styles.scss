@@ -44,15 +44,36 @@ button {
 }
 
 
+
 body.dark-mode form {
   background-color: #7d9b76;
+}
 
+.dark-mode .example-card {
+  border-color: #cd6301;
+  background-color: #3d3d3d;
+}
+
+
+.dark-mode .profile-nav {
+  background-color: #444;
+}
+
+.dark-mode .profile-nav button {
+  color: #ffffff;
+}
+
+body.dark-mode form {
+  background-color: #7d9b76;
+}
+.dark-mode .profile-nav button.active {
+  background: #cd6301;
+  color: white;
 }
 
 body.dark-mode h1{color:white}
 body.dark-mode h2{color:white}
 body.dark-mode h3{color:white}
-
 
 .error-snackbar {
   --mdc-snackbar-container-color: #d32f2f !important; // Rotes Hintergrund für Fehler
