@@ -30,6 +30,7 @@
     [(ngModel)]="recipe.description"
     #descRef="ngModel"
     placeholder="Kurze Einführung zum Rezept"
+    maxlength="160"
   ></textarea>
   <p class="error" *ngIf="descRef.invalid && recipeForm.submitted">Beschreibung ist erforderlich.</p>
 
@@ -170,6 +171,7 @@
     [(ngModel)]="recipe.text"
     #textRef="ngModel"
     placeholder="Anleitung Schritt für Schritt"
+   
   ></textarea>
   <p class="error" *ngIf="textRef.invalid && recipeForm.submitted">Zubereitung fehlt!</p>
 
