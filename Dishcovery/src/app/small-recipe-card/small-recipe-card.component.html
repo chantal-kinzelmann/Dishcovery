@@ -6,11 +6,11 @@
     class="thumbnailUrl"
   />
   <img
-  mat-card-image
-  *ngIf="recipe &&!recipe.imgUrl"
-  src="https://static.vecteezy.com/system/resources/previews/047/411/214/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg"
-  class="thumbnailUrl"
-/>
+    mat-card-image
+    *ngIf="recipe && !recipe.imgUrl"
+    src="https://static.vecteezy.com/system/resources/previews/047/411/214/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg"
+    class="thumbnailUrl"
+  />
   <mat-card-header>
     <mat-card-title>{{ recipe.title }}</mat-card-title>
     <mat-card-subtitle>{{ recipe.id }}</mat-card-subtitle>
@@ -36,10 +36,14 @@
       aria-label="Recipe Tags"
       *ngIf="recipe.tags && recipe.tags.length > 0"
     >
-      <mat-chip *ngFor="let tag of recipe.tags">{{ tag.name }}</mat-chip>
+      <mat-chip *ngFor="let tag of recipe.tags | slice : 0 : 3">{{
+        tag.name
+      }}</mat-chip>
     </mat-chip-set>
   </mat-card-footer>
   <mat-card-actions>
-    <button mat-button [routerLink]="['/view-recipe', recipe.id]">Show More ></button>
+    <button mat-button [routerLink]="['/view-recipe', recipe.id]">
+      Show More >
+    </button>
   </mat-card-actions>
 </mat-card>
