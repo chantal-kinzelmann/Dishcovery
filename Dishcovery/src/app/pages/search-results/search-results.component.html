@@ -1,1 +1,8 @@
-<p>search-results works!</p>
+<h2>Suchergebnisse für "{{ query }}"</h2>
+
+<ng-container *ngFor="let recipe of results">
+    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+  </ng-container>
+  
+
+<p *ngIf="results.length === 0">Keine passenden Rezepte gefunden.</p>
