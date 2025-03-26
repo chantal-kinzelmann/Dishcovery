@@ -5,8 +5,8 @@ import { RecipeService } from '../services/recipe-services/recipe.service';
 import { SmallRecipeCardComponent } from '../small-recipe-card/small-recipe-card.component';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatSelectModule } from '@angular/material/select';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-recipes-page',
@@ -14,8 +14,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     SmallRecipeCardComponent, 
     CommonModule, 
     MatChipsModule, 
-    MatSelectModule,
-    ReactiveFormsModule
+    MatCheckboxModule,
+    MatButtonModule
   ],
   templateUrl: './recipes-page.component.html',
   styleUrl: './recipes-page.component.scss'
@@ -24,20 +24,19 @@ export class RecipesPageComponent implements OnInit {
   // Original recipes observable
   private recipes$: Observable<Recipe[]>;
   
-  // Filter form group
-  filterForm: FormGroup;
-  
   // Subjects for different filter types
   private selectedTagsSubject = new BehaviorSubject<string[]>([]);
   private selectedDifficultiesSubject = new BehaviorSubject<string[]>([]);
   private minRatingSubject = new BehaviorSubject<number>(0);
   private selectedIngredientsSubject = new BehaviorSubject<string[]>([]);
+  private cookingTimeSubject = new BehaviorSubject<number[]>([]);
   
   // Observables for filters
   selectedTags$ = this.selectedTagsSubject.asObservable();
   selectedDifficulties$ = this.selectedDifficultiesSubject.asObservable();
   minRating$ = this.minRatingSubject.asObservable();
   selectedIngredients$ = this.selectedIngredientsSubject.asObservable();
+  cookingTime$ = this.cookingTimeSubject.asObservable();
   
   // Observable for all tags and ingredients
   allTags$?: Observable<string[]>;
@@ -51,17 +50,9 @@ export class RecipesPageComponent implements OnInit {
   filteredRecipes$?: Observable<Recipe[]>;
 
   constructor(
-    private readonly recipeService: RecipeService,
-    private fb: FormBuilder
+    private readonly recipeService: RecipeService
   ) {
     this.recipes$ = this.recipeService.getAllRecipes();
-    
-    // Initialize filter form
-    this.filterForm = this.fb.group({
-      difficulties: [[]],
-      minRating: [0],
-      ingredients: [[]]
-    });
   }
 
   ngOnInit() {
@@ -85,28 +76,16 @@ export class RecipesPageComponent implements OnInit {
       })
     );
 
-    // Listen to form changes and update subjects
-    this.filterForm.get('difficulties')?.valueChanges.subscribe(
-      difficulties => this.selectedDifficultiesSubject.next(difficulties)
-    );
-
-    this.filterForm.get('minRating')?.valueChanges.subscribe(
-      rating => this.minRatingSubject.next(rating)
-    );
-
-    this.filterForm.get('ingredients')?.valueChanges.subscribe(
-      ingredients => this.selectedIngredientsSubject.next(ingredients)
-    );
-
     // Create filtered recipes observable with multiple filter conditions
     this.filteredRecipes$ = combineLatest([
       this.recipes$, 
       this.selectedTagsSubject,
       this.selectedDifficultiesSubject,
       this.minRatingSubject,
-      this.selectedIngredientsSubject
+      this.selectedIngredientsSubject,
+      this.cookingTimeSubject
     ]).pipe(
-      map(([recipes, selectedTags, selectedDifficulties, minRating, selectedIngredients]) => {
+      map(([recipes, selectedTags, selectedDifficulties, minRating, selectedIngredients, cookingTimes]) => {
         return recipes.filter(recipe => {
           // Tag filter
           const tagMatch = selectedTags.length === 0 || 
@@ -129,7 +108,19 @@ export class RecipesPageComponent implements OnInit {
               recipe.ingredients.some(recipeIngredient => recipeIngredient.name === ingredient)
             );
 
-          return tagMatch && difficultyMatch && ratingMatch && ingredientMatch;
+          // Cooking time filter
+          const cookingTimeMatch = cookingTimes.length === 0 || 
+            cookingTimes.some(timeLimit => {
+              const totalCookTime = recipe.prepTime + recipe.cookTime;
+              switch(timeLimit) {
+                case 30: return totalCookTime <= 30;
+                case 60: return totalCookTime > 30 && totalCookTime <= 60;
+                case 120: return totalCookTime > 60;
+                default: return true;
+              }
+            });
+
+          return tagMatch && difficultyMatch && ratingMatch && ingredientMatch && cookingTimeMatch;
         });
       })
     );
@@ -152,14 +143,49 @@ export class RecipesPageComponent implements OnInit {
     this.selectedTagsSubject.next(updatedTags);
   }
 
+  // Checkbox change handlers
+  onDifficultyChange(event: any) {
+    const currentDifficulties = this.selectedDifficultiesSubject.value;
+    const difficulty = event.source.value;
+    const updatedDifficulties = event.checked
+      ? [...currentDifficulties, difficulty]
+      : currentDifficulties.filter(d => d !== difficulty);
+    
+    this.selectedDifficultiesSubject.next(updatedDifficulties);
+  }
+
+  onRatingChange(event: any) {
+    const rating = event.source.value;
+    this.minRatingSubject.next(event.checked ? rating : 0);
+  }
+
+  onIngredientChange(event: any) {
+    const currentIngredients = this.selectedIngredientsSubject.value;
+    const ingredient = event.source.value;
+    const updatedIngredients = event.checked
+      ? [...currentIngredients, ingredient]
+      : currentIngredients.filter(i => i !== ingredient);
+    
+    this.selectedIngredientsSubject.next(updatedIngredients);
+  }
+
+  onCookingTimeChange(event: any) {
+    const currentCookingTimes = this.cookingTimeSubject.value;
+    const cookingTime = event.source.value;
+    const updatedCookingTimes = event.checked
+      ? [...currentCookingTimes, cookingTime]
+      : currentCookingTimes.filter(t => t !== cookingTime);
+    
+    this.cookingTimeSubject.next(updatedCookingTimes);
+  }
+
   // Method to clear all filters
   clearAllFilters() {
     this.selectedTagsSubject.next([]);
-    this.filterForm.reset({
-      difficulties: [],
-      minRating: 0,
-      ingredients: []
-    });
+    this.selectedDifficultiesSubject.next([]);
+    this.minRatingSubject.next(0);
+    this.selectedIngredientsSubject.next([]);
+    this.cookingTimeSubject.next([]);
   }
 
   clearTags() {

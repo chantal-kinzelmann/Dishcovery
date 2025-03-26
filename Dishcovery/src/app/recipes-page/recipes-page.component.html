@@ -1,77 +1,98 @@
 <div class="filters-container">
   <h2>Filter Recipes</h2>
 
-  <form [formGroup]="filterForm">
-    <!-- Tags Filter -->
-    <div class="tags-filter">
-      <h3>Tags</h3>
-      <mat-chip-listbox selectable multiple>
-        @for (tag of (allTags$ | async); track tag) {
-        <mat-chip-option
-          class="tag-chip"
-          [selected]="(selectedTags$ | async)?.includes(tag)"
-          (click)="toggleTag(tag)"
-        >
-          {{ tag }}
-        </mat-chip-option>
-        }
-        <mat-chip class="clear-tags-chip" (click)="clearTags()"
-          >Clear Tags</mat-chip
-        >
-      </mat-chip-listbox>
-    </div>
+  <!-- Tags Filter (Existing implementation) -->
+  <div class="tags-filter">
+    <h3>Tags</h3>
+    <mat-chip-listbox selectable multiple>
+      @for (tag of (allTags$ | async); track tag) {
+      <mat-chip-option
+        class="tag-chip"
+        [selected]="(selectedTags$ | async)?.includes(tag)"
+        (click)="toggleTag(tag)"
+      >
+        {{ tag }}
+      </mat-chip-option>
+      }
+      <mat-chip class="clear-tags-chip" (click)="clearTags()"
+        >Clear Tags</mat-chip
+      >
+    </mat-chip-listbox>
+  </div>
 
+  <!-- Filters Container with Grid Layout -->
+  <div class="filters-grid">
     <!-- Difficulty Filter -->
     <div class="difficulty-filter">
       <h3>Difficulty</h3>
-      <mat-form-field>
-        <mat-label>Select Difficulty</mat-label>
-        <mat-select formControlName="difficulties" multiple>
-          @for (difficulty of difficultyOptions; track difficulty) {
-          <mat-option [value]="difficulty">{{ difficulty }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="checkbox-container">
+        @for (difficulty of difficultyOptions; track difficulty) {
+        <mat-checkbox
+          [value]="difficulty"
+          (change)="onDifficultyChange($event)"
+        >
+          {{ difficulty | titlecase }}
+        </mat-checkbox>
+        }
+      </div>
     </div>
 
     <!-- Minimum Rating Filter -->
     <div class="rating-filter">
       <h3>Minimum Rating</h3>
-      <mat-form-field>
-        <mat-label>Minimum Rating</mat-label>
-        <mat-select formControlName="minRating">
-          @for (rating of ratingOptions; track rating) {
-          <mat-option [value]="rating">{{ rating }} Stars</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="checkbox-container">
+        @for (rating of ratingOptions; track rating) {
+        <mat-checkbox
+          [value]="rating.toString()"
+          (change)="onRatingChange($event)"
+        >
+          {{ rating }} Stars & Up
+        </mat-checkbox>
+        }
+      </div>
     </div>
 
     <!-- Ingredients Filter -->
     <div class="ingredients-filter">
       <h3>Ingredients</h3>
-      <mat-form-field>
-        <mat-label>Select Ingredients</mat-label>
-        <mat-select formControlName="ingredients" multiple>
-          @for (ingredient of (allIngredients$ | async); track ingredient) {
-          <mat-option [value]="ingredient">{{ ingredient }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="checkbox-container">
+        @for (ingredient of (allIngredients$ | async); track ingredient) {
+        <mat-checkbox
+          [value]="ingredient"
+          (change)="onIngredientChange($event)"
+        >
+          {{ ingredient }}
+        </mat-checkbox>
+        }
+      </div>
     </div>
 
-    <!-- Clear All Filters Button -->
-    <button mat-raised-button color="primary" (click)="clearAllFilters()">
-      Clear All Filters
-    </button>
-  </form>
-</div>
+    <!-- Cooking Time Filter -->
+    <div class="cooking-time-filter">
+      <h3>Cooking Time</h3>
+      <div class="checkbox-container">
+        <mat-checkbox [value]="'30'" (change)="onCookingTimeChange($event)">
+          Under 30 mins
+        </mat-checkbox>
+        <mat-checkbox [value]="'60'" (change)="onCookingTimeChange($event)">
+          30-60 mins
+        </mat-checkbox>
+        <mat-checkbox [value]="'120'" (change)="onCookingTimeChange($event)">
+          Over 60 mins
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
 
-<!-- Display filtered recipes -->
-<div class="recipe-container">
-  @for (recipe of (filteredRecipes$ | async); track recipe.id) {
-  <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
-  }
+  <!-- Clear All Filters Button -->
+  <button (click)="clearAllFilters()">Clear All Filters</button>
+
+  <!-- Display filtered recipes -->
+  <div class="recipe-container">
+    @for (recipe of (filteredRecipes$ | async); track recipe.id) {
+    <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>
+    }
+  </div>
 </div>
 
 <!-- Show message if no recipes match -->
