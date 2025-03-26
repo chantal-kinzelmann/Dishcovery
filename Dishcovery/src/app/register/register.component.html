@@ -23,13 +23,22 @@
             </p>
         </div>
 
-        <div class="button-container">
-            <button (click)="register()" [disabled]="registerForm.invalid">Jetzt registrieren</button>
-            <p class="login-link" routerLink="/login">Bereits ein Konto?<br> Hier anmelden!</p>
+        
+        
+        <div class="bottom">
+            <div class="left">
+                <p routerLink="/login" class="login-link">Bereits ein Konto?<br>Hier anmelden!</p>
+            </div>
+            <div class="middle">
+                <button (click)="register()" [disabled]="registerForm.invalid">Jetzt registrieren</button>
+            </div>
+            <div class="right">
+                <p></p>
+            </div>
         </div>
     </form>
 
     <div class="kleingeschriebenes">
-        <p>*Hier steht kleingeschriebenes! ganz Viel TEXT! ...</p>
+        <p>*Mit der Registrierung akzeptieren Sie die Datenschutzerklärung und die AGBs</p>
     </div>
 </div>
