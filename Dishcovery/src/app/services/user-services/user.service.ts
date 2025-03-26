@@ -20,7 +20,7 @@ export interface WatchEntry {
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = environment.apiUrl; // 💡 Stelle sicher, dass die API-URL korrekt ist
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

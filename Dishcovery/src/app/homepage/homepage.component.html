@@ -14,6 +14,7 @@
   </div>
 </div>
 
+<!-- Tagged Recipes -> display recipes for every tag -->
 @if (recipesByTag$ | async; as recipesByTag) { @for (tag of (allTags$ | async);
 track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
 <section class="tag-section">

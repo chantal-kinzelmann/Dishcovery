@@ -18,6 +18,7 @@ export class HomepageComponent {
   loading = true;
 
   constructor(private readonly recipeService: RecipeService) {
+    // Get all recipes with delay so skeleton loader is shown
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
       delay(500),
       startWith([]),
@@ -32,22 +33,23 @@ export class HomepageComponent {
     this.recipesByTag$ = this.recipes$.pipe(
       map((recipes) => {
         // Reduce recipes into an object where keys are tag names and values are arrays of recipes
-        const tagMap = recipes.reduce(
-          (acc, recipe) => {
-            // Flatten tags and ensure unique tag names
-            const recipeTags = [...new Set(recipe.tags.map((tag) => tag.name))];
-            // For each tag, add the recipe to that tag's array
-            recipeTags.forEach((tagName) => {
-              if (!acc[tagName]) {
-                acc[tagName] = [];
-              }
-              acc[tagName].push(recipe);
-            });
-
-            return acc;
-          },
-          {} as { [tag: string]: Recipe[] },
-        );
+        const tagMap = recipes.reduce((acc, recipe) => {
+          console.log('Current Recipe:', recipe);
+          // Flatten tags and ensure unique tag names
+          const recipeTags = [...new Set(recipe.tags.map(tag => tag.name))];
+          
+          // For each tag, add the recipe to that tags array
+          recipeTags.forEach(tagName => {
+            if (!acc[tagName]) {
+              acc[tagName] = [];
+            }
+            acc[tagName].push(recipe);
+          });
+          
+          return acc;
+        }, {} as { [tag: string]: Recipe[] });
+  
+        console.log('Recipes by Tag:', tagMap);
 
         return tagMap;
       }),

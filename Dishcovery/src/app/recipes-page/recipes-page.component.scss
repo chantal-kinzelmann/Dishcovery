@@ -16,8 +16,7 @@
     align-items: center;
 }
 
-:host {
-    // Light mode variables
+:host { // Light mode variables / default theme 
     --filter-bg: #f9f9f9;
     --filter-text: black;
     --filter-border-color: #e0e0e0;
@@ -25,6 +24,9 @@
     --scrollbar-thumb-hover: #4f624b;
 }
 
+// In retrospect, it would have been better to use angular material's theming system to handle dark mode styling
+// This would have allowed us to define a dark theme and a light theme, and switch between them easily
+// my bad  ¯\_(ツ)_/¯
 :host-context(.dark-mode) {
     --filter-bg: #5b5959;
     --filter-text: white;
