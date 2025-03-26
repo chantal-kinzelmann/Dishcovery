@@ -1,6 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { LoginButtonComponent } from '../homepage/login-button/login-button.component';
-import { SearchbarComponent } from '../homepage/searchbar/searchbar.component';
+import { SearchBarComponent } from '../homepage/searchbar/searchbar.component';
 import { RouterLink, RouterModule, Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth.service';
 import { NgIf, CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  imports: [LoginButtonComponent, SearchbarComponent, RouterLink, RouterModule, NgIf, CommonModule],
+  imports: [LoginButtonComponent,SearchBarComponent, RouterLink, RouterModule, NgIf, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
