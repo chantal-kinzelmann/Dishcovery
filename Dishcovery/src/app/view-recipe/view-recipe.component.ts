@@ -7,11 +7,12 @@ import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {MatChipsModule} from '@angular/material/chips';
 import { UserService } from '../services/user-services/user.service';
+import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-view-recipe',
-  imports: [CommonModule, FormsModule, RouterModule, MatChipsModule],
+  imports: [CommonModule, FormsModule, RouterModule, MatChipsModule, MatSnackBarModule],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.scss'
 })
@@ -31,7 +32,7 @@ export class ViewRecipeComponent {
   isWatched: boolean = false;
 
 
-  constructor(private readonly recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private userService: UserService) {}
+  constructor(private readonly recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private userService: UserService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     const recipeID = Number(this.route.snapshot.params['id']);
@@ -135,7 +136,6 @@ export class ViewRecipeComponent {
   
     this.userService.toggleFavorite(Number(this.recipe.id), Number(this.userId)).subscribe({
       next: (res) => {
-       
         this.refreshUserLists(); // 💡 Zustand aktualisieren
       },
       error: (err) => console.error('Fehler beim Favoritisieren:', err)
@@ -155,26 +155,37 @@ export class ViewRecipeComponent {
   }
 
 
+  showDeleteConfirmModal = false;
+
   deleteRecipe() {
-    if (!this.recipe?.id) return;
-  
-    if (confirm('Möchtest du dieses Rezept wirklich löschen?')) {
-      this.recipeService.deleteRecipe(Number(this.recipe.id)).subscribe({
-        next: () => {
-          alert('Rezept wurde gelöscht');
-          this.router.navigate(['/recipe-page']);
-        },
-        error: (err) => {
-          console.error('Fehler beim Löschen:', err);
-        }
-      });
-    }
+    this.showDeleteConfirmModal = true;
   }
   
-
-
-
-
+  confirmDelete() {
+    if (!this.recipe?.id) return;
+  
+    this.recipeService.deleteRecipe(Number(this.recipe.id)).subscribe({
+      next: () => {
+        console.log("✅ Rezept gelöscht");
+        this.showSuccsess("Rezept wurde gelöscht");
+    
+        setTimeout(() => {
+          console.log("🚀 Jetzt wird navigiert!");
+          this.router.navigate(['/recipes-page']);
+        }, 1500);
+      },
+      error: (err) => console.error('Fehler beim Löschen:', err)
+    });
+    
+  
+    this.showDeleteConfirmModal = false;
+  }
+  
+  cancelDelete() {
+    this.showDeleteConfirmModal = false;
+  }
+  
+  
 getUser() {
   const userString: string | null = localStorage.getItem('user');
     if (userString) {
@@ -192,6 +203,15 @@ getUser() {
   
     this.userService.getWatchlist(Number(this.userId)).subscribe(watchlist => {
       this.isWatched = watchlist.some(entry => entry.recipe.id === this.recipe?.id);
+    });
+  }
+
+  showSuccsess(message: string) {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
     });
   }
   
