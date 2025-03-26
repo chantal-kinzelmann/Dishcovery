@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {MatChipsModule} from '@angular/material/chips';
+import { UserService } from '../services/user-services/user.service';
 
 
 @Component({
@@ -23,35 +24,53 @@ export class ViewRecipeComponent {
   public recipe: Recipe | undefined;
   private recipeSubscription!: Subscription;
   private fragmentSubscription!: Subscription;
-
   public loading: boolean = true;
+  private userId: string="";
 
-  constructor(private readonly recipeService: RecipeService, private route: ActivatedRoute, private router: Router) {}
+  isFavorited: boolean = false;
+  isWatched: boolean = false;
 
-  ngOnInit(){
-    const recipeID = Number(this.route.snapshot.params['id']); //Bekommen der Rezept ID aus den Params der URL
-    this.recipeSubscription = this.recipeService.getRecipeById(recipeID) 
+
+  constructor(private readonly recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private userService: UserService) {}
+
+  ngOnInit() {
+    const recipeID = Number(this.route.snapshot.params['id']);
+    this.getUser(); // 👈 userId holen
+  
+    this.recipeSubscription = this.recipeService.getRecipeById(recipeID)
       .subscribe((recipe: Recipe | null) => {
-
-        if (recipe){
+        if (recipe) {
           this.recipe = recipe;
           this.servings = recipe.servings;
           this.updateIngredients();
+  
+          // Watchlist prüfen
+          this.userService.getWatchlist(Number(this.userId)).subscribe((watchlist) => {
+            this.isWatched = watchlist.some(entry => entry.recipe.id === recipe.id);
+          });
+  
+          // Favoriten prüfen
+          this.userService.getFavorites(Number(this.userId)).subscribe((favorites) => {
+            this.isFavorited = favorites.some(entry => entry.recipe.id === recipe.id);
+          });
         }
+  
         this.loading = false;
       });
-
-      this.scrollToFragment();
-    }
-
-  ngOnDestroy(){
-    if (this.recipeSubscription){
+  
+    this.scrollToFragment();
+  }
+  
+    ngOnDestroy(){
+          if (this.recipeSubscription){
       this.recipeSubscription.unsubscribe();
-    }
+        }
     if (this.fragmentSubscription) {
       this.fragmentSubscription.unsubscribe();
     }
-  }
+
+   
+      }
   
 
   setRating(star:number){
@@ -110,4 +129,37 @@ export class ViewRecipeComponent {
     }
   }
 
+  toggleWatchlist() {
+    if (!this.recipe?.id) return;
+    this.getUser();
+  
+    this.userService.toggleWatchlist(Number(this.recipe.id), Number(this.userId)).subscribe({
+      next: (res) => alert(res.message), // ✅ zeigt echte Nachricht an
+    });
+  }
+  
+  toggleFavorite() {
+    if (!this.recipe?.id) return;
+    this.getUser();
+  
+    this.userService.toggleFavorite(Number(this.recipe.id), Number(this.userId)).subscribe({
+    next: (res) => alert(res.message), // ✅ zeigt echte Nachricht an
+  });
+
+
+
 }
+getUser() {
+  const userString: string | null = localStorage.getItem('user');
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.userId = user?.id;
+    }
+  }
+  
+}
+  
+
+
+
+

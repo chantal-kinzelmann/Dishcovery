@@ -29,7 +29,7 @@ export class MyFavoritesComponent {
       const userId = user?.id;
 
       this.recipeService.getRecipesByUser(userId).subscribe(recipes => {
-          //Simuliere 2 Sekunden Ladezeit 
+          //Simuliere 1,5 Sekunden Ladezeit 
       setTimeout(() => {
         this.recipes = of(recipes); 
         this.loading = false;
