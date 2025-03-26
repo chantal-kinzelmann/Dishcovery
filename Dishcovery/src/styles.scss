@@ -3,17 +3,18 @@
 html,
 body {
   height: 100%; 
+
 }
 
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #fdfdf9;
-  color: #272727;
+ 
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', serif;
-  color: #272727;
+  color: #272727 ; 
 }
 
  input, textarea{
@@ -42,23 +43,15 @@ button {
   color: white;
 }
 
-.dark-mode .example-card {
-  border-color: #cd6301;
-  background-color: #222;
+
+body.dark-mode form {
+  background-color: #7d9b76;
+
 }
 
-.dark-mode .profile-nav {
-  background-color: #444;
-}
-
-.dark-mode .profile-nav button {
-  color: #ffffff;
-}
-
-.dark-mode .profile-nav button.active {
-  background: #cd6301;
-  color: white;
-}
+body.dark-mode h1{color:white}
+body.dark-mode h2{color:white}
+body.dark-mode h3{color:white}
 
 
 .error-snackbar {

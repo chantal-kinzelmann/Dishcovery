@@ -4,12 +4,13 @@ import { RecipeService } from '../../services/recipe-services/recipe.service';
 import { Recipe } from '../../services/recipe-services/recipe.type';
 import { SmallRecipeCardComponent } from '../../small-recipe-card/small-recipe-card.component';
 import { NgFor} from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
-  imports: [SmallRecipeCardComponent, NgFor]
+  imports: [SmallRecipeCardComponent, NgFor, NgIf]
 })
 export class SearchResultsComponent implements OnInit {
   query: string = '';

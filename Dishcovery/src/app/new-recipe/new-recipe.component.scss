@@ -52,9 +52,7 @@
   .tags{
     background:#e96a00}
   
-  .add-btn {
-    background: #7d9b76;
-  }
+ 
   
   
   .tag-container {
@@ -91,7 +89,6 @@
 }
 
 .add-btn-ingredient{
-  background: #7d9b76;
   width: 100px;
 }
 
@@ -128,10 +125,5 @@
     font-size: 0.9rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    form {
-      background: #6d6d6d;
-      
-    }
-  }
+
   
