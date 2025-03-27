@@ -161,6 +161,7 @@ export class ViewRecipeComponent {
     //Falls User nicht angemeldet ist wird er zum login gebracht
     if(!this.userId){
       this.router.navigate(['/login']);
+      return;
     }
 
     this.userService.toggleFavorite(Number(this.recipe.id), Number(this.userId)).subscribe({
@@ -178,6 +179,7 @@ export class ViewRecipeComponent {
     //Falls User nicht angemeldet ist wird er zum login gebracht
     if(!this.userId){
       this.router.navigate(['/login']);
+      return;
     }
 
     this.userService.toggleWatchlist(Number(this.recipe.id), Number(this.userId)).subscribe({
