@@ -115,7 +115,8 @@ export class RecipesPageComponent implements OnInit {
           // Rating filter that checks if the average rating is greater than the selected minimum rating
           const ratingMatch = recipe.ratings.length === 0 ? 
             true : 
-            this.calculateAverageRating(recipe.ratings) >= minRating;
+            recipe.avgRating >= minRating;
+
 
           // Ingredient filter that checks if all selected ingredients are included in the recipe ingredients
           const ingredientMatch = selectedIngredients.length === 0 || 
@@ -141,13 +142,6 @@ export class RecipesPageComponent implements OnInit {
       })
 
     );
-  }
-
-  // Method to calculate average rating
-  private calculateAverageRating(ratings: any[]): number {
-    if (ratings.length === 0) return 0;
-    const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
-    return sum / ratings.length;
   }
 
   // Method to toggle tag selection
