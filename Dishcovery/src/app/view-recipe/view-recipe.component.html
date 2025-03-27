@@ -1,3 +1,13 @@
+<!-- Erfolgs Modal für erstellte Rating -->
+<div class="modal" *ngIf="showRatingSuccessModal">
+    <div class="modal-content">
+      <h2>Bewertung erfolgreich abgesendet! 🎉</h2>
+      <p>Deine Bewertung wurde gespeichert und ist jetzt sichtbar.</p>
+      <button (click)="reload()">Ok</button>
+    </div>
+  </div>
+
+
 <!-- Keine Rezept gefunden -->
 <div class="no-recipes" *ngIf="!recipe && !loading">
  <p>Das gesuchte Rezepte konnte nicht gefunden werden</p>
@@ -41,7 +51,7 @@
                     style="color: #ff7b00"
                     *ngFor="let star of [1, 2, 3, 4, 5]"
                 >
-                    {{ star <= 0 ? "star" : "star_border" }}
+                    {{ star <= recipe.avgRating ? "star" : "star_border" }}
                 </i>
             </a>
     
@@ -126,7 +136,7 @@
             <!--Fehler Meldung-->
             <div *ngIf="form.touched && !rating.valid">- Bitte geben sie ihre Bewertung an</div>
 
-            <button type="submit" [disabled]="!form.valid">Absenden</button>
+            <button type="submit">Absenden</button>
         </form>
 
         <!--Kommentar Section-->
@@ -152,7 +162,6 @@
         
         
             </div>}
-        <br>
     </div>
 </div>
 

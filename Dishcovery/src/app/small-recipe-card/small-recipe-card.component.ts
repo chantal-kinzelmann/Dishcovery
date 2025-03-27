@@ -24,5 +24,4 @@ import { Recipe } from '../services/recipe-services/recipe.type';
 export class SmallRecipeCardComponent {
   // @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
   @Input() recipe!: Recipe;
-  currentRating = 4;
 }

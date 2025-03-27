@@ -45,7 +45,7 @@ export class RecipeService {
     return this.http.put<any>(`${this.apiUrl}/recipe/${id}`, recipe);
   }
 
-  //POST: Kommentar und Rezept anzuhängen
+  //PATCH: Kommentar und Rezept anzuhängen
   addRating(recipeId: number, userId:number, ratingData: { rating: number; comment?: string }): Observable<any> {
     const data = {...ratingData, userId}
     if(!ratingData.comment){console.log("no comment");}

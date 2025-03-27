@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Recipe } from '../services/recipe-services/recipe.type';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
@@ -19,9 +19,9 @@ export class ViewRecipeComponent {
   newComment:string="";
   public servings: number = 1;
   public ingredientMuliplier: number = 1;
+  public showRatingSuccessModal: boolean = false; // True, wenn ein erfolgreiches Rating erstellt wurde
 
-  public recipe: Recipe | undefined;
-  private recipeSubscription!: Subscription;
+  public recipe: Recipe | null | undefined;
   private fragmentSubscription!: Subscription;
 
   public loading: boolean = true;
@@ -30,8 +30,8 @@ export class ViewRecipeComponent {
 
   ngOnInit(){
     const recipeID = Number(this.route.snapshot.params['id']); //Bekommen der Rezept ID aus den Params der URL
-    this.recipeSubscription = this.recipeService.getRecipeById(recipeID) 
-      .subscribe((recipe: Recipe | null) => {
+    this.recipeService.getRecipeById(recipeID) 
+      .pipe(take(1)).subscribe((recipe: Recipe | null) => {
 
         if (recipe){
           this.recipe = recipe;
@@ -45,9 +45,6 @@ export class ViewRecipeComponent {
     }
 
   ngOnDestroy(){
-    if (this.recipeSubscription){
-      this.recipeSubscription.unsubscribe();
-    }
     if (this.fragmentSubscription) {
       this.fragmentSubscription.unsubscribe();
     }
@@ -86,30 +83,45 @@ export class ViewRecipeComponent {
         console.error("⚠ Fehler beim Parsen des Benutzers:", error);
       }
     }
+
     return null;
+  }
+
+  reload(){
+    window.location.reload();
   }
 
 
   onSubmit(ratingForm: NgForm){
+
     const userId = this.getUserId();
-    const ratingData = {
-      rating: ratingForm.value.rating,
-      comment: ratingForm.value.commentText
-    };
-
-
-    if (userId && ratingForm.valid) {
-      this.recipeService.addRating(parseInt(this.recipe!.id), parseInt(userId), ratingData).subscribe({ //Falls Zeit, ID im type.ts zu number machen und hier dann auch ändern
-        next: (response) => console.log('Rating submitted successfully', response),
-        error: (error) => console.error('Error submitting rating', error),
-      });
-    }
+    //Falls User nicht angemeldet ist wird er zum login gebracht
     if(!userId){
       this.router.navigate(['/login']);
     }
 
-    this.userRating=0;
-    ratingForm.resetForm();
+    if (ratingForm.valid) {
+    
+      const ratingData = {
+      rating: ratingForm.value.rating,
+      comment: ratingForm.value.commentText
+      };
+
+
+      if (userId && ratingForm.valid) {
+        this.recipeService.addRating(parseInt(this.recipe!.id), parseInt(userId), ratingData).subscribe({ //Falls Zeit, ID im type.ts zu number machen und hier dann auch ändern
+          next: () => {
+            console.log('Rating submitted successfully')
+            this.showRatingSuccessModal = true;
+          },
+          error: (error) => console.error('Error submitting rating', error),
+        });
+      }
+
+      this.userRating=0;
+      ratingForm.resetForm();
+    }
+    
   }
 
 

@@ -22,7 +22,7 @@
       style="color: #ff7b00"
       *ngFor="let star of [1, 2, 3, 4, 5]"
     >
-      {{ star <= currentRating ? "star" : "star_border" }}
+      {{ star <= recipe.avgRating ? "star" : "star_border" }}
     </i>
   </div>
 
