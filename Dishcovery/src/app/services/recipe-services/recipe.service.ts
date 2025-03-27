@@ -42,6 +42,13 @@ export class RecipeService {
     return this.http.put<any>(`${this.apiUrl}/recipe/${id}`, recipe);
   }
 
+  //PATCH: Kommentar und Rezept anzuhängen
+  addRating(recipeId: number, userId:number, ratingData: { rating: number; comment?: string }): Observable<any> {
+    const data = {...ratingData, userId}
+    if(!ratingData.comment){console.log("no comment");}
+    return this.http.patch(`${this.apiUrl}/recipe/${recipeId}/rating`,data);
+  }
+
   // DELETE: Rezept löschen
   deleteRecipe(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/recipe/${id}`);

@@ -23,14 +23,4 @@ import { Recipe } from '../services/recipe-services/recipe.type';
 })
 export class SmallRecipeCardComponent {
   @Input() recipe!: Recipe;
-
-  // Calculate the average rating of a recipe (maybe not the most efficient way but it works :> ) 
-  getAverageRating() {
-    let sumRating = 0;
-    for (let i = 0; i < this.recipe.ratings.length; i++) {
-      sumRating += this.recipe.ratings[i].rating;
-    }
-    sumRating = sumRating / this.recipe.ratings.length;
-    return sumRating;
-  }
 }

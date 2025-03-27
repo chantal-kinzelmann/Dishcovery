@@ -16,6 +16,7 @@ export type Recipe = {
   prepTime: number;
   cookTime: number;
   servings: number; //Menge der Portionen, für welche das Rezept gedacht ist
+  avgRating: number;
   ratings: Rating[];
   ingredients: Ingredient[];
   user: User; // Referenz auf den Ersteller

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Recipe } from '../services/recipe-services/recipe.type';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { RecipeService } from '../services/recipe-services/recipe.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
@@ -20,9 +20,9 @@ export class ViewRecipeComponent {
   newComment: string = '';
   public servings: number = 1;
   public ingredientMuliplier: number = 1;
+  public showRatingSuccessModal: boolean = false; // True, wenn ein erfolgreiches Rating erstellt wurde
 
-  public recipe: Recipe | undefined;
-  private recipeSubscription!: Subscription;
+  public recipe: Recipe | null | undefined;
   private fragmentSubscription!: Subscription;
   public loading: boolean = true;
   public userId: string = '';
@@ -42,9 +42,8 @@ export class ViewRecipeComponent {
     const recipeID = Number(this.route.snapshot.params['id']);
     this.getUser(); // 👈 userId holen
 
-    this.recipeSubscription = this.recipeService
-      .getRecipeById(recipeID)
-      .subscribe((recipe: Recipe | null) => {
+    this.recipeService.getRecipeById(recipeID) 
+    .pipe(take(1)).subscribe((recipe: Recipe | null) => {
         if (recipe) {
           this.recipe = recipe;
           this.servings = recipe.servings;
@@ -67,10 +66,7 @@ export class ViewRecipeComponent {
     this.scrollToFragment();
   }
 
-  ngOnDestroy() {
-    if (this.recipeSubscription) {
-      this.recipeSubscription.unsubscribe();
-    }
+  ngOnDestroy(){
     if (this.fragmentSubscription) {
       this.fragmentSubscription.unsubscribe();
     }
@@ -80,15 +76,8 @@ export class ViewRecipeComponent {
     this.userRating = star;
   }
 
-  onSubmit(form: NgForm) {
-    const commentText = form.value.commentText;
-    const rating = form.value.rating;
-    form.reset();
-    this.userRating = 0;
-  }
-
-  updateIngredients(): void {
-    this.ingredientMuliplier = 1 / (this.recipe!.servings / this.servings);
+  updateIngredients():void{
+    this.ingredientMuliplier = 1/(this.recipe!.servings/this.servings)  
   }
 
   public increment() {
@@ -102,6 +91,43 @@ export class ViewRecipeComponent {
       this.updateIngredients();
     }
   }
+
+  reload(){
+    window.location.reload();
+  }
+
+  onSubmit(ratingForm: NgForm){
+
+    this.getUser();
+
+    //Falls User nicht angemeldet ist wird er zum login gebracht
+    if(!this.userId){
+      this.router.navigate(['/login']);
+    }
+
+    if (ratingForm.valid) {
+    
+      const ratingData = {
+      rating: ratingForm.value.rating,
+      comment: ratingForm.value.commentText
+      };
+
+      if (this.userId && ratingForm.valid) {
+        this.recipeService.addRating(parseInt(this.recipe!.id), parseInt(this.userId), ratingData).subscribe({
+          next: () => {
+            console.log('Rating submitted successfully')
+            this.showRatingSuccessModal = true;
+          },
+          error: (error) => console.error('Error submitting rating', error),
+        });
+      }
+
+      this.userRating=0;
+      ratingForm.resetForm();
+    }
+    
+  }
+
 
   private scrollToFragment(): void {
     if (this.fragmentSubscription) {
@@ -132,6 +158,11 @@ export class ViewRecipeComponent {
     if (!this.recipe?.id) return;
     this.getUser();
 
+    //Falls User nicht angemeldet ist wird er zum login gebracht
+    if(!this.userId){
+      this.router.navigate(['/login']);
+    }
+
     this.userService.toggleFavorite(Number(this.recipe.id), Number(this.userId)).subscribe({
       next: (res) => {
         this.refreshUserLists(); // 💡 Zustand aktualisieren
@@ -143,6 +174,11 @@ export class ViewRecipeComponent {
   toggleWatchlist() {
     if (!this.recipe?.id) return;
     this.getUser();
+
+    //Falls User nicht angemeldet ist wird er zum login gebracht
+    if(!this.userId){
+      this.router.navigate(['/login']);
+    }
 
     this.userService.toggleWatchlist(Number(this.recipe.id), Number(this.userId)).subscribe({
       next: (res) => {

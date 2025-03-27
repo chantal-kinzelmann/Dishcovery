@@ -1,3 +1,35 @@
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  h2, p{
+    color:black;
+  }
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+}
+
+.modal-content button { 
+ margin: 1.5rem;
+}
+
+
 .no-recipes {
   text-align: center;
   font-size: 1.2rem;
