@@ -1,14 +1,25 @@
 <div class="homepage">
   <header class="homepage-header">
     <h1>Willkommen bei Dishcovery</h1>
-    <p>Finde Rezepte für jede Gelegenheit</p>
+    <h3>Finde Rezepte für jede Gelegenheit</h3>
   </header>
 </div>
 
+<!-- Skeleton Loading -->
+<div class="skeleton-container" *ngIf="loading">
+  <h2>Loading tagged Recipes...</h2>
+  <hr />
+  <div class="skeleton-card-container" *ngIf="loading">
+    <div class="skeleton-card" *ngFor="let n of [1, 2, 3, 4]"></div>
+  </div>
+</div>
+
+<!-- Tagged Recipes -> display recipes for every tag -->
 @if (recipesByTag$ | async; as recipesByTag) { @for (tag of (allTags$ | async);
 track tag) { @if (recipesByTag[tag] && recipesByTag[tag].length > 0) {
 <section class="tag-section">
   <h2>{{ tag }} Recipes</h2>
+  <hr />
   <div class="recipe-container">
     @for (recipe of recipesByTag[tag]; track recipe.id) {
     <app-small-recipe-card [recipe]="recipe"></app-small-recipe-card>

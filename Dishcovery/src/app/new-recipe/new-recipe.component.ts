@@ -8,14 +8,11 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-recipe',
-  imports: [FormsModule,CommonModule,MatChipsModule],
+  imports: [FormsModule, CommonModule, MatChipsModule],
   templateUrl: './new-recipe.component.html',
-  styleUrl: './new-recipe.component.scss'
+  styleUrl: './new-recipe.component.scss',
 })
-
 export class NewRecipeComponent {
- 
-
   recipe: {
     userId: string | null;
     title: string;
@@ -23,10 +20,10 @@ export class NewRecipeComponent {
     difficulty: string;
     prepTime: number;
     cookTime: number;
-    ingredients: { name: string; amount: number; unit: string }[]; 
-    tags: string[]; 
+    ingredients: { name: string; amount: number; unit: string }[];
+    tags: string[];
     text: string;
-    imgUrl?: string; 
+    imgUrl?: string;
     servings: number;
   } = {
     userId: null,
@@ -35,13 +32,11 @@ export class NewRecipeComponent {
     difficulty: 'easy',
     prepTime: 0,
     cookTime: 0,
-    ingredients: [
-      { name: '', amount: 0, unit: 'g' } 
-    ],
+    ingredients: [{ name: '', amount: 0, unit: 'g' }],
     tags: [],
     text: '',
     imgUrl: '',
-    servings: 1
+    servings: 1,
   };
 
   newTag = '';
@@ -49,7 +44,10 @@ export class NewRecipeComponent {
   showSuccessModal = false;
   recipeIdNav: number | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   // Bild hochladen
   onFileSelected(event: Event) {
@@ -68,7 +66,7 @@ export class NewRecipeComponent {
   addIngredient() {
     this.recipe.ingredients.push({ name: '', amount: 0, unit: 'g' });
   }
-  
+
   removeIngredient(index: number) {
     this.recipe.ingredients.splice(index, 1);
   }
@@ -83,7 +81,8 @@ export class NewRecipeComponent {
 
   validateNumberInput(event: KeyboardEvent) {
     const charCode = event.key.charCodeAt(0);
-    if (charCode < 48 || charCode > 57) { // 48–57 sind '0' bis '9'
+    if (charCode < 48 || charCode > 57) {
+      // 48–57 sind '0' bis '9'
       event.preventDefault();
     }
   }
@@ -91,17 +90,17 @@ export class NewRecipeComponent {
   createRecipe(form: any) {
     if (form.valid) {
       this.recipe.userId = this.getUserId(); // Nutzer-ID holen
-      
-      console.log("📤 Sende Rezept:", this.recipe);
-  
+
+      //  Leere Zutaten rausfiltern
+      this.recipe.ingredients = this.recipe.ingredients.filter(
+        (ingredient) =>
+          ingredient.name.trim() !== '' && ingredient.amount > 0 && ingredient.unit.trim() !== '',
+      );
+
       this.http.post<{ id: number }>(this.apiUrl, this.recipe).subscribe({
         next: (response) => {
-          console.log("✅ Rezept gespeichert!", response);
           this.recipeIdNav = response.id;
-          this.showSuccessModal = true; // 👉 Modal anzeigen
-        },
-        error: (error) => {
-          console.error("⚠ Fehler beim Speichern:", error);
+          this.showSuccessModal = true;
         },
       });
     }
@@ -109,16 +108,14 @@ export class NewRecipeComponent {
 
   goToProfile() {
     this.router.navigate(['/profile']);
-    this.showSuccessModal =false;
+    this.showSuccessModal = false;
   }
 
-  goToRecipe(){
-     //TODO, recipeId ist unter recipeIdNav
-     this.router.navigate(['/view-recipe', this.recipeIdNav]);
-    this.showSuccessModal =false;
+  goToRecipe() {
+    //TODO, recipeId ist unter recipeIdNav
+    this.router.navigate(['/view-recipe', this.recipeIdNav]);
+    this.showSuccessModal = false;
   }
-  
-  
 
   // Nutzer-ID aus LocalStorage holen
   getUserId() {
@@ -128,7 +125,7 @@ export class NewRecipeComponent {
         const user = JSON.parse(userString);
         return user.id;
       } catch (error) {
-        console.error("⚠ Fehler beim Parsen des Benutzers:", error);
+        console.error('⚠ Fehler beim Parsen des Benutzers:', error);
       }
     }
     return null;

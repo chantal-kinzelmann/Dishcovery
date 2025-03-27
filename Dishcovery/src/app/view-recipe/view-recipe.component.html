@@ -15,6 +15,19 @@
  <button [routerLink]="['/recipe-page']">zu den Rezepten</button>
 </div>
 
+<!-- 🗑️ Delete-Bestätigungs-Modal -->
+<div class="modal" *ngIf="showDeleteConfirmModal">
+    <div class="modal-content">
+      <h2>Rezept löschen?</h2>
+      <p>Möchtest du dieses Rezept wirklich löschen? Das kann nicht rückgängig gemacht werden.</p>
+      <button class="confirm"(click)="confirmDelete()">Ja, löschen</button>
+      <button class="cancel"(click)="cancelDelete()">Abbrechen</button>
+    </div>
+  </div>
+  
+
+
+
 <!-- Rezept gefunden -->
 <div *ngIf="recipe && !loading">
 
@@ -66,8 +79,20 @@
     
             <p>{{recipe.description}}</p>
             
-            <button class="remember_btn">Merken</button>
-            <button class="toFavorite_btn">Favoritisieren</button>
+           <!-- Merken -->
+                <button class="remember_btn" (click)="toggleWatchlist()">
+                    {{ isWatched ? 'Aus Merkliste entfernen' : 'Merken' }}
+                </button>
+  
+             <!-- Favoriten -->
+                <button class="toFavorite_btn" (click)="toggleFavorite()">
+                    {{ isFavorited ? 'Aus Favoriten entfernen' : 'Favorisieren' }}
+                </button>
+
+                <button class="delete_btn" *ngIf="recipe?.user?.id === userId" (click)="deleteRecipe()">
+                    Rezept löschen
+                </button>
+
         </div>
     
     </div>

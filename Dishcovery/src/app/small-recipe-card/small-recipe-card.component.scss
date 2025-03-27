@@ -1,16 +1,19 @@
 .example-card {
     width: 350px;
-    max-height: 600px;
+    max-height: 650px;
     margin: 1rem;
     border-radius: 20px;
     border-width: 3px;
     border-color: #44803fc6;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .thumbnailUrl {
-    height: 250px;
-    max-height: 250px;
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover;
+    object-position: center;
 }
 
 .example-card-footer {
@@ -18,8 +21,61 @@
 }
 
 .rating-container {
-    margin-top: 0.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 0rem;
+    margin: 0.5rem 1rem 0;
+    padding: 0 0.5rem;
+}
+
+:host {
+    .show-more-button {
+        color: #44803fc6;
+        &:hover {
+            color: white;
+            background-color: #44803fc6;
+        }
+    }
+}
+
+// same as in recipe page component im sorry 
+:host-context(.dark-mode) {
+    .show-more-button {
+        color: white;
+        &:hover {
+            color: white;
+            background-color: #ff7b00;
+        }
+    }
+    .example-card-header{
+        ::ng-deep .mat-card-title {
+            color: white !important;
+        }
+        ::ng-deep .mat-card-subtitle {
+            color: white !important;
+        }
+    }
+    .example-card-footer {
+        ::ng-deep .mat-mdc-chip-set {
+            .mat-mdc-chip {
+                // Ensure border is white
+                border: 1px solid white !important;
+                
+                // Target multiple text-related elements to ensure white text
+                color: white !important;
+                
+                // Deep selectors to target different text elements
+                .mdc-chip__text,
+                .mat-mdc-chip-text,
+                .mat-mdc-chip-action-label {
+                    color: white !important;
+                }
+
+                // Subtle background for visibility
+                background-color: rgba(255,255,255,0.1) !important;
+                
+                // Hover state
+                &:hover {
+                    background-color: rgba(255,255,255,0.2) !important;
+                }
+            }
+        }
+    }
 }

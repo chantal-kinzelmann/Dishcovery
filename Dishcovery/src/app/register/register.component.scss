@@ -71,3 +71,27 @@ input {
 input.ng-invalid.ng-touched {
     border: 2px solid red;
 }
+.bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.left {
+    width: 55%;
+    margin-left: 10px;
+}
+
+.middle {
+    margin-left: 0px;
+    margin-right: 1px;
+    width: 100%;
+    text-align: left;
+}
+
+.right {
+    margin-right: 12px;
+    width: 10%;
+    text-align: right;
+}

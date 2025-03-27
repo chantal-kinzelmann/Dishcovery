@@ -6,8 +6,190 @@
     gap: 1rem;
 }
 
-.clear-tags-chip {
-    &:hover {
-      background-color: #ff7b00;
+.tags-filter {
+    margin-bottom: 2rem;
+}
+
+.reset-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:host { // Light mode variables / default theme 
+    --filter-bg: #f9f9f9;
+    --filter-text: black;
+    --filter-border-color: #e0e0e0;
+    --scrollbar-thumb: #7d9b76;
+    --scrollbar-thumb-hover: #4f624b;
+}
+
+// In retrospect, it would have been better to use angular material's theming system to handle dark mode styling
+// This would have allowed us to define a dark theme and a light theme, and switch between them easily
+// my bad  ¯\_(ツ)_/¯
+:host-context(.dark-mode) {
+    --filter-bg: #5b5959;
+    --filter-text: white;
+    --filter-border-color: #555;
+    --scrollbar-thumb: #ff7b00;
+    --scrollbar-thumb-hover: #d66a05;
+    .tags-filter {
+        // Target mat-chip-listbox and its children
+        ::ng-deep .mat-mdc-chip-listbox {
+            // Target all chip options
+            .mat-mdc-chip-option, .clear-tags-chip {
+                // Set white border
+                border: 1px solid white !important;
+                
+                // Set white text color
+                color: white !important;
+                
+                // Styling for selected state
+                &.mdc-evolution-chip--selected {
+                    background-color: rgba(255,255,255,0.2) !important;
+                }
+
+                // Hover state
+                &:hover {
+                    background-color: rgba(255,255,255,0.1) !important;
+                }
+
+                // Ensure label is white
+                .mdc-evolution-chip__text-label {
+                    color: white !important;
+                }
+            }
+
+            // Styling for the clear tags chip
+            .clear-tags-chip {
+                border: 1px solid white !important;
+                color: white !important;
+
+                &:hover {
+                    background-color: #ff7b00 !important;
+                    color: white !important;
+                }
+            }
+        }
     }
+    .filters-container {
+      .filters-grid {
+        > div {
+          mat-checkbox {
+            ::ng-deep label {
+              color: white !important;
+            }
+  
+            // Target checkbox border and background
+            ::ng-deep .mdc-checkbox {
+              // White border
+              border-color: white !important;
+            }
+  
+            // Target the checkbox box itself
+            ::ng-deep .mdc-checkbox__background {
+              // Optional: make background slightly lighter for visibility
+              background-color: rgba(255,255,255,0.2) !important;
+            }
+  
+            // Target the checkmark
+            ::ng-deep .mdc-checkbox__checkmark {
+              color: white !important;
+            }
+  
+            // Unchecked state border
+            ::ng-deep .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background {
+              border-color: white !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .filters-container {
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+  
+      > div {
+        background-color: var(--filter-bg);
+        color: var(--filter-text);
+        padding: 15px;
+        border-radius: 8px;
+        transition: background-color 0.3s, color 0.3s;
+        
+        h3 {
+          margin-bottom: 10px;
+          border-bottom: 1px solid var(--filter-border-color);
+          padding-bottom: 5px;
+          color: var(--filter-text);
+        }
+        
+        .checkbox-container {
+          display: flex;
+          flex-direction: column;
+          max-height: 200px;
+          overflow-y: auto; 
+          
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+          
+          &::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+          }
+          
+          &::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+          }
+          
+          mat-checkbox {
+            margin-bottom: 8px;
+            
+            // Ensure checkbox text color adapts to dark/light mode
+            .mdc-checkbox__label {
+              color: var(--filter-text) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+@media (max-width: 1200px) {
+    .filters-grid {
+      grid-template-columns: repeat(2, 1fr) !important; 
+    }
+}
+  
+@media (max-width: 768px) {
+    .filters-grid {
+      grid-template-columns: 1fr !important;
+    }
+}
+
+.skeleton-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 3rem;
+  
+}
+  
+  
+.skeleton-card {
+    flex:1;
+    display: flex;
+    width: 300px;
+    height: 490px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: pulse 1.5s infinite;
+    margin: 1rem;
 }

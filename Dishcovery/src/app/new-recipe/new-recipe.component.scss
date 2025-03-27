@@ -4,6 +4,7 @@
     align-items: center;
     min-height: 100vh;
     width: 100%;
+    color: #272727;
   }
   
   form {
@@ -51,9 +52,7 @@
   .tags{
     background:#e96a00}
   
-  .add-btn {
-    background: #7d9b76;
-  }
+ 
   
   
   .tag-container {
@@ -90,7 +89,6 @@
 }
 
 .add-btn-ingredient{
-  background: #7d9b76;
   width: 100px;
 }
 
@@ -130,4 +128,6 @@
     color: red;
     font-size: 0.9rem;
   }
+
+
   

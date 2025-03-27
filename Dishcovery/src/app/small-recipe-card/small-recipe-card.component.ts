@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -15,13 +15,12 @@ import { Recipe } from '../services/recipe-services/recipe.type';
     MatChipsModule,
     MatIconModule,
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './small-recipe-card.component.html',
   styleUrl: './small-recipe-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmallRecipeCardComponent {
-  // @Input({ alias: 'recipe', required: true }) recipe!: Recipe;
   @Input() recipe!: Recipe;
 }
